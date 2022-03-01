@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PersonApi.Datas;
 using PersonApi.Repository.Repositories;
+using PersonApi.Repository.Repositories.Interfaces;
 
 namespace PersonApi.Repository.UnitOfWork
 {
@@ -8,10 +9,14 @@ namespace PersonApi.Repository.UnitOfWork
     {
         private readonly DatabaseContext _dbcontext;
         public IEmployeeRepository EmployeeRepository { get; }
-        public UnitOfWork(DatabaseContext dbcontext, IEmployeeRepository employeeRepository)
+
+        public IDepartmentRepository DepartmentRepository { get; }
+
+        public UnitOfWork(DatabaseContext dbcontext, IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository)
         {
             _dbcontext = dbcontext;
             EmployeeRepository = employeeRepository;
+            DepartmentRepository = departmentRepository;
         }
 
         public int Complete()

@@ -5,6 +5,7 @@ using PersonApi.Datas;
 using PersonApi.Repository;
 using PersonApi.Repository.Repositories;
 using PersonApi.Repository.Repositories.Implement;
+using PersonApi.Repository.Repositories.Interfaces;
 using PersonApi.Repository.UnitOfWork;
 using PersonApi.Services;
 using PersonApi.Services.Interfaces;
@@ -24,9 +25,13 @@ builder.Services.AddDbContext<DatabaseContext>(dbContextOptions =>
 
 });
 builder.Services.AddAutoMapper(typeof(MapperInitilier));
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
