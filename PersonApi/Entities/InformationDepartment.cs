@@ -16,7 +16,7 @@ namespace PersonApi.Models
         public int NumberEmployee { get; set; }
 
         public int LeaderId { get; set; }
-        public virtual ICollection<InformationEmployee> ThongTinNhanViens { get; set; }
+        public virtual ICollection<InformationEmployee>  InformationEmployees { get; set; }
 
     }
 }

@@ -5,12 +5,12 @@ namespace PersonApi.Models
 {
     [Table("Employee_Learning")]
 
-    public class InformationEmployee_Learning
+    public class InformationEmployeeLearning
     {
         public int EmployeeId { get; set; }
-        public virtual InformationEmployee ThongTinNhanVien { get; set; }
+        public virtual InformationEmployee InformationEmployee{ get; set; }
         public int StudyId { get; set; }
-        public virtual InformationLearning ThongTinHocVan { get; set; }
+        public virtual InformationLearning  InformationLearning { get; set; }
 
         [StringLength(20)]
         public string Major { get; set; }

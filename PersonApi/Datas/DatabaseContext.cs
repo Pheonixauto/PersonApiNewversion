@@ -8,31 +8,30 @@ namespace PersonApi.Datas
     public class DatabaseContext : IdentityDbContext<ApiUser>
     {
         public DatabaseContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }
-        public  DbSet<InformationEmployee> NhanViens { get; set; }
-        public DbSet<InformationDepartment> PhongBans { get; set; }
-        public DbSet<InformationRelative> NguoiThans { get; set; }
-        public DbSet<InformationSkill> KiNangs { get; set; }
-        public DbSet<InformationSalary> Luongs { get; set; }
-        public DbSet<InformationLearning> HocVans { get; set; }
+        public DbSet<InformationEmployee>  informationEmployees { get; set; }
+        public DbSet<InformationDepartment>  informationDepartments { get; set; }
+        public DbSet<InformationRelative> informationRelatives { get; set; }
+        public DbSet<InformationSkill>  informationSkills{ get; set; }
+        public DbSet<InformationSalary>  informationSalaries{ get; set; }
+        public DbSet<InformationLearning>  informationLearnings { get; set; }
 
-       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             //Many To Many: Nhan Vien -Ki Nang
-            modelBuilder.Entity<InformationEmployee_Skill>()
+            modelBuilder.Entity<InformationEmployeeSkill>()
                         .HasKey(t => new { t.EmployId, t.SkillId });
 
-            modelBuilder.Entity<InformationEmployee_Skill>()
-                        .HasOne(pt => pt.ThongTinNhanVien)
-                        .WithMany(p => p.ThongTinNhanVien_KiNangs)
+            modelBuilder.Entity<InformationEmployeeSkill>()
+                        .HasOne(pt => pt.InformationEmployee)
+                        .WithMany(p => p.InformationEmployeeSkills)
                         .HasForeignKey(pt => pt.EmployId);
 
-            modelBuilder.Entity<InformationEmployee_Skill>()
-                        .HasOne(pt => pt.ThongTinKiNang)
-                        .WithMany(t => t.ThongTinNhanVien_KiNangs)
+            modelBuilder.Entity<InformationEmployeeSkill>()
+                        .HasOne(pt => pt.InformationSkill)
+                        .WithMany(t => t.InformationEmployeeSkills)
                         .HasForeignKey(pt => pt.SkillId);
 
 
@@ -55,18 +54,23 @@ namespace PersonApi.Datas
             //    });
 
             // Many To Many : Nhan Vien - Hoc Van
-            modelBuilder.Entity<InformationEmployee_Learning>()
+            modelBuilder.Entity<InformationEmployeeLearning>()
                         .HasKey(t => new { t.EmployeeId, t.StudyId });
 
-            modelBuilder.Entity<InformationEmployee_Learning>()
-                        .HasOne(pt => pt.ThongTinHocVan)
-                        .WithMany(p => p.ThongTinNhanVien_HocVans)
+            modelBuilder.Entity<InformationEmployeeLearning>()
+                        .HasOne(pt => pt.InformationLearning)
+                        .WithMany(p => p.InformationEmployeeLearnings)
                         .HasForeignKey(pt => pt.StudyId);
 
-            modelBuilder.Entity<InformationEmployee_Learning>()
-                        .HasOne(pt => pt.ThongTinNhanVien)
-                        .WithMany(t => t.ThongTinNhanVien_HocVans)
+            modelBuilder.Entity<InformationEmployeeLearning>()
+                        .HasOne(pt => pt.InformationEmployee)
+                        .WithMany(t => t.InformationEmployeeLearnings)
                         .HasForeignKey(pt => pt.EmployeeId);
+
+            // Unique
+            modelBuilder.Entity<InformationSalary>()
+                        .HasIndex(p => new { p.DateTime, p.EmployeeId })
+                        .IsUnique();
 
             // Seed data employee
             modelBuilder.ApplyConfiguration(new EmployeeConfig());

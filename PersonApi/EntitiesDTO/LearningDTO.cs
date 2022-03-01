@@ -6,7 +6,7 @@ namespace PersonApi.ModelsDTO
     public class LearningDTO : CreateLearningDTO
     {
         public int Id { get; set; }
-        public virtual ICollection<InformationEmployee_Learning> ThongTinNhanVien_HocVans { get; set; }
+        public virtual ICollection<InformationEmployeeLearning> ThongTinNhanVien_HocVans { get; set; }
     }
     public class CreateLearningDTO
     {

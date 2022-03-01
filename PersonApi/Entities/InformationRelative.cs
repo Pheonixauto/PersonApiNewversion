@@ -44,10 +44,10 @@ namespace PersonApi.Models
         [StringLength(10)]
         public string Relationship { get; set; }
 
-        [ForeignKey(nameof(ThongTinNhanVien))]
+        [ForeignKey(nameof(InformationEmployee))]
         [Column(Order =1)]
         public int EmployeeId { get; set; }
-        public virtual InformationEmployee ThongTinNhanVien { get; set; }
+        public virtual InformationEmployee  InformationEmployee{ get; set; }
 
 
 

@@ -4,20 +4,20 @@ using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
 {
-    public class EmployeeLearningConfig : IEntityTypeConfiguration<InformationEmployee_Learning>
+    public class EmployeeLearningConfig : IEntityTypeConfiguration<InformationEmployeeLearning>
     {
-        public void Configure(EntityTypeBuilder<InformationEmployee_Learning> builder)
+        public void Configure(EntityTypeBuilder<InformationEmployeeLearning> builder)
         {
 
             builder.HasData(
-                     new InformationEmployee_Learning
+                     new InformationEmployeeLearning
                      {
                          EmployeeId = 1,
                          StudyId = 1,
                          Major = " Công Nghệ Thông Tin",
                          Qualification = "Đại học"
                      },
-                      new InformationEmployee_Learning
+                      new InformationEmployeeLearning
                       {
                           EmployeeId = 1,
                           StudyId = 2,

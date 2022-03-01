@@ -31,7 +31,7 @@ namespace PersonApi.Models
         [Required]
         public string PhoneNumber { get; set; }
 
-     
+
         [StringLength(200, MinimumLength = 2)]
         public string? Province { get; set; }
 
@@ -47,16 +47,16 @@ namespace PersonApi.Models
         [StringLength(200, MinimumLength = 2)]
         public string Address { get; set; }
 
-        [ForeignKey(nameof(ThongTinPhongBan))]
-        public int DepartmentId  { get; set; }
-        public  virtual InformationDepartment ThongTinPhongBan { get; set; }
+        [ForeignKey(nameof(InformationDepartment))]
+        public int DepartmentId { get; set; }
+        public virtual InformationDepartment InformationDepartment { get; set; }
 
         public virtual ICollection<InformationSalary> InformationSalaries { get; set; }
 
-        public virtual ICollection<InformationEmployee_Learning> ThongTinNhanVien_HocVans { get; set; }
+        public virtual ICollection<InformationEmployeeLearning> InformationEmployeeLearnings { get; set; }
 
-        public virtual  ICollection<InformationRelative> ThongTinNguoiThans { get; set; }
+        public virtual ICollection<InformationRelative> InformationRelatives { get; set; }
 
-        public virtual List<InformationEmployee_Skill> ThongTinNhanVien_KiNangs  { get; set; }
+        public virtual List<InformationEmployeeSkill> InformationEmployeeSkills { get; set; }
     }
 }

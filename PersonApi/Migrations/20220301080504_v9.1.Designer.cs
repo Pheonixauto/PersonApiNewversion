@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonApi.Datas;
 
@@ -11,9 +12,10 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220301080504_v9.1")]
+    partial class v91
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f59ddea5-53d4-4a0b-93b6-cdaf3fa8aa35",
-                            ConcurrencyStamp = "17a28a25-2095-4b49-a681-a2732765d25b",
+                            Id = "57502a93-9f60-42c6-9744-cc7c8684fd9c",
+                            ConcurrencyStamp = "1678459d-97ac-4b53-9872-4763ccc6157b",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "8b2421c8-b304-4628-92bd-b20f900e6021",
-                            ConcurrencyStamp = "1c935d00-5b99-4dfe-830e-c6dff1084645",
+                            Id = "8dbba32f-2c78-490a-aa51-4ea7592ea4b5",
+                            ConcurrencyStamp = "8024e1c5-21a7-4cb8-b56f-91ca5bb75d19",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

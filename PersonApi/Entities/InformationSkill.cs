@@ -11,8 +11,8 @@ namespace PersonApi.Models
         [Required]
         [StringLength(10)]
         public string Name { get; set; }
-  
+
         //public virtual  ICollection<InformationEmployee>  InformationEmployees { get; set; }
-        public virtual ICollection<InformationEmployee_Skill> ThongTinNhanVien_KiNangs { get; set; }
+        public virtual ICollection<InformationEmployeeSkill> InformationEmployeeSkills { get; set; }
     }
 }
