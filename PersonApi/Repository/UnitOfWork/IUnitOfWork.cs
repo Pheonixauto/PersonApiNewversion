@@ -1,4 +1,5 @@
 ﻿using PersonApi.Repository.Repositories;
+using PersonApi.Repository.Repositories.Implement;
 using PersonApi.Repository.Repositories.Interfaces;
 
 namespace PersonApi.Repository.UnitOfWork
@@ -7,6 +8,7 @@ namespace PersonApi.Repository.UnitOfWork
     {
         IEmployeeRepository EmployeeRepository { get; }
         IDepartmentRepository DepartmentRepository { get; }
+        ISkillRepository SkillRepository { get; }
         int Complete();
     }
 }
