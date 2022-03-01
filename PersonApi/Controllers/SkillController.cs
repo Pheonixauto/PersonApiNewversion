@@ -15,7 +15,6 @@ namespace PersonApi.Controllers
         {
             _skillService = skillService;
         }
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -32,7 +31,6 @@ namespace PersonApi.Controllers
             }
             return Ok(result);
         }
-
         [HttpPost]
         public async Task<IActionResult> Put(CreateSkillDTO createSkillDTO)
         {

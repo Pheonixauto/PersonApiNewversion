@@ -37,6 +37,10 @@ builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 builder.Services.AddScoped<ISkillService, SkillService>();
 
 
+builder.Services.AddScoped<ILearningRepository, LearningRepository>();
+builder.Services.AddScoped<ILearningService, LearningService>();
+
+
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
 
