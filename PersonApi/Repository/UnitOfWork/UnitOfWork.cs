@@ -13,18 +13,27 @@ namespace PersonApi.Repository.UnitOfWork
         public IDepartmentRepository DepartmentRepository { get; }
         public ISkillRepository SkillRepository { get; }
         public ILearningRepository LearningRepository { get; }
+        public IRelativeRepository RelativeRepository { get; }
+        public ISalaryRepository SalaryRepository { get; }
+        public IEmployeeSkillRepository EmployeeSkillRepository { get; }
 
         public UnitOfWork(DatabaseContext dbcontext,
                           IEmployeeRepository employeeRepository,
                           IDepartmentRepository departmentRepository,
                           ISkillRepository skillRepository,
-                          ILearningRepository learningRepository)
+                          ILearningRepository learningRepository,
+                          IRelativeRepository relativeRepository,
+                          ISalaryRepository salaryRepository,
+                          IEmployeeSkillRepository employeeSkillRepository)
         {
             _dbcontext = dbcontext;
             EmployeeRepository = employeeRepository;
             DepartmentRepository = departmentRepository;
             SkillRepository = skillRepository;
             LearningRepository = learningRepository;
+            RelativeRepository = relativeRepository;
+            SalaryRepository = salaryRepository;
+            EmployeeSkillRepository = employeeSkillRepository;
         }
 
         public int Complete()

@@ -9,9 +9,16 @@ namespace PersonApi.ModelsDTO
     }
     public class CreateSalaryDTO
     {
+        [DataType(DataType.Date)]
+        public DateTime DateTime { get; set; }
+
         [DataType(DataType.Currency)]
-        //[Column(TypeName = "Currency")]
         public decimal Salary { get; set; }
+
+        [DataType(DataType.Currency)]
+        public decimal Tax { get; set; }
+
+        public int EmployeeId { get; set; }
     }
     public class UpdateSalaryDTO: CreateSalaryDTO
     {

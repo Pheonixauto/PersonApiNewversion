@@ -10,6 +10,9 @@ namespace PersonApi.Repository.UnitOfWork
         IDepartmentRepository DepartmentRepository { get; }
         ISkillRepository SkillRepository { get; }
         ILearningRepository LearningRepository { get; }
+        IRelativeRepository RelativeRepository { get; }
+        ISalaryRepository SalaryRepository { get; }
+        IEmployeeSkillRepository EmployeeSkillRepository { get; }
         int Complete();
     }
 }

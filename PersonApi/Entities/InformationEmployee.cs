@@ -6,6 +6,7 @@ namespace PersonApi.Models
     [Table("Employee")]
     public class InformationEmployee
     {
+        
         public int Id { get; set; }
 
         [Required]

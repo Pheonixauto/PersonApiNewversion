@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DatabaseContext>(dbContextOptions =>
 {
-    dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
+    dbContextOptions./*UseLazyLoadingProxies().*/UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
 
 });
 builder.Services.AddAutoMapper(typeof(MapperInitilier));
@@ -39,6 +39,15 @@ builder.Services.AddScoped<ISkillService, SkillService>();
 
 builder.Services.AddScoped<ILearningRepository, LearningRepository>();
 builder.Services.AddScoped<ILearningService, LearningService>();
+
+builder.Services.AddScoped<IRelativeRepository, RelativeRepository>();
+builder.Services.AddScoped<IRelativeService, RelativeService>();
+
+builder.Services.AddScoped<ISalaryRepository, SalaryRepository>();
+builder.Services.AddScoped<ISalaryService, SalaryService>();
+
+builder.Services.AddScoped<IEmployeeSkillRepository, EmployeeSkillRepository>();
+builder.Services.AddScoped<IEmployeeSkillService, EmployeeSkillService>();
 
 
 builder.Services.AddAuthentication();

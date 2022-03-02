@@ -63,7 +63,6 @@ namespace PersonApi.Services
                 return department;
             }
             return null;
-
         }
 
         public async Task<bool> UpdateDepartment(int id, UpdateDepartmentDTO updateDepartmentDTO)

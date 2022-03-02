@@ -7,18 +7,25 @@ namespace PersonApi.Datas
 {
     public class DatabaseContext : IdentityDbContext<ApiUser>
     {
-        public DatabaseContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }
-        public DbSet<InformationEmployee>  informationEmployees { get; set; }
-        public DbSet<InformationDepartment>  informationDepartments { get; set; }
+        public DatabaseContext(DbContextOptions dbContextOptions) : base(dbContextOptions) {
+            //this.ChangeTracker.LazyLoadingEnabled = true;
+        }
+        public DbSet<InformationEmployee> informationEmployees { get; set; }
+        public DbSet<InformationDepartment> informationDepartments { get; set; }
         public DbSet<InformationRelative> informationRelatives { get; set; }
-        public DbSet<InformationSkill>  informationSkills{ get; set; }
-        public DbSet<InformationSalary>  informationSalaries{ get; set; }
-        public DbSet<InformationLearning>  informationLearnings { get; set; }
+        public DbSet<InformationSkill> informationSkills { get; set; }
+        public DbSet<InformationSalary> informationSalaries { get; set; }
+        public DbSet<InformationLearning> informationLearnings { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<InformationEmployee>()
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<InformationSkill>()
+                .HasKey(e => e.Id);
 
             //Many To Many: Nhan Vien -Ki Nang
             modelBuilder.Entity<InformationEmployeeSkill>()
