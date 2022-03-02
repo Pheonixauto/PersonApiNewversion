@@ -26,10 +26,16 @@ namespace PersonApi.Controllers
             var kq = await _employeeSkillService.GetEmployeeSkillById(id);
             return Ok(kq);
         }
-        [HttpGet("Detail")]
+        [HttpGet("AllDetail")]
         public async Task<IActionResult> GetAllDetail()
         {
-           var result= await _employeeSkillService.GetDetail();
+           var result= await _employeeSkillService.GetAllDetail();
+            return Ok(result);
+        }
+        [HttpGet("NameSkill")]
+        public async Task<IActionResult> NameSkill()
+        {
+            var result = await _employeeSkillService.GetNameSkillEmployee();
             return Ok(result);
         }
     }

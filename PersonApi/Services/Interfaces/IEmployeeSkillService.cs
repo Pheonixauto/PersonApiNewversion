@@ -7,8 +7,9 @@ namespace PersonApi.Services.Interfaces
         Task<List<InformationEmployeeSkill>> GetAllEmployeeSkill();
  
         Task<List<InformationEmployeeSkill>> GetEmployeeSkillById(int id);
-        Task<List<InformationEmployeeSkill>> GetDetail();
+        Task<List<InformationEmployeeSkill>> GetAllDetail();
 
+        Task<object> GetNameSkillEmployee();
 
     }
 }
