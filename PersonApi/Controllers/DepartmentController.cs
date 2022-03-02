@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonApi.Models;
 using PersonApi.ModelsDTO;
@@ -15,6 +16,7 @@ namespace PersonApi.Controllers
         {
             _departmentService = departmentService;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

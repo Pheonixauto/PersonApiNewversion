@@ -1,3 +1,4 @@
+using HotelListing.Services;
 using Microsoft.EntityFrameworkCore;
 using PersonApi;
 using PersonApi.Configurations.Mapper;
@@ -8,6 +9,7 @@ using PersonApi.Repository.Repositories.Implement;
 using PersonApi.Repository.Repositories.Interfaces;
 using PersonApi.Repository.UnitOfWork;
 using PersonApi.Services;
+using PersonApi.Services.AuthManager;
 using PersonApi.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +26,8 @@ builder.Services.AddDbContext<DatabaseContext>(dbContextOptions =>
     dbContextOptions./*UseLazyLoadingProxies().*/UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
 
 });
+
+
 builder.Services.AddAutoMapper(typeof(MapperInitilier));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
@@ -49,8 +53,12 @@ builder.Services.AddScoped<ISalaryService, SalaryService>();
 builder.Services.AddScoped<IEmployeeSkillRepository, EmployeeSkillRepository>();
 builder.Services.AddScoped<IEmployeeSkillService, EmployeeSkillService>();
 
+builder.Services.AddScoped<IAuthManager, AuthManager>();
+
 
 builder.Services.AddAuthentication();
+builder.Services.ConfigureJWT(builder.Configuration);
+
 builder.Services.ConfigureIdentity();
 
 builder.Services.AddControllers().AddNewtonsoftJson(op =>
@@ -70,6 +78,7 @@ app.UseRouting();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 //app.MapControllers();
