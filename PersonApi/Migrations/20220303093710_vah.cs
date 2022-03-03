@@ -4,19 +4,19 @@
 
 namespace PersonApi.Migrations
 {
-    public partial class _20220302_V17 : Migration
+    public partial class vah : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "8b2421c8-b304-4628-92bd-b20f900e6021");
+                keyValue: "65d2c8b2-ce7c-4e3f-be79-752036d4c1e6");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "f59ddea5-53d4-4a0b-93b6-cdaf3fa8aa35");
+                keyValue: "b6197816-e549-4616-9837-e0255231d2d8");
 
         }
 
@@ -25,22 +25,22 @@ namespace PersonApi.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "1b151a6d-40ce-4a48-98ee-90c36a630066");
+                keyValue: "03de3bee-b7bd-48f5-88c2-789469c296a7");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "3ead3ac8-4281-4d98-bedc-2de1bd452ddc");
+                keyValue: "cc2f36a2-3fd7-46c6-9cf5-2041f782a4ba");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "8b2421c8-b304-4628-92bd-b20f900e6021", "1c935d00-5b99-4dfe-830e-c6dff1084645", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "65d2c8b2-ce7c-4e3f-be79-752036d4c1e6", "dda087b8-0664-411d-82d2-0725e0e3de76", "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "f59ddea5-53d4-4a0b-93b6-cdaf3fa8aa35", "17a28a25-2095-4b49-a681-a2732765d25b", "User", "USER" });
+                values: new object[] { "b6197816-e549-4616-9837-e0255231d2d8", "82b8a711-3351-473a-a8e8-69ab3c01920d", "User", "USER" });
         }
     }
 }

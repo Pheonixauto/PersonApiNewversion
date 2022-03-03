@@ -6,14 +6,17 @@ namespace PersonApi.Models
     [Table("Employee")]
     public class InformationEmployee
     {
-        
+
+        [Column(Order = 0)]
         public int Id { get; set; }
 
         [Required]
+        [Column(Order = 1)]
         public int IdentityNumber { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+        [Column("FirstName ", Order = 2)]
         public string FirstName { get; set; }
 
         [Required]
@@ -26,7 +29,7 @@ namespace PersonApi.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "date")]
         public DateTime BirthDay { get; set; }
 
         [Required]

@@ -18,7 +18,7 @@ namespace PersonApi.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "date")]
         public DateTime BirthDay { get; set; }
 
         [Required]

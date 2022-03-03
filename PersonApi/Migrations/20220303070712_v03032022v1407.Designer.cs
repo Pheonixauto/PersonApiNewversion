@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220302072412_20220302_V1.7")]
-    partial class _20220302_V17
+    [Migration("20220303070712_v03032022v1407")]
+    partial class v03032022v1407
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,15 +53,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1b151a6d-40ce-4a48-98ee-90c36a630066",
-                            ConcurrencyStamp = "c2eb687a-fd75-489f-8e27-1cb756dd3da4",
+                            Id = "929ea96b-b39d-44af-838d-16afdadfebfc",
+                            ConcurrencyStamp = "e50d6066-cd39-4809-9db1-f5efac7f9e67",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "3ead3ac8-4281-4d98-bedc-2de1bd452ddc",
-                            ConcurrencyStamp = "74b3400c-d7c6-42ff-8f28-315ef95efa8c",
+                            Id = "9a7fa8db-53bf-4cca-9031-568014837f99",
+                            ConcurrencyStamp = "c2914f60-52ec-427d-81c0-2fbfe8c787ac",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -283,7 +283,8 @@ namespace PersonApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -293,7 +294,7 @@ namespace PersonApi.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -311,10 +312,13 @@ namespace PersonApi.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("FirstName ")
+                        .HasColumnOrder(2);
 
                     b.Property<int>("IdentityNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -494,7 +498,7 @@ namespace PersonApi.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("City")
                         .HasMaxLength(200)
@@ -574,16 +578,16 @@ namespace PersonApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("Id");
 

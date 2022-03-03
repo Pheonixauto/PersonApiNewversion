@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Services.Interfaces;
 
@@ -10,21 +12,27 @@ namespace PersonApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
-        public EmployeeController(IEmployeeService employeeService)
+       
+        public EmployeeController(IEmployeeService employeeService )
         {
-            _employeeService = employeeService;
+            _employeeService = employeeService;        
         }
+        //[Authorize(Roles ="Administrator")]
         [HttpGet("GetAll")]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> Get()
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> Get([FromQuery] RequestParams requestParams)
         {
-            var userList = await _employeeService.GetAllEmployees();
+            var userList = await _employeeService.GetEmployeePagedList(requestParams);
             return Ok(userList);
         }
 
+        //[Authorize]
         [HttpGet("{employeeId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Get(int employeeId)
         {
             var employee = await _employeeService.GetEmployeeById(employeeId);
@@ -38,15 +46,19 @@ namespace PersonApi.Controllers
                 return BadRequest(employee);
             }
         }
+
+        [Authorize(Roles = "Administrator")]
         [HttpPost("Create")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Post(CreateEmployeeDTO createEmployeeDTO)
         {
             var employeeCreated = await _employeeService.CreateNewEmployee(createEmployeeDTO);
 
             if (employeeCreated)
-            {           
+            {
                 return Ok(employeeCreated);
             }
             else
@@ -54,9 +66,13 @@ namespace PersonApi.Controllers
                 return BadRequest(employeeCreated);
             }
         }
+
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{employeeId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Put(int employeeId, CreateEmployeeDTO createEmployeeDTO)
         {
             var employeeCreated = await _employeeService.UpdateEmployee(employeeId, createEmployeeDTO);
@@ -70,15 +86,19 @@ namespace PersonApi.Controllers
                 return BadRequest(employeeCreated);
             }
         }
+
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{employeeId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Delete(int employeeId)
         {
             var employee = await _employeeService.DeleteEmployee(employeeId);
-           
+
             if (employee)
-            {          
+            {
                 return Ok(employee);
             }
             else

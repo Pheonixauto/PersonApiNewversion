@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PersonApi.Datas;
 using PersonApi.Models;
+using Serilog;
 using System.Text;
 
 namespace PersonApi
@@ -37,6 +39,27 @@ namespace PersonApi
                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
                   };
               });
+        }   
+        public static void ConfigureExceptiontionHandler(this IApplicationBuilder builder1)
+        {
+            builder1.UseExceptionHandler(error =>
+            {
+                error.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    context.Response.ContentType="application/json";
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    if (contextFeature != null)
+                    {
+                        Log.Error($"Something went wrong in {contextFeature.Error}");
+                        await context.Response.WriteAsync(new Error
+                        {
+                            StatusCode= context.Response.StatusCode,
+                            Message= $"Internal server error. Please try again!"
+                        }.ToString());
+                    }
+                });
+            });
         }   
     }
 }

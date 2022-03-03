@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using PersonApi.Models;
+using System.Linq.Expressions;
+using X.PagedList;
 
 namespace PersonApi.Repository.GenericRepository
 {
@@ -17,7 +19,7 @@ namespace PersonApi.Repository.GenericRepository
             List<string> include = null
             );
 
-
+        Task<IPagedList<T>> GetPageList(RequestParams requestParams, List<string> include = null );
 
     }
 }

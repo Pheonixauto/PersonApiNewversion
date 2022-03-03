@@ -16,22 +16,38 @@ namespace PersonApi.Controllers
         {
             _departmentService = departmentService;
         }
-        [Authorize]
+
         [HttpGet]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> GetAll()
         {
-            var employeeList = await _departmentService.GetAllDepartment();
-            return Ok(employeeList);
+            try
+            {
+                var employeeList = await _departmentService.GetAllDepartment();
+                return Ok(employeeList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpGet("{id:int}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Get(int id)
         {
             var department = await _departmentService.GetDepartment(id);
             return Ok(department);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Post(CreateDepartmentDTO createDepartmentDTO)
         {
             if (!ModelState.IsValid)
@@ -42,7 +58,13 @@ namespace PersonApi.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPut]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+
         public async Task<IActionResult> Put(int id, UpdateDepartmentDTO updateDepartmentDTO)
         {
             if (!ModelState.IsValid)
@@ -53,7 +75,12 @@ namespace PersonApi.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id:int}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Delete(int id)
         {
             await _departmentService.DeleteDepartment(id);

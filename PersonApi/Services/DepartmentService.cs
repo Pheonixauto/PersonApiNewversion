@@ -24,10 +24,11 @@ namespace PersonApi.Services
             }
             var newDepartment = _mapper.Map<InformationDepartment>(createDepartmentDTO);
             await _unitOfWork.DepartmentRepository.Add(newDepartment);
-            var result = _unitOfWork.Complete();
-            if (result > 0)
-                return true;
-            else return false;
+            var result = (_unitOfWork.Complete() > 0) ? true : false;
+            //if (result > 0)
+            //    return true;
+            //else return false;
+            return result;
         }
 
         public async Task<bool> DeleteDepartment(int id)
@@ -40,7 +41,8 @@ namespace PersonApi.Services
                 if (ressult > 0)
                 {
                     return true;
-                } else return false;
+                }
+                else return false;
             }
             return false;
         }
@@ -56,6 +58,7 @@ namespace PersonApi.Services
             if (id > 0)
             {
                 var department = await _unitOfWork.DepartmentRepository.Get(id);
+                
                 if (department == null)
                 {
                     return null;

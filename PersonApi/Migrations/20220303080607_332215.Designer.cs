@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220228102252_v9")]
-    partial class v9
+    [Migration("20220303080607_332215")]
+    partial class _332215
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,15 +53,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1c815588-f169-42c6-8591-c73f70026300",
-                            ConcurrencyStamp = "1b3a18bc-994a-448d-b2ed-060dd180be3c",
+                            Id = "b6197816-e549-4616-9837-e0255231d2d8",
+                            ConcurrencyStamp = "82b8a711-3351-473a-a8e8-69ab3c01920d",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "558e2f19-79d1-494c-97c3-5911fb08d5b0",
-                            ConcurrencyStamp = "b053033c-3455-4424-ab3e-e3eeed327fff",
+                            Id = "65d2c8b2-ce7c-4e3f-be79-752036d4c1e6",
+                            ConcurrencyStamp = "dda087b8-0664-411d-82d2-0725e0e3de76",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -283,7 +283,8 @@ namespace PersonApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -293,7 +294,7 @@ namespace PersonApi.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -311,10 +312,13 @@ namespace PersonApi.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("FirstName ")
+                        .HasColumnOrder(2);
 
                     b.Property<int>("IdentityNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -371,7 +375,7 @@ namespace PersonApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PersonApi.Models.InformationEmployee_Learning", b =>
+            modelBuilder.Entity("PersonApi.Models.InformationEmployeeLearning", b =>
                 {
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
@@ -412,7 +416,7 @@ namespace PersonApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PersonApi.Models.InformationEmployee_Skill", b =>
+            modelBuilder.Entity("PersonApi.Models.InformationEmployeeSkill", b =>
                 {
                     b.Property<int>("EmployId")
                         .HasColumnType("int");
@@ -494,7 +498,7 @@ namespace PersonApi.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("City")
                         .HasMaxLength(200)
@@ -574,20 +578,23 @@ namespace PersonApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(7,3)");
 
                     b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(7,3)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("DateTime", "EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("Salary");
 
@@ -706,62 +713,62 @@ namespace PersonApi.Migrations
 
             modelBuilder.Entity("PersonApi.Models.InformationEmployee", b =>
                 {
-                    b.HasOne("PersonApi.Models.InformationDepartment", "ThongTinPhongBan")
-                        .WithMany("ThongTinNhanViens")
+                    b.HasOne("PersonApi.Models.InformationDepartment", "InformationDepartment")
+                        .WithMany("InformationEmployees")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThongTinPhongBan");
+                    b.Navigation("InformationDepartment");
                 });
 
-            modelBuilder.Entity("PersonApi.Models.InformationEmployee_Learning", b =>
+            modelBuilder.Entity("PersonApi.Models.InformationEmployeeLearning", b =>
                 {
-                    b.HasOne("PersonApi.Models.InformationEmployee", "ThongTinNhanVien")
-                        .WithMany("ThongTinNhanVien_HocVans")
+                    b.HasOne("PersonApi.Models.InformationEmployee", "InformationEmployee")
+                        .WithMany("InformationEmployeeLearnings")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PersonApi.Models.InformationLearning", "ThongTinHocVan")
-                        .WithMany("ThongTinNhanVien_HocVans")
+                    b.HasOne("PersonApi.Models.InformationLearning", "InformationLearning")
+                        .WithMany("InformationEmployeeLearnings")
                         .HasForeignKey("StudyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThongTinHocVan");
+                    b.Navigation("InformationEmployee");
 
-                    b.Navigation("ThongTinNhanVien");
+                    b.Navigation("InformationLearning");
                 });
 
-            modelBuilder.Entity("PersonApi.Models.InformationEmployee_Skill", b =>
+            modelBuilder.Entity("PersonApi.Models.InformationEmployeeSkill", b =>
                 {
-                    b.HasOne("PersonApi.Models.InformationEmployee", "ThongTinNhanVien")
-                        .WithMany("ThongTinNhanVien_KiNangs")
+                    b.HasOne("PersonApi.Models.InformationEmployee", "InformationEmployee")
+                        .WithMany("InformationEmployeeSkills")
                         .HasForeignKey("EmployId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PersonApi.Models.InformationSkill", "ThongTinKiNang")
-                        .WithMany("ThongTinNhanVien_KiNangs")
+                    b.HasOne("PersonApi.Models.InformationSkill", "InformationSkill")
+                        .WithMany("InformationEmployeeSkills")
                         .HasForeignKey("SkillId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThongTinKiNang");
+                    b.Navigation("InformationEmployee");
 
-                    b.Navigation("ThongTinNhanVien");
+                    b.Navigation("InformationSkill");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationRelative", b =>
                 {
-                    b.HasOne("PersonApi.Models.InformationEmployee", "ThongTinNhanVien")
-                        .WithMany("ThongTinNguoiThans")
+                    b.HasOne("PersonApi.Models.InformationEmployee", "InformationEmployee")
+                        .WithMany("InformationRelatives")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThongTinNhanVien");
+                    b.Navigation("InformationEmployee");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationSalary", b =>
@@ -777,28 +784,28 @@ namespace PersonApi.Migrations
 
             modelBuilder.Entity("PersonApi.Models.InformationDepartment", b =>
                 {
-                    b.Navigation("ThongTinNhanViens");
+                    b.Navigation("InformationEmployees");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationEmployee", b =>
                 {
+                    b.Navigation("InformationEmployeeLearnings");
+
+                    b.Navigation("InformationEmployeeSkills");
+
+                    b.Navigation("InformationRelatives");
+
                     b.Navigation("InformationSalaries");
-
-                    b.Navigation("ThongTinNguoiThans");
-
-                    b.Navigation("ThongTinNhanVien_HocVans");
-
-                    b.Navigation("ThongTinNhanVien_KiNangs");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationLearning", b =>
                 {
-                    b.Navigation("ThongTinNhanVien_HocVans");
+                    b.Navigation("InformationEmployeeLearnings");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationSkill", b =>
                 {
-                    b.Navigation("ThongTinNhanVien_KiNangs");
+                    b.Navigation("InformationEmployeeSkills");
                 });
 #pragma warning restore 612, 618
         }

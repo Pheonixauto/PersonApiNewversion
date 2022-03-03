@@ -51,15 +51,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1b151a6d-40ce-4a48-98ee-90c36a630066",
-                            ConcurrencyStamp = "c2eb687a-fd75-489f-8e27-1cb756dd3da4",
+                            Id = "c11dc172-2724-4c70-884e-cbe8f3255f52",
+                            ConcurrencyStamp = "da7d52c5-020d-49ab-ae69-69b37eadb9ae",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "3ead3ac8-4281-4d98-bedc-2de1bd452ddc",
-                            ConcurrencyStamp = "74b3400c-d7c6-42ff-8f28-315ef95efa8c",
+                            Id = "961de663-b57d-42f3-8ef4-78a80a2580f8",
+                            ConcurrencyStamp = "e52695c6-61e1-4968-ae4a-2ffb75b3e442",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -281,7 +281,8 @@ namespace PersonApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -291,7 +292,7 @@ namespace PersonApi.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -309,10 +310,13 @@ namespace PersonApi.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("FirstName ")
+                        .HasColumnOrder(2);
 
                     b.Property<int>("IdentityNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -492,7 +496,7 @@ namespace PersonApi.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("City")
                         .HasMaxLength(200)
@@ -572,16 +576,16 @@ namespace PersonApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(7,3)");
 
                     b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(7,3)");
 
                     b.HasKey("Id");
 

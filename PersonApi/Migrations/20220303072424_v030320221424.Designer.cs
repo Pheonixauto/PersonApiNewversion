@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220228101434_skill12")]
-    partial class skill12
+    [Migration("20220303072424_v030320221424")]
+    partial class v030320221424
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,15 +53,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fe92b51c-ef13-4da5-b2f7-0e1178a9327e",
-                            ConcurrencyStamp = "f4b95bbf-c1bd-4765-8273-024e5ddb063c",
+                            Id = "daf3e1b4-da01-492a-962e-ef625750a1a2",
+                            ConcurrencyStamp = "9e641d18-f67e-4160-a29a-c6a7e985286e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "d96cbe03-2a3b-4a12-b890-841bfddb0078",
-                            ConcurrencyStamp = "657559af-6d29-4639-a922-2fbee1b12334",
+                            Id = "0aa79780-f317-4146-96d4-d8c989378483",
+                            ConcurrencyStamp = "5cb1c828-3a8a-40a7-9d80-a749e7712277",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -283,7 +283,8 @@ namespace PersonApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -293,7 +294,7 @@ namespace PersonApi.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -311,10 +312,13 @@ namespace PersonApi.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("FirstName ")
+                        .HasColumnOrder(2);
 
                     b.Property<int>("IdentityNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -371,7 +375,7 @@ namespace PersonApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PersonApi.Models.InformationEmployee_Learning", b =>
+            modelBuilder.Entity("PersonApi.Models.InformationEmployeeLearning", b =>
                 {
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
@@ -394,9 +398,25 @@ namespace PersonApi.Migrations
                     b.HasIndex("StudyId");
 
                     b.ToTable("Employee_Learning");
+
+                    b.HasData(
+                        new
+                        {
+                            EmployeeId = 1,
+                            StudyId = 1,
+                            Major = " Công Nghệ Thông Tin",
+                            Qualification = "Đại học"
+                        },
+                        new
+                        {
+                            EmployeeId = 1,
+                            StudyId = 2,
+                            Major = " Cơ Khí",
+                            Qualification = "Đại học"
+                        });
                 });
 
-            modelBuilder.Entity("PersonApi.Models.InformationEmployee_Skill", b =>
+            modelBuilder.Entity("PersonApi.Models.InformationEmployeeSkill", b =>
                 {
                     b.Property<int>("EmployId")
                         .HasColumnType("int");
@@ -423,6 +443,12 @@ namespace PersonApi.Migrations
                         new
                         {
                             EmployId = 2,
+                            SkillId = 2,
+                            Rating = 5.0
+                        },
+                        new
+                        {
+                            EmployId = 1,
                             SkillId = 2,
                             Rating = 5.0
                         });
@@ -472,7 +498,7 @@ namespace PersonApi.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("City")
                         .HasMaxLength(200)
@@ -552,27 +578,30 @@ namespace PersonApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,3)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("DateTime", "EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("Salary");
 
                     b.HasData(
                         new
                         {
-                            Id = 4,
+                            Id = 1,
                             DateTime = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmployeeId = 1,
                             Salary = 500m,
@@ -684,62 +713,62 @@ namespace PersonApi.Migrations
 
             modelBuilder.Entity("PersonApi.Models.InformationEmployee", b =>
                 {
-                    b.HasOne("PersonApi.Models.InformationDepartment", "ThongTinPhongBan")
-                        .WithMany("ThongTinNhanViens")
+                    b.HasOne("PersonApi.Models.InformationDepartment", "InformationDepartment")
+                        .WithMany("InformationEmployees")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThongTinPhongBan");
+                    b.Navigation("InformationDepartment");
                 });
 
-            modelBuilder.Entity("PersonApi.Models.InformationEmployee_Learning", b =>
+            modelBuilder.Entity("PersonApi.Models.InformationEmployeeLearning", b =>
                 {
-                    b.HasOne("PersonApi.Models.InformationEmployee", "ThongTinNhanVien")
-                        .WithMany("ThongTinNhanVien_HocVans")
+                    b.HasOne("PersonApi.Models.InformationEmployee", "InformationEmployee")
+                        .WithMany("InformationEmployeeLearnings")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PersonApi.Models.InformationLearning", "ThongTinHocVan")
-                        .WithMany("ThongTinNhanVien_HocVans")
+                    b.HasOne("PersonApi.Models.InformationLearning", "InformationLearning")
+                        .WithMany("InformationEmployeeLearnings")
                         .HasForeignKey("StudyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThongTinHocVan");
+                    b.Navigation("InformationEmployee");
 
-                    b.Navigation("ThongTinNhanVien");
+                    b.Navigation("InformationLearning");
                 });
 
-            modelBuilder.Entity("PersonApi.Models.InformationEmployee_Skill", b =>
+            modelBuilder.Entity("PersonApi.Models.InformationEmployeeSkill", b =>
                 {
-                    b.HasOne("PersonApi.Models.InformationEmployee", "ThongTinNhanVien")
-                        .WithMany("ThongTinNhanVien_KiNangs")
+                    b.HasOne("PersonApi.Models.InformationEmployee", "InformationEmployee")
+                        .WithMany("InformationEmployeeSkills")
                         .HasForeignKey("EmployId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PersonApi.Models.InformationSkill", "ThongTinKiNang")
-                        .WithMany("ThongTinNhanVien_KiNangs")
+                    b.HasOne("PersonApi.Models.InformationSkill", "InformationSkill")
+                        .WithMany("InformationEmployeeSkills")
                         .HasForeignKey("SkillId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThongTinKiNang");
+                    b.Navigation("InformationEmployee");
 
-                    b.Navigation("ThongTinNhanVien");
+                    b.Navigation("InformationSkill");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationRelative", b =>
                 {
-                    b.HasOne("PersonApi.Models.InformationEmployee", "ThongTinNhanVien")
-                        .WithMany("ThongTinNguoiThans")
+                    b.HasOne("PersonApi.Models.InformationEmployee", "InformationEmployee")
+                        .WithMany("InformationRelatives")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThongTinNhanVien");
+                    b.Navigation("InformationEmployee");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationSalary", b =>
@@ -755,28 +784,28 @@ namespace PersonApi.Migrations
 
             modelBuilder.Entity("PersonApi.Models.InformationDepartment", b =>
                 {
-                    b.Navigation("ThongTinNhanViens");
+                    b.Navigation("InformationEmployees");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationEmployee", b =>
                 {
+                    b.Navigation("InformationEmployeeLearnings");
+
+                    b.Navigation("InformationEmployeeSkills");
+
+                    b.Navigation("InformationRelatives");
+
                     b.Navigation("InformationSalaries");
-
-                    b.Navigation("ThongTinNguoiThans");
-
-                    b.Navigation("ThongTinNhanVien_HocVans");
-
-                    b.Navigation("ThongTinNhanVien_KiNangs");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationLearning", b =>
                 {
-                    b.Navigation("ThongTinNhanVien_HocVans");
+                    b.Navigation("InformationEmployeeLearnings");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationSkill", b =>
                 {
-                    b.Navigation("ThongTinNhanVien_KiNangs");
+                    b.Navigation("InformationEmployeeSkills");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 ﻿using PersonApi.Models;
 using PersonApi.ModelsDTO;
+using X.PagedList;
 
 namespace PersonApi.Services.Interfaces
 {
@@ -13,5 +14,8 @@ namespace PersonApi.Services.Interfaces
         Task<bool> UpdateEmployee(int employeeId, CreateEmployeeDTO createEmployeeDTO);
 
         Task<bool> DeleteEmployee(int employeeId);
+
+        //////////
+        Task<IPagedList<InformationEmployee>> GetEmployeePagedList(RequestParams requestParams);
     }
 }

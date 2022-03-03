@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PersonApi.Datas;
+using PersonApi.Models;
 using System.Linq.Expressions;
+using X.PagedList;
 
 namespace PersonApi.Repository.GenericRepository
 {
@@ -62,6 +64,22 @@ namespace PersonApi.Repository.GenericRepository
             return await query.AsNoTracking().ToListAsync();
         }
 
+        public async Task<IPagedList<T>> GetPageList(RequestParams requestParams,List<string> include = null
+                                                     )
+        {
+            IQueryable<T> query = _context.Set<T>();
+           
 
+            if (include != null)
+            {
+                foreach (var incudePropery in include)
+                {
+                    query = query.Include(incudePropery);
+                }
+            }
+           
+
+            return await query.AsNoTracking().ToPagedListAsync(requestParams.PageNumber, requestParams.PageSize);
+        }
     }
 }

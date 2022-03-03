@@ -1,4 +1,5 @@
 using HotelListing.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PersonApi;
 using PersonApi.Configurations.Mapper;
@@ -11,6 +12,7 @@ using PersonApi.Repository.UnitOfWork;
 using PersonApi.Services;
 using PersonApi.Services.AuthManager;
 using PersonApi.Services.Interfaces;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,7 +66,11 @@ builder.Services.ConfigureIdentity();
 builder.Services.AddControllers().AddNewtonsoftJson(op =>
 op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-
+//builder.Services.Configure<RequestLocalizationOptions>(options =>
+//{
+//    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("tr-TR");
+//    options.SupportedCultures = new List<CultureInfo> { new CultureInfo("tr-TR") };
+//});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -73,6 +79,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//app.ConfigureExceptiontionHandler();
 
 app.UseRouting();
 
