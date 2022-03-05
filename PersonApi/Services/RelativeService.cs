@@ -3,6 +3,7 @@ using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Repository.UnitOfWork;
 using PersonApi.Services.Interfaces;
+using X.PagedList;
 
 namespace PersonApi.Services
 {
@@ -83,6 +84,12 @@ namespace PersonApi.Services
                 return false;
             }
             return false;
+        }
+
+        public async Task<IPagedList<InformationRelative>> GetRelativePagedList(RequestParams requestParams)
+        {
+            var relativeList = await _unitOfWork.RelativeRepository.GetPageList(requestParams, null);
+            return relativeList;
         }
     }
 }

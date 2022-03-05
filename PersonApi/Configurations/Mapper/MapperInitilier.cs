@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PersonApi.DTO;
 using PersonApi.Models;
 using PersonApi.ModelsDTO;
 
@@ -27,8 +28,13 @@ namespace PersonApi.Configurations.Mapper
             CreateMap<InformationSkill, SkillDTO>().ReverseMap();
             CreateMap<InformationSkill, CreateSkillDTO>().ReverseMap();
 
+            CreateMap<InformationEmployeeSkill, EmployeeSkillDTO>().ReverseMap();
+            CreateMap<InformationEmployeeSkill, CreateEmployeeSkillDTO>().ReverseMap();
+
             CreateMap<ApiUser, UserDTO>().ReverseMap();
             CreateMap<ApiUser, LoginUserDTO>().ReverseMap();
+
+          
 
 
         }

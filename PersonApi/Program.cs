@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using HotelListing.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using PersonApi.Services;
 using PersonApi.Services.AuthManager;
 using PersonApi.Services.Interfaces;
 using System.Globalization;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -31,7 +33,17 @@ builder.Services.AddCors(options =>
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+                 .AddFluentValidation(options =>
+                 {
+                     // Validate child properties and root collection elements
+                     options.ImplicitlyValidateChildProperties = true;
+                     options.ImplicitlyValidateRootCollectionElements = true;
+                     // Automatic registration of validators in assembly
+                     options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+                 }); 
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -87,17 +99,19 @@ op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandl
 //});
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
+    c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "Person Api Manager");
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
-        c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "Person Api Manager");
-    });
+    app.UseSwaggerUI();
 }
-
 //app.ConfigureExceptiontionHandler();
 
 app.UseRouting();
@@ -112,7 +126,11 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
     endpoints.MapControllers();
 });
+app.MapControllers();
 
 app.Run();

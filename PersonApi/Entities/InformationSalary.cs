@@ -17,7 +17,8 @@ namespace PersonApi.Models
         public int Id { get; set; }
 
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = ("{0:M/d/yyyy}"))]
         [Column(TypeName = "date")]    
         public DateTime DateTime { get; set; } 
 

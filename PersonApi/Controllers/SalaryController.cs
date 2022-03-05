@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Services.Interfaces;
 
@@ -14,15 +15,15 @@ namespace PersonApi.Controllers
         {
             _salaryService = salaryService;
         }
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("GetAllPagedList")]
+        public async Task<IActionResult> GetAll([FromQuery] RequestParams requestParams)
         {
 
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var salaryList = await _salaryService.GetAllSalary();
+            var salaryList = await _salaryService.GetSalaryPagedList(requestParams);
             return Ok(salaryList);
         }
 
@@ -36,6 +37,20 @@ namespace PersonApi.Controllers
             }
             return Ok(salary);
         }
+
+        [HttpGet("GetAllSalaryByDate")]
+        public async Task<IActionResult> GetAllSalaryByDate( DateTime date1, DateTime date2 )
+        {
+            var result = await _salaryService.GetSalaryByDate(date1, date2);
+            return Ok(result);
+        }
+        [HttpGet("GetSalaryByDepartment")]
+        public async Task<IActionResult> GetSalaryByDepartment(string departmentName, DateTime date1, DateTime date2)
+        {
+            var result = await _salaryService.GetSalaryByDepartment(departmentName, date1, date2);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(CreateSalaryDTO createSalaryDTO)
         {

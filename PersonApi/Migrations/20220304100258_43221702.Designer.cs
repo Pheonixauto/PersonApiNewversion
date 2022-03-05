@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220303073316_v")]
-    partial class v
+    [Migration("20220304100258_43221702")]
+    partial class _43221702
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,22 +49,6 @@ namespace PersonApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "91e993b9-ad98-4a4c-a66e-8cb8aed76c1f",
-                            ConcurrencyStamp = "c5fa5add-a149-4c53-8e1d-92476be5f6fc",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "40b7d0c7-883f-4617-b31a-6a6c2382b5bd",
-                            ConcurrencyStamp = "e7072d57-61c8-4720-9d3e-35b5d41c065e",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -173,6 +157,20 @@ namespace PersonApi.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("PersonApi.DTO.CreateEmployeeSkillDTO", b =>
+                {
+                    b.Property<int>("EmployId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.ToTable("CreateEmployeeSkillDTO");
+                });
+
             modelBuilder.Entity("PersonApi.Models.ApiUser", b =>
                 {
                     b.Property<string>("Id")
@@ -259,10 +257,10 @@ namespace PersonApi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("NumberEmployee")
+                    b.Property<int?>("NumberEmployee")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -297,7 +295,6 @@ namespace PersonApi.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -332,7 +329,8 @@ namespace PersonApi.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Province")
                         .HasMaxLength(200)
@@ -431,6 +429,9 @@ namespace PersonApi.Migrations
 
                     b.HasIndex("SkillId");
 
+                    b.HasIndex("EmployId", "SkillId")
+                        .IsUnique();
+
                     b.ToTable("Employee_Skill");
 
                     b.HasData(
@@ -450,6 +451,12 @@ namespace PersonApi.Migrations
                         {
                             EmployId = 1,
                             SkillId = 2,
+                            Rating = 5.0
+                        },
+                        new
+                        {
+                            EmployId = 1,
+                            SkillId = 3,
                             Rating = 5.0
                         });
                 });

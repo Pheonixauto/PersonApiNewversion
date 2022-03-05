@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonApi.Models;
+using PersonApi.Models.FluentValidation;
 using PersonApi.ModelsDTO;
 using PersonApi.Services.Interfaces;
 
@@ -12,10 +13,10 @@ namespace PersonApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
-       
-        public EmployeeController(IEmployeeService employeeService )
+
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _employeeService = employeeService;        
+            _employeeService = employeeService;
         }
         //[Authorize(Roles ="Administrator")]
         [HttpGet("GetAll")]
@@ -47,7 +48,7 @@ namespace PersonApi.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpPost("Create")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -55,6 +56,12 @@ namespace PersonApi.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Post(CreateEmployeeDTO createEmployeeDTO)
         {
+            EmployeeValidator validationRules = new EmployeeValidator();
+            var validationResult = validationRules.Validate(createEmployeeDTO);
+            if (!validationResult.IsValid)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, validationResult.Errors);
+            }
             var employeeCreated = await _employeeService.CreateNewEmployee(createEmployeeDTO);
 
             if (employeeCreated)
@@ -67,7 +74,7 @@ namespace PersonApi.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpPut("{employeeId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -75,6 +82,12 @@ namespace PersonApi.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Put(int employeeId, CreateEmployeeDTO createEmployeeDTO)
         {
+            EmployeeValidator validationRules = new EmployeeValidator();
+            var validationResult = validationRules.Validate(createEmployeeDTO);
+            if (!validationResult.IsValid)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, validationResult.Errors);
+            }
             var employeeCreated = await _employeeService.UpdateEmployee(employeeId, createEmployeeDTO);
 
             if (employeeCreated)

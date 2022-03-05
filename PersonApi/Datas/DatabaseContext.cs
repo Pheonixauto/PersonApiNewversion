@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PersonApi.Configurations.Entities;
+using PersonApi.DTO;
 using PersonApi.Models;
 
 namespace PersonApi.Datas
 {
     public class DatabaseContext : IdentityDbContext<ApiUser>
     {
-        public DatabaseContext(DbContextOptions dbContextOptions) : base(dbContextOptions) {
+        public DatabaseContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
+        {
             //this.ChangeTracker.LazyLoadingEnabled = true;
         }
         public DbSet<InformationEmployee> informationEmployees { get; set; }
@@ -40,6 +42,12 @@ namespace PersonApi.Datas
                         .HasOne(pt => pt.InformationSkill)
                         .WithMany(t => t.InformationEmployeeSkills)
                         .HasForeignKey(pt => pt.SkillId);
+
+            // Unique Table EmployeeSkill
+            modelBuilder.Entity<InformationEmployeeSkill>()
+                        .HasIndex(c => new { c.EmployId, c.SkillId })
+                        .IsUnique();
+
 
 
             // modelBuilder.Entity<InformationEmployee>()
@@ -74,10 +82,12 @@ namespace PersonApi.Datas
                         .WithMany(t => t.InformationEmployeeLearnings)
                         .HasForeignKey(pt => pt.EmployeeId);
 
-            // Unique
+            // Unique Table Salary
             modelBuilder.Entity<InformationSalary>()
                         .HasIndex(p => new { p.DateTime, p.EmployeeId })
                         .IsUnique();
+
+           
 
             // Seed data employee
             modelBuilder.ApplyConfiguration(new EmployeeConfig());

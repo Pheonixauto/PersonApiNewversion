@@ -17,15 +17,15 @@ namespace PersonApi.Models
         [Required]
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
         [Column("FirstName ", Order = 2)]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = string.Empty;
 
         [Required]
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
-        public string MiddleName { get; set; }
+        public string MiddleName { get; set; } = string.Empty;
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
         [Required]
         [DataType(DataType.Date)]
@@ -33,34 +33,34 @@ namespace PersonApi.Models
         public DateTime BirthDay { get; set; }
 
         [Required]
-        public string PhoneNumber { get; set; }
+        [StringLength(20)]
+        public string PhoneNumber { get; set; } = string.Empty;
 
 
         [StringLength(200, MinimumLength = 2)]
         public string? Province { get; set; }
 
-        [Required]
         [StringLength(200, MinimumLength = 2)]
-        public string City { get; set; }
+        public string? City { get; set; }
 
         [Required]
         [StringLength(200, MinimumLength = 2)]
-        public string District { get; set; }
+        public string District { get; set; } = string.Empty;
 
         [Required]
         [StringLength(200, MinimumLength = 2)]
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
 
         [ForeignKey(nameof(InformationDepartment))]
         public int DepartmentId { get; set; }
-        public virtual InformationDepartment InformationDepartment { get; set; }
+        public virtual InformationDepartment? InformationDepartment { get; set; }
 
-        public virtual ICollection<InformationSalary> InformationSalaries { get; set; }
+        public virtual List<InformationSalary> InformationSalaries { get; set; }/* = new List<InformationSalary>();*/
 
-        public virtual ICollection<InformationEmployeeLearning> InformationEmployeeLearnings { get; set; }
+        public virtual ICollection<InformationEmployeeLearning> InformationEmployeeLearnings { get; set; } = new List<InformationEmployeeLearning>();
 
-        public virtual ICollection<InformationRelative> InformationRelatives { get; set; }
+        public virtual ICollection<InformationRelative> InformationRelatives { get; set; } = new List<InformationRelative>();
 
-        public virtual List<InformationEmployeeSkill> InformationEmployeeSkills { get; set; }
+        public virtual List<InformationEmployeeSkill> InformationEmployeeSkills { get; set; } = new List<InformationEmployeeSkill>();
     }
 }

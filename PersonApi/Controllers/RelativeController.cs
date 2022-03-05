@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Services.Interfaces;
 
@@ -14,10 +15,10 @@ namespace PersonApi.Controllers
         {
             _relativeService = relativeService;
         }
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("GetAllPagedList")]
+        public async Task<IActionResult> GetAll([FromQuery] RequestParams requestParams)
         {
-            return Ok(await _relativeService.GetAllRelative());
+            return Ok(await _relativeService.GetRelativePagedList(requestParams));
         }
         [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)

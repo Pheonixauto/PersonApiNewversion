@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonApi.Datas;
 
@@ -11,9 +12,10 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220304092728_43221627")]
+    partial class _43221627
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -435,18 +437,6 @@ namespace PersonApi.Migrations
                         {
                             EmployId = 1,
                             SkillId = 2,
-                            Rating = 5.0
-                        },
-                        new
-                        {
-                            EmployId = 1,
-                            SkillId = 3,
-                            Rating = 5.0
-                        },
-                        new
-                        {
-                            EmployId = 5,
-                            SkillId = 1,
                             Rating = 5.0
                         });
                 });

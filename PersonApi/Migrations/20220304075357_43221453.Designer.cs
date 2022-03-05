@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220303070712_v03032022v1407")]
-    partial class v03032022v1407
+    [Migration("20220304075357_43221453")]
+    partial class _43221453
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,15 +53,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "929ea96b-b39d-44af-838d-16afdadfebfc",
-                            ConcurrencyStamp = "e50d6066-cd39-4809-9db1-f5efac7f9e67",
+                            Id = "464f4477-0f32-4cc0-a0c4-ad825d78a3bb",
+                            ConcurrencyStamp = "89ce1def-d1ed-40d2-a002-40ccc8781ec2",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "9a7fa8db-53bf-4cca-9031-568014837f99",
-                            ConcurrencyStamp = "c2914f60-52ec-427d-81c0-2fbfe8c787ac",
+                            Id = "b40ab79f-923d-4796-a7aa-934eaf5fa5f1",
+                            ConcurrencyStamp = "445070eb-18c1-4d30-997e-de640bf07bb0",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -258,11 +258,10 @@ namespace PersonApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("NumberEmployee")
+                    b.Property<int?>("NumberEmployee")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -584,10 +583,10 @@ namespace PersonApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(7,3)");
 
                     b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(7,3)");
 
                     b.HasKey("Id");
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonApi.Datas;
 
@@ -11,9 +12,10 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220304083615_43221536")]
+    partial class _43221536
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +49,22 @@ namespace PersonApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "004b3fcf-52d7-4880-a53d-e1a7ee1a419a",
+                            ConcurrencyStamp = "98fbec11-4a93-4a3f-ac68-082419bc4d9d",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "ed555769-622f-4191-b146-8a37637e00d9",
+                            ConcurrencyStamp = "d5c85142-fb1a-4e7b-9aac-5937686fb626",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -313,8 +331,7 @@ namespace PersonApi.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Province")
                         .HasMaxLength(200)
@@ -413,9 +430,6 @@ namespace PersonApi.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.HasIndex("EmployId", "SkillId")
-                        .IsUnique();
-
                     b.ToTable("Employee_Skill");
 
                     b.HasData(
@@ -435,18 +449,6 @@ namespace PersonApi.Migrations
                         {
                             EmployId = 1,
                             SkillId = 2,
-                            Rating = 5.0
-                        },
-                        new
-                        {
-                            EmployId = 1,
-                            SkillId = 3,
-                            Rating = 5.0
-                        },
-                        new
-                        {
-                            EmployId = 5,
-                            SkillId = 1,
                             Rating = 5.0
                         });
                 });

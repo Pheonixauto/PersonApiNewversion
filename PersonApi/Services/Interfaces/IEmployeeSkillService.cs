@@ -1,4 +1,5 @@
-﻿using PersonApi.Models;
+﻿using PersonApi.DTO;
+using PersonApi.Models;
 
 namespace PersonApi.Services.Interfaces
 {
@@ -8,8 +9,9 @@ namespace PersonApi.Services.Interfaces
  
         Task<List<InformationEmployeeSkill>> GetEmployeeSkillById(int id);
         Task<List<InformationEmployeeSkill>> GetAllDetail();
-
         Task<object> GetNameSkillEmployee();
+
+        Task<bool> AddEmployeeSkill(CreateEmployeeSkillDTO createEmployeeSkillDTO);
 
     }
 }

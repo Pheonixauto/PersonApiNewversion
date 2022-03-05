@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220303093710_vah")]
-    partial class vah
+    [Migration("20220304074337_43221443")]
+    partial class _43221443
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,15 +53,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cc2f36a2-3fd7-46c6-9cf5-2041f782a4ba",
-                            ConcurrencyStamp = "3d01cccb-6614-49f7-8130-5a10f5a70a21",
+                            Id = "3fa8253d-74fb-40cb-8233-4896e43b4c26",
+                            ConcurrencyStamp = "4055e649-4c14-4c52-af47-f9f78b95d2ee",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "03de3bee-b7bd-48f5-88c2-789469c296a7",
-                            ConcurrencyStamp = "1e975146-8df7-44d5-abfe-f4394b1c1eb2",
+                            Id = "0a2dacf7-5206-474e-8d6d-b6ce34d1f24c",
+                            ConcurrencyStamp = "5edd03a1-b95f-4e46-9ee1-5e6ffb6e26f7",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -258,9 +258,8 @@ namespace PersonApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("NumberEmployee")
                         .HasColumnType("int");

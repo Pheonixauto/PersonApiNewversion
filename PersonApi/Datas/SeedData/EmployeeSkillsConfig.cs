@@ -26,7 +26,20 @@ namespace PersonApi.Configurations.Entities
                     EmployId = 1,
                     SkillId = 2,
                     Rating = 5
-                }
+                },
+                 new InformationEmployeeSkill
+                 {
+                     EmployId = 1,
+                     SkillId = 3,
+                     Rating = 5
+                 },
+                 new InformationEmployeeSkill
+                 {
+                     EmployId = 5,
+                     SkillId = 1,
+                     Rating = 5
+                 }
+
                 );
         }
     }

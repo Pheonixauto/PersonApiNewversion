@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220303080607_332215")]
-    partial class _332215
+    [Migration("20220304083851_432238")]
+    partial class _432238
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,15 +53,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b6197816-e549-4616-9837-e0255231d2d8",
-                            ConcurrencyStamp = "82b8a711-3351-473a-a8e8-69ab3c01920d",
+                            Id = "46973fab-1860-4a9c-9957-6c64a2dd681e",
+                            ConcurrencyStamp = "799ce086-bb1b-40ff-8968-e167cc2eb33e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "65d2c8b2-ce7c-4e3f-be79-752036d4c1e6",
-                            ConcurrencyStamp = "dda087b8-0664-411d-82d2-0725e0e3de76",
+                            Id = "0ba07d72-740d-43af-bf86-148342c2db79",
+                            ConcurrencyStamp = "e77f1da4-76d8-434b-b0a3-e2f3c1e07b67",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -259,10 +259,10 @@ namespace PersonApi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("NumberEmployee")
+                    b.Property<int?>("NumberEmployee")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -297,7 +297,6 @@ namespace PersonApi.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -332,7 +331,8 @@ namespace PersonApi.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Province")
                         .HasMaxLength(200)

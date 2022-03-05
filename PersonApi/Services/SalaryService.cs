@@ -3,6 +3,8 @@ using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Repository.UnitOfWork;
 using PersonApi.Services.Interfaces;
+using System.Linq;
+using X.PagedList;
 
 namespace PersonApi.Services
 {
@@ -81,6 +83,45 @@ namespace PersonApi.Services
                 }
             }
             return false;
+        }
+
+        public async Task<IPagedList<InformationSalary>> GetSalaryPagedList(RequestParams requestParams)
+        {
+            var salaryList = await _unitOfWork.SalaryRepository.GetPageList(requestParams, null);
+            return salaryList;
+        }
+
+        public async Task<List<InformationSalary>> GetSalaryByDate(DateTime date1, DateTime date2)
+        {
+
+            var salaryList = await _unitOfWork.SalaryRepository.GetAll();
+            var salaryByDate = from x in salaryList
+                               where x.DateTime >= date1 && x.DateTime <= date2
+                               select x;
+            return salaryByDate.ToList();
+
+        }
+
+        public async Task<object> GetSalaryByDepartment(string departmentName, DateTime date1, DateTime date2)
+        {
+            List<string> include = new List<string> { "InformationDepartment", "InformationSalaries" };
+            var employeeList = await _unitOfWork.EmployeeRepository.GetAllAsync(null, null, include);
+            var query = from employee in employeeList
+                        where employee.InformationDepartment.Name == departmentName
+
+                        select employee.InformationSalaries
+                                       .Where(d => d.DateTime <= date2 && d.DateTime >= date1)
+                                       .Select((x, y) =>
+                                       new
+                                       {
+                                           x.InformationEmployee.LastName,
+                                           x.DateTime,
+                                           x.Salary,
+                                           x.Tax,
+                                       }
+                                       );
+
+            return query;
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonApi.Datas;
 
@@ -11,9 +12,10 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220304043128_0403221131")]
+    partial class _0403221131
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +49,22 @@ namespace PersonApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5c11c9f5-04ae-4337-895d-dc67bb74a997",
+                            ConcurrencyStamp = "1b2d429d-7edf-47ff-885c-c380d0004f0e",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "6ee7f36c-28de-42e1-a0a2-e953855bde2d",
+                            ConcurrencyStamp = "8c518940-9aa6-4bb0-b594-125702dfa835",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -241,10 +259,10 @@ namespace PersonApi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<int?>("NumberEmployee")
+                    b.Property<int>("NumberEmployee")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -279,6 +297,7 @@ namespace PersonApi.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -313,8 +332,7 @@ namespace PersonApi.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Province")
                         .HasMaxLength(200)
@@ -413,9 +431,6 @@ namespace PersonApi.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.HasIndex("EmployId", "SkillId")
-                        .IsUnique();
-
                     b.ToTable("Employee_Skill");
 
                     b.HasData(
@@ -435,18 +450,6 @@ namespace PersonApi.Migrations
                         {
                             EmployId = 1,
                             SkillId = 2,
-                            Rating = 5.0
-                        },
-                        new
-                        {
-                            EmployId = 1,
-                            SkillId = 3,
-                            Rating = 5.0
-                        },
-                        new
-                        {
-                            EmployId = 5,
-                            SkillId = 1,
                             Rating = 5.0
                         });
                 });

@@ -3,6 +3,7 @@ using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Repository.UnitOfWork;
 using PersonApi.Services.Interfaces;
+using X.PagedList;
 
 namespace PersonApi.Services
 {
@@ -58,7 +59,7 @@ namespace PersonApi.Services
             if (id > 0)
             {
                 var department = await _unitOfWork.DepartmentRepository.Get(id);
-                
+
                 if (department == null)
                 {
                     return null;
@@ -66,6 +67,12 @@ namespace PersonApi.Services
                 return department;
             }
             return null;
+        }
+
+        public async Task<IPagedList<InformationDepartment>> GetDepartmentPagedList(RequestParams requestParams)
+        {
+            var departmentList = await _unitOfWork.DepartmentRepository.GetPageList(requestParams, null);
+            return departmentList;
         }
 
         public async Task<bool> UpdateDepartment(int id, UpdateDepartmentDTO updateDepartmentDTO)

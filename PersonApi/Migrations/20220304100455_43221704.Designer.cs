@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220303072424_v030320221424")]
-    partial class v030320221424
+    [Migration("20220304100455_43221704")]
+    partial class _43221704
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,22 +49,6 @@ namespace PersonApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "daf3e1b4-da01-492a-962e-ef625750a1a2",
-                            ConcurrencyStamp = "9e641d18-f67e-4160-a29a-c6a7e985286e",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "0aa79780-f317-4146-96d4-d8c989378483",
-                            ConcurrencyStamp = "5cb1c828-3a8a-40a7-9d80-a749e7712277",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -259,10 +243,10 @@ namespace PersonApi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("NumberEmployee")
+                    b.Property<int?>("NumberEmployee")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -297,7 +281,6 @@ namespace PersonApi.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -332,7 +315,8 @@ namespace PersonApi.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Province")
                         .HasMaxLength(200)
@@ -431,6 +415,9 @@ namespace PersonApi.Migrations
 
                     b.HasIndex("SkillId");
 
+                    b.HasIndex("EmployId", "SkillId")
+                        .IsUnique();
+
                     b.ToTable("Employee_Skill");
 
                     b.HasData(
@@ -450,6 +437,12 @@ namespace PersonApi.Migrations
                         {
                             EmployId = 1,
                             SkillId = 2,
+                            Rating = 5.0
+                        },
+                        new
+                        {
+                            EmployId = 1,
+                            SkillId = 3,
                             Rating = 5.0
                         });
                 });
@@ -584,10 +577,10 @@ namespace PersonApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(7,3)");
 
                     b.Property<decimal>("Tax")
-                        .HasColumnType("decimal(6,3)");
+                        .HasColumnType("decimal(7,3)");
 
                     b.HasKey("Id");
 

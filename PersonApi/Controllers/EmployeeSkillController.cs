@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PersonApi.DTO;
+using PersonApi.Models;
 using PersonApi.Services.Interfaces;
 
 namespace PersonApi.Controllers
@@ -37,6 +39,17 @@ namespace PersonApi.Controllers
         {
             var result = await _employeeSkillService.GetNameSkillEmployee();
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateEmployeeSkillDTO createEmployeeSkillDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await _employeeSkillService.AddEmployeeSkill(createEmployeeSkillDTO);
+            return Ok();
         }
     }
 }

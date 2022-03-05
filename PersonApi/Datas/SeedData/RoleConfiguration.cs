@@ -8,19 +8,19 @@ namespace PersonApi.Configurations.Entities
     {
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
-            builder.HasData(
+            //builder.HasData(
                 
-                new IdentityRole
-                {
-                    Name ="User",
-                    NormalizedName = "USER"
-                },
-                 new IdentityRole
-                 {
-                     Name = "Administrator",
-                     NormalizedName = "ADMINISTRATOR"
-                 }
-                );
+            //    new IdentityRole
+            //    {
+            //        Name ="User",
+            //        NormalizedName = "USER"
+            //    },
+            //     new IdentityRole
+            //     {
+            //         Name = "Administrator",
+            //         NormalizedName = "ADMINISTRATOR"
+            //     }
+            //    );
         }
     }
 }
