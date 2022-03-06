@@ -13,6 +13,7 @@ namespace PersonApi.Repository.UnitOfWork
         IRelativeRepository RelativeRepository { get; }
         ISalaryRepository SalaryRepository { get; }
         IEmployeeSkillRepository EmployeeSkillRepository { get; }
+        IEmployeeLearningRepository EmployeeLearningRepository { get; }
         int Complete();
     }
 }

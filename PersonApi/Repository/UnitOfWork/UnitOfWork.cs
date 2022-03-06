@@ -16,6 +16,7 @@ namespace PersonApi.Repository.UnitOfWork
         public IRelativeRepository RelativeRepository { get; }
         public ISalaryRepository SalaryRepository { get; }
         public IEmployeeSkillRepository EmployeeSkillRepository { get; }
+        public IEmployeeLearningRepository EmployeeLearningRepository { get; }
 
         public UnitOfWork(DatabaseContext dbcontext,
                           IEmployeeRepository employeeRepository,
@@ -24,7 +25,8 @@ namespace PersonApi.Repository.UnitOfWork
                           ILearningRepository learningRepository,
                           IRelativeRepository relativeRepository,
                           ISalaryRepository salaryRepository,
-                          IEmployeeSkillRepository employeeSkillRepository)
+                          IEmployeeSkillRepository employeeSkillRepository,
+                          IEmployeeLearningRepository employeeLearningRepository)
         {
             _dbcontext = dbcontext;
             EmployeeRepository = employeeRepository;
@@ -34,6 +36,7 @@ namespace PersonApi.Repository.UnitOfWork
             RelativeRepository = relativeRepository;
             SalaryRepository = salaryRepository;
             EmployeeSkillRepository = employeeSkillRepository;
+            EmployeeLearningRepository = employeeLearningRepository;
         }
 
         public int Complete()

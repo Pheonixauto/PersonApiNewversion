@@ -70,7 +70,8 @@ namespace PersonApi.Services
             var employeeSkill = await _unitOfWork.EmployeeSkillRepository.GetAllAsync(null, null, include);
             var result = employeeSkill.Where(x => x.InformationSkill.Name == skillName)
                                      .Select(x => x.InformationEmployee.LastName);
-            return result;
+            var count = result.Count();
+            return new { result, count };
         }
 
         public async Task<object> GetEmployeeByRating(double rating)

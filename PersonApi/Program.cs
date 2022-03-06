@@ -81,6 +81,9 @@ builder.Services.AddScoped<ISalaryService, SalaryService>();
 builder.Services.AddScoped<IEmployeeSkillRepository, EmployeeSkillRepository>();
 builder.Services.AddScoped<IEmployeeSkillService, EmployeeSkillService>();
 
+builder.Services.AddScoped<IEmployeeLearningRepository, EmployeeLearningRepository>();
+builder.Services.AddScoped<IEmployeeLearningService, EmployeeLearningService>();
+
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 
