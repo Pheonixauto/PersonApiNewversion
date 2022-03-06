@@ -13,5 +13,9 @@ namespace PersonApi.Services.Interfaces
 
         Task<bool> AddEmployeeSkill(CreateEmployeeSkillDTO createEmployeeSkillDTO);
 
+        // nhân viên theo skill, rating
+        Task<object> GetEmployeeBySkill(string skillName);
+        Task<object> GetEmployeeByRating(double rating);
+
     }
 }

@@ -13,7 +13,7 @@ namespace PersonApi.Models.FluentValidation
             RuleFor(x => x.LastName).NotNull().NotEmpty().Length(1, 50);
             RuleFor(x => x.BirthDay).NotNull();
             RuleFor(x => x.PhoneNumber).NotEmpty().Length(1, 20);
-            RuleFor(x => x.Province).NotEmpty().Length(1, 200);
+            RuleFor(x => x.Province);
             RuleFor(x => x.City).Length(0, 200);
             RuleFor(x => x.District).NotEmpty().Length(1, 200);
             RuleFor(x => x.Address).NotEmpty().Length(1, 200);

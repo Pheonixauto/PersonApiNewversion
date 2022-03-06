@@ -63,5 +63,23 @@ namespace PersonApi.Services
             }
             else return false;
         }
+
+        public async Task<object> GetEmployeeBySkill(string skillName)
+        {
+            List<string> include = new List<string> { "InformationEmployee", "InformationSkill" };
+            var employeeSkill = await _unitOfWork.EmployeeSkillRepository.GetAllAsync(null, null, include);
+            var result = employeeSkill.Where(x => x.InformationSkill.Name == skillName)
+                                     .Select(x => x.InformationEmployee.LastName);
+            return result;
+        }
+
+        public async Task<object> GetEmployeeByRating(double rating)
+        {
+            List<string> include = new List<string> { "InformationEmployee", "InformationSkill" };
+            var employeeSkill = await _unitOfWork.EmployeeSkillRepository.GetAllAsync(null, null, include);
+            var result = employeeSkill.Where(x => x.Rating == rating)
+                                      .Select(x => x.InformationEmployee.LastName);
+            return result;
+        }
     }
 }

@@ -13,8 +13,20 @@ namespace PersonApi.Services.Interfaces
         Task<bool> DeleteSalaryById(int id);
         ///////
         Task<IPagedList<InformationSalary>> GetSalaryPagedList(RequestParams requestParams);
-        Task<List<InformationSalary>> GetSalaryByDate(DateTime date1 , DateTime date2);
+
+        //  danh sách lương theo ngày tháng của toàn công ty
+        Task<List<InformationSalary>> GetSalaryByDate(DateTime date1, DateTime date2);
+
+        // danh sách lương theo phòng ban và ngày tháng
         Task<object> GetSalaryByDepartment(string departmentName, DateTime date1, DateTime date2);
+
+        // tổng hợp lương công ty theo phòng ban
+        Task<object> GetSalaryCompany();
+
+        // danh sách lương cá nhân
+        Task<object> GetEmployeeSalary(int identityNumber);
+
+
 
     }
 }

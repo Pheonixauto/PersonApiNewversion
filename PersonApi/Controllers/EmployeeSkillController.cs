@@ -41,6 +41,19 @@ namespace PersonApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("GetEmployeeBySkillName")]
+        public async Task<IActionResult> GetEmployeeBySkillName(string skillName)
+        {
+            var result = await _employeeSkillService.GetEmployeeBySkill(skillName);
+            return Ok(result);
+        }
+        [HttpGet("GetEmployeeByRating")]
+        public async Task<IActionResult> GetEmployeeByRating(double rating)
+        {
+            var result = await _employeeSkillService.GetEmployeeByRating(rating);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(CreateEmployeeSkillDTO createEmployeeSkillDTO)
         {

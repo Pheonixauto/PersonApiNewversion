@@ -37,17 +37,34 @@ namespace PersonApi.Controllers
             }
             return Ok(salary);
         }
-
+        // danh sach luong theo ngay thang
         [HttpGet("GetAllSalaryByDate")]
         public async Task<IActionResult> GetAllSalaryByDate( DateTime date1, DateTime date2 )
         {
             var result = await _salaryService.GetSalaryByDate(date1, date2);
             return Ok(result);
         }
+        // danh sach luong the phong ban tinh theo ngay thang
         [HttpGet("GetSalaryByDepartment")]
         public async Task<IActionResult> GetSalaryByDepartment(string departmentName, DateTime date1, DateTime date2)
         {
             var result = await _salaryService.GetSalaryByDepartment(departmentName, date1, date2);
+            return Ok(result);
+        }
+
+        // tổng lương theo phòng ban-ngày tháng
+        [HttpGet("SumSalaryByDepartment")]
+        public async Task<IActionResult> GetSumSalaryDepartment()
+        {
+            var result = await _salaryService.GetSalaryCompany();
+            return Ok(result);
+        }
+
+        // danh sách lương của cá nhân theo ngày tháng
+        [HttpGet("GetListSalaryByEmployee")]
+        public async Task<IActionResult> GetEmployeeSalary(int identityNumber)
+        {
+            var result = await _salaryService.GetEmployeeSalary(identityNumber);
             return Ok(result);
         }
 

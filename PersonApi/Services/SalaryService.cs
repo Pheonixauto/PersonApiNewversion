@@ -101,7 +101,7 @@ namespace PersonApi.Services
             return salaryByDate.ToList();
 
         }
-
+        // danh sách lương theo phòng ban - ngày tháng
         public async Task<object> GetSalaryByDepartment(string departmentName, DateTime date1, DateTime date2)
         {
             List<string> include = new List<string> { "InformationDepartment", "InformationSalaries" };
@@ -122,6 +122,32 @@ namespace PersonApi.Services
                                        );
 
             return query;
+        }
+
+
+        // tổng lương công ty
+        public async Task<object> GetSalaryCompany()
+        {
+            List<string> include = new List<string> { "InformationDepartment", "InformationSalaries" };
+            var employeeList = await _unitOfWork.EmployeeRepository.GetAllAsync(null, null, include);
+
+            var result = employeeList.GroupBy(x => x.InformationDepartment.Name);
+
+            var r1 = result.Select(x => x.Select(y => y.InformationSalaries.Sum(s => s.Salary)).Sum());
+
+            return r1;
+
+        }
+
+        public async Task<object> GetEmployeeSalary(int identityNumber)
+        {
+            List<string> include = new List<string> { "InformationSalaries" };
+            var employeeList = await _unitOfWork.EmployeeRepository.GetAllAsync(null, null, include);
+            var result = employeeList.Where(x => x.IdentityNumber == identityNumber)
+                                    .Select(x => x.InformationSalaries);
+            var re = result.Select(x => x.Select(y=> new {y.DateTime,y.Salary,y.Tax}));
+            return re;
+           
         }
     }
 }

@@ -10,5 +10,7 @@ namespace PersonApi.Services.Interfaces
         Task<InformationSkill> CreateSkill(CreateSkillDTO  createSkillDTO); 
         Task<bool> UpdateSkill(int skillId ,UpdateSkillDTO updateSkillDTO);
         Task<bool> DeleteSkill(int skillId);
+
+      
     }
 }
