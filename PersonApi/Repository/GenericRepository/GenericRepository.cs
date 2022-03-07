@@ -41,7 +41,8 @@ namespace PersonApi.Repository.GenericRepository
         ///////////////////////////////////////////////
         public async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> expression = null,
                                                 Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, 
-                                                List<string> include = null)
+                                                List<string> include = null
+                                                )
         {
             IQueryable<T> query = _context.Set<T>();
             if (expression != null)
@@ -54,6 +55,9 @@ namespace PersonApi.Repository.GenericRepository
                 foreach (var incudePropery in include)
                 {
                     query = query.Include(incudePropery);
+
+
+
                 }
             }
             if (orderBy != null)
