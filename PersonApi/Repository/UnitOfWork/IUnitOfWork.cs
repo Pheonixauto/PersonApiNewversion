@@ -14,6 +14,7 @@ namespace PersonApi.Repository.UnitOfWork
         ISalaryRepository SalaryRepository { get; }
         IEmployeeSkillRepository EmployeeSkillRepository { get; }
         IEmployeeLearningRepository EmployeeLearningRepository { get; }
+        ISearchRepository SearchRepository { get; }
         int Complete();
     }
 }

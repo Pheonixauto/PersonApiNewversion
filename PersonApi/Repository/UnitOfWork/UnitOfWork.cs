@@ -17,6 +17,7 @@ namespace PersonApi.Repository.UnitOfWork
         public ISalaryRepository SalaryRepository { get; }
         public IEmployeeSkillRepository EmployeeSkillRepository { get; }
         public IEmployeeLearningRepository EmployeeLearningRepository { get; }
+        public ISearchRepository SearchRepository { get; }
 
         public UnitOfWork(DatabaseContext dbcontext,
                           IEmployeeRepository employeeRepository,

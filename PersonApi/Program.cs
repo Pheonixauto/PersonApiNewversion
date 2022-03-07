@@ -84,6 +84,9 @@ builder.Services.AddScoped<IEmployeeSkillService, EmployeeSkillService>();
 builder.Services.AddScoped<IEmployeeLearningRepository, EmployeeLearningRepository>();
 builder.Services.AddScoped<IEmployeeLearningService, EmployeeLearningService>();
 
+builder.Services.AddScoped<ISearchRepository, SearchRepository>();
+builder.Services.AddScoped<ISearchService, SearchService>();
+
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 
