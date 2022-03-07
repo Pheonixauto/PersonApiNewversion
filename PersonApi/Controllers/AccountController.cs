@@ -84,7 +84,7 @@ namespace PersonApi.Controllers
             catch (Exception e)
             {
 
-                _logger.LogError($"Something went wrong in {nameof(Login)}");
+                _logger.LogError(e,$"Something went wrong in {nameof(Login)}");
                 return Problem($"Something went wrong in {nameof(Login)}", statusCode: 500);
             }
         }

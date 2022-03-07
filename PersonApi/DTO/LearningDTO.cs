@@ -13,7 +13,6 @@ namespace PersonApi.ModelsDTO
         [Required]
         [StringLength(50, ErrorMessage = "University Name cannot be longer than 50 characters.")]
         public string UniversityName { get; set; }
-
    
     }
     public class UpdateLearningDTO : CreateLearningDTO

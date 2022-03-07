@@ -54,9 +54,9 @@ namespace PersonApi.Controllers
 
         // tổng lương theo phòng ban-ngày tháng
         [HttpGet("SumSalaryByDepartment")]
-        public async Task<IActionResult> GetSumSalaryDepartment()
+        public async Task<IActionResult> GetSumSalaryDepartment(DateTime date1)
         {
-            var result = await _salaryService.GetSalaryCompany();
+            var result = await _salaryService.GetSalaryCompany(date1);
             return Ok(result);
         }
 

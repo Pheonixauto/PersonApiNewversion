@@ -124,19 +124,22 @@ namespace PersonApi.Services
             return query;
         }
 
-
         // tổng lương công ty
-        public async Task<object> GetSalaryCompany()
+        public async Task<object> GetSalaryCompany(DateTime date1)
         {
             List<string> include = new List<string> { "InformationDepartment", "InformationSalaries" };
             var employeeList = await _unitOfWork.EmployeeRepository.GetAllAsync(null, null, include);
 
-            var result = employeeList.GroupBy(x => x.InformationDepartment.Name);
-
-            var r1 = result.Select(x => x.Select(y => y.InformationSalaries.Sum(s => s.Salary)).Sum());
-
-            return r1;
-
+            //var r1 = result.Select((x, y) =>
+            //                           x.Select((y) =>
+            //                                    new { Department = y.InformationDepartment.Name, Count = y.InformationSalaries.Sum((s) =>
+            //                                                                 s.Salary))
+            //                                                          .Sum()}
+            //                       );
+            var result = employeeList.Select(x => new { name=x.InformationDepartment.Name,
+                                                        totalsalary =x.InformationSalaries.Where(x=>x.DateTime==date1).Sum(y=>y.Salary)});
+            var result1 = result.GroupBy(x => x.name).Select(x=> new { NameDepartment  = x.Key,SalaryTotal = x.Select(x => x.totalsalary).Sum()});
+            return result1;
         }
 
         public async Task<object> GetEmployeeSalary(int identityNumber)
@@ -145,9 +148,9 @@ namespace PersonApi.Services
             var employeeList = await _unitOfWork.EmployeeRepository.GetAllAsync(null, null, include);
             var result = employeeList.Where(x => x.IdentityNumber == identityNumber)
                                     .Select(x => x.InformationSalaries);
-            var re = result.Select(x => x.Select(y=> new {y.DateTime,y.Salary,y.Tax}));
+            var re = result.Select(x => x.Select(y => new { y.DateTime, y.Salary, y.Tax }));
             return re;
-           
+
         }
     }
 }
