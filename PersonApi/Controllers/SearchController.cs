@@ -13,10 +13,10 @@ namespace PersonApi.Controllers
         {
             _searchService = searchService;
         }
-        [HttpGet("GetInforByDynamic")]
-        public async Task<IActionResult> GetInforBySomething([FromQuery] string something)
+        [HttpGet("GetInforEmployeeByName")]
+        public async Task<IActionResult> GetInforBySomething([FromQuery] string name)
         {
-            var result = await _searchService.GetInfor(something);
+            var result = await _searchService.GetInforEmployee(name);
             return Ok(result);
         }
     }

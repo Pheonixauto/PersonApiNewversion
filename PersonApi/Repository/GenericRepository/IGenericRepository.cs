@@ -1,4 +1,5 @@
-﻿using PersonApi.Models;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using PersonApi.Models;
 using System.Linq.Expressions;
 using X.PagedList;
 
@@ -21,5 +22,15 @@ namespace PersonApi.Repository.GenericRepository
 
         Task<IPagedList<T>> GetPageList(RequestParams requestParams, List<string> include = null );
 
+        //////////////////////////////////////
+
+        // Get table-children- child.
+        Task<IList<T>> GetAllMutil(Expression<Func<T, T>> selector,
+                                   Expression<Func<T, bool>> predicate = null,
+                                   Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+                                   Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
+                                   );
+
+        Task<IList<T>> GetMultiChild(Func<IQueryable<T>, IIncludableQueryable<T,object>>? include =null);
     }
 }

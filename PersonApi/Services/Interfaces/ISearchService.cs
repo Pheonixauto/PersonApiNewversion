@@ -3,6 +3,6 @@
     public interface ISearchService
     {
         // Get By Search something
-        Task<object> GetInfor(string something);
+        Task<object> GetInforEmployee(string name);
     }
 }

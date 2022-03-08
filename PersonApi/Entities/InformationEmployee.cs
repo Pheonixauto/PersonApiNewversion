@@ -53,7 +53,7 @@ namespace PersonApi.Models
 
         [ForeignKey(nameof(InformationDepartment))]
         public int DepartmentId { get; set; }
-        public virtual InformationDepartment? InformationDepartment { get; set; }
+        public virtual InformationDepartment InformationDepartment { get; set; } 
 
         public virtual List<InformationSalary> InformationSalaries { get; set; }/* = new List<InformationSalary>();*/
 

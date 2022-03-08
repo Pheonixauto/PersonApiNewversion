@@ -19,7 +19,6 @@ namespace PersonApi.Datas
         public DbSet<InformationSalary> informationSalaries { get; set; }
         public DbSet<InformationLearning> informationLearnings { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -47,8 +46,6 @@ namespace PersonApi.Datas
             modelBuilder.Entity<InformationEmployeeSkill>()
                         .HasIndex(c => new { c.EmployId, c.SkillId })
                         .IsUnique();
-
-
 
             // modelBuilder.Entity<InformationEmployee>()
             //.HasMany(p => p.InformationSkills)

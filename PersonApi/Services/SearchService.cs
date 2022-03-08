@@ -17,47 +17,43 @@ namespace PersonApi.Services
             _unitOfWork = unitOfWork;
             _context = context;
         }
-        public async Task<object> GetInfor(string something)
+        public async Task<object> GetInforEmployee(string name)
         {
-            List<string> include = new List<string> { "InformationDepartment",
-                                                      "InformationEmployeeLearnings"
-                                                        };
 
-            var employee = await _unitOfWork.EmployeeRepository.GetAllAsync(null, null, include);
+            var inforEp = await _unitOfWork
+                                .EmployeeRepository
+                                .GetMultiChild(include: ic =>
+                                               ic.Include(c => c.InformationDepartment)
+                                                 .Include(c => c.InformationEmployeeSkills)
+                                                 .ThenInclude(tc => tc.InformationSkill)
+                                                 .Include(c => c.InformationEmployeeLearnings)
+                                                 .ThenInclude(tc => tc.InformationLearning)
+                                                 );
+            var result = inforEp.Where(c => c.LastName == name)
+                                .Select(s =>
+                                    new
+                                    {
+                                        FullName = $"{s.FirstName} {s.MiddleName} {s.LastName}",
+                                        NumberPhone = s.PhoneNumber,
+                                        Studing = s.InformationEmployeeLearnings
+                                                  .Select(s =>
+                                                          new
+                                                          {
+                                                              Major = s.Major,
+                                                              University = s.InformationLearning.UniversityName
+                                                          }),
+                                        DepartmentName = s.InformationDepartment.Name,
+                                        Skill = s.InformationEmployeeSkills
+                                                .Select(s =>
+                                                        new
+                                                        {
+                                                            Rating = s.Rating,
+                                                            NameSkill = s.InformationSkill.Name
+                                                        })
 
-            var emp = await _context.informationEmployees
-                             .Include(c => c.InformationDepartment)
-                             .Include(c => c.InformationEmployeeLearnings)
-                             .ThenInclude(t => t.InformationLearning).ToListAsync();
+                                    });
 
-            if (something == null)
-            {
-                return null;
-            }
-            string name = something;
-            int id;
-            DateTime dateTime;
-            bool bid = Int32.TryParse(something, out id);
-            bool bdatetime = DateTime.TryParse(something, out dateTime);
 
-            if (bid == true)
-            {
-                var result1 = employee.Where(x => x.Id == id || x.IdentityNumber == id).Select(x => x.LastName);
-                return result1;
-            }
-            if (bdatetime == true)
-            {
-                var result2 = employee.Where(x => x.BirthDay == dateTime).Select(x => x.LastName);
-                return result2;
-            }
-            var result = emp.Where(x => x.LastName == name).Select(x =>
-                                          new
-                                          {
-                                              FullName = x.FirstName + " " + x.MiddleName + " " + x.LastName,
-                                              Department = x.InformationDepartment?.Name,
-                                              Learning = x.InformationEmployeeLearnings.Select(x => x.InformationLearning.UniversityName)
-                                          }
-                                        );
             return result;
         }
     }
