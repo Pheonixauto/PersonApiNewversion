@@ -30,7 +30,6 @@ namespace PersonApi.Repository.GenericRepository
                                    Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
                                    Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
                                    );
-
-        Task<IList<T>> GetMultiChild(Func<IQueryable<T>, IIncludableQueryable<T,object>>? include =null);
+        Task<IList<T>> GetMultiChild(Func<IQueryable<T>, IIncludableQueryable<T,object>> include =null);
     }
 }

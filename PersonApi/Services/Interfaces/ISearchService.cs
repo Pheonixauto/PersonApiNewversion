@@ -2,7 +2,7 @@
 {
     public interface ISearchService
     {
-        // Get By Search something
+        // Search Information from Employee Name
         Task<object> GetInforEmployee(string name);
     }
 }

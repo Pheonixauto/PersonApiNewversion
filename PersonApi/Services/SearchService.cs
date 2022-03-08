@@ -19,41 +19,34 @@ namespace PersonApi.Services
         }
         public async Task<object> GetInforEmployee(string name)
         {
-
             var inforEp = await _unitOfWork
                                 .EmployeeRepository
-                                .GetMultiChild(include: ic =>
-                                               ic.Include(c => c.InformationDepartment)
-                                                 .Include(c => c.InformationEmployeeSkills)
-                                                 .ThenInclude(tc => tc.InformationSkill)
-                                                 .Include(c => c.InformationEmployeeLearnings)
-                                                 .ThenInclude(tc => tc.InformationLearning)
-                                                 );
+                                .GetMultiChild(include: ic
+                                  => ic.Include(c => c.InformationDepartment)
+                                       .Include(c => c.InformationEmployeeSkills)
+                                       .ThenInclude(tc => tc.InformationSkill)
+                                       .Include(c => c.InformationEmployeeLearnings)
+                                       .ThenInclude(tc => tc.InformationLearning)
+                                               );
             var result = inforEp.Where(c => c.LastName == name)
-                                .Select(s =>
-                                    new
-                                    {
-                                        FullName = $"{s.FirstName} {s.MiddleName} {s.LastName}",
-                                        NumberPhone = s.PhoneNumber,
-                                        Studing = s.InformationEmployeeLearnings
-                                                  .Select(s =>
-                                                          new
-                                                          {
-                                                              Major = s.Major,
-                                                              University = s.InformationLearning.UniversityName
-                                                          }),
-                                        DepartmentName = s.InformationDepartment.Name,
-                                        Skill = s.InformationEmployeeSkills
-                                                .Select(s =>
-                                                        new
-                                                        {
-                                                            Rating = s.Rating,
-                                                            NameSkill = s.InformationSkill.Name
-                                                        })
-
-                                    });
-
-
+                                .Select(s => new
+                                {
+                                    FullName = $"{s.FirstName} {s.MiddleName} {s.LastName}",
+                                    NumberPhone = s.PhoneNumber,
+                                    Studing = s.InformationEmployeeLearnings
+                                               .Select(s => new
+                                               {
+                                                   Major = s.Major,
+                                                   University = s.InformationLearning.UniversityName
+                                               }),
+                                    DepartmentName = s.InformationDepartment.Name,
+                                    Skill = s.InformationEmployeeSkills
+                                              .Select(s => new
+                                              {
+                                                  Rating = s.Rating,
+                                                  NameSkill = s.InformationSkill.Name
+                                              })
+                                });
             return result;
         }
     }
