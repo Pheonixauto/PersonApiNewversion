@@ -80,7 +80,6 @@ namespace PersonApi.Datas
             modelBuilder.Entity<InformationSalary>()
                         .HasIndex(p => new { p.DateTime, p.EmployeeId })
                         .IsUnique();
-
            
 
             // Seed data employee

@@ -41,7 +41,7 @@ builder.Services.AddControllers()
                      options.ImplicitlyValidateRootCollectionElements = true;
                      // Automatic registration of validators in assembly
                      options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-                 }); 
+                 });
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -89,6 +89,8 @@ builder.Services.AddScoped<ISearchService, SearchService>();
 
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 
+//builder.Services.AddResponseCaching();
+builder.Services.ConfigureHttpCacheHeaders();
 
 builder.Services.AddAuthentication();
 builder.Services.ConfigureJWT(builder.Configuration);
@@ -97,7 +99,14 @@ builder.Services.ConfigureIdentity();
 
 builder.Services.ConfigureVersioning();
 
-builder.Services.AddControllers().AddNewtonsoftJson(op =>
+builder.Services.AddControllers(cf =>
+{
+    cf.CacheProfiles.Add("120SecondsDuration", new CacheProfile
+    {
+        Duration = 120
+    });
+}
+               ).AddNewtonsoftJson(op =>
 op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 //builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -121,6 +130,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 //app.ConfigureExceptiontionHandler();
+
+app.UseResponseCaching();
+app.UseHttpCacheHeaders();
 
 app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);

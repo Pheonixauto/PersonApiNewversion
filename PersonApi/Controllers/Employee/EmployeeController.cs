@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonApi.Models;
@@ -20,6 +21,8 @@ namespace PersonApi.Controllers
         }
         //[Authorize(Roles ="Administrator")]
         [HttpGet("GetAll")]
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 90)]
+        [HttpCacheValidation(MustRevalidate = false)]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

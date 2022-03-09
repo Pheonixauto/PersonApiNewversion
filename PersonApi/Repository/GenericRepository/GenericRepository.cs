@@ -85,37 +85,7 @@ namespace PersonApi.Repository.GenericRepository
             return await query.AsNoTracking().ToPagedListAsync(requestParams.PageNumber, requestParams.PageSize);
         }
         ///////test
-        public async Task<IList<T>> GetAllMutil(Expression<Func<T, T>> selector,
-                                      Expression<Func<T, bool>> predicate = null,
-                                      Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-                                      Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
-                                     )
-        {
-            IQueryable<T> query = _context.Set<T>();
-     
-
-            if (include != null)
-            {
-                query = include(query);
-            }
-
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
-
-            if (orderBy != null)
-            {
-                query = (IQueryable<T>)orderBy(query).Select(selector).FirstOrDefault();
-            }
-            //else
-            //{
-            //    query = (IQueryable<T>)query.Select(selector).FirstOrDefault();
-            //}
-            return await query.AsNoTracking().ToListAsync();
-
-        }
-
+       
         public async Task<IList<T>> GetMultiChild(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
             IQueryable<T> query = _context.Set<T>();
@@ -125,6 +95,11 @@ namespace PersonApi.Repository.GenericRepository
                 query = include(query);
             }
             return await query.AsNoTracking().ToListAsync();
+        }
+
+        public Task<IList<T>> GetAllMutil(Expression<Func<T, T>> selector, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }
