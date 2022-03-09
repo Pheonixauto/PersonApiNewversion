@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220304083851_432238")]
-    partial class _432238
+    [Migration("20220309022008_09030920")]
+    partial class _09030920
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,22 +49,6 @@ namespace PersonApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "46973fab-1860-4a9c-9957-6c64a2dd681e",
-                            ConcurrencyStamp = "799ce086-bb1b-40ff-8968-e167cc2eb33e",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "0ba07d72-740d-43af-bf86-148342c2db79",
-                            ConcurrencyStamp = "e77f1da4-76d8-434b-b0a3-e2f3c1e07b67",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -431,6 +415,9 @@ namespace PersonApi.Migrations
 
                     b.HasIndex("SkillId");
 
+                    b.HasIndex("EmployId", "SkillId")
+                        .IsUnique();
+
                     b.ToTable("Employee_Skill");
 
                     b.HasData(
@@ -450,6 +437,18 @@ namespace PersonApi.Migrations
                         {
                             EmployId = 1,
                             SkillId = 2,
+                            Rating = 5.0
+                        },
+                        new
+                        {
+                            EmployId = 1,
+                            SkillId = 3,
+                            Rating = 5.0
+                        },
+                        new
+                        {
+                            EmployId = 5,
+                            SkillId = 1,
                             Rating = 5.0
                         });
                 });

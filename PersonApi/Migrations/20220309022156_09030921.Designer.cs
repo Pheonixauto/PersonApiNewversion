@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220304100258_43221702")]
-    partial class _43221702
+    [Migration("20220309022156_09030921")]
+    partial class _09030921
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -155,20 +155,6 @@ namespace PersonApi.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("PersonApi.DTO.CreateEmployeeSkillDTO", b =>
-                {
-                    b.Property<int>("EmployId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
-                    b.Property<int>("SkillId")
-                        .HasColumnType("int");
-
-                    b.ToTable("CreateEmployeeSkillDTO");
                 });
 
             modelBuilder.Entity("PersonApi.Models.ApiUser", b =>
@@ -458,6 +444,12 @@ namespace PersonApi.Migrations
                             EmployId = 1,
                             SkillId = 3,
                             Rating = 5.0
+                        },
+                        new
+                        {
+                            EmployId = 5,
+                            SkillId = 1,
+                            Rating = 5.0
                         });
                 });
 
@@ -470,7 +462,6 @@ namespace PersonApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("UniversityName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
