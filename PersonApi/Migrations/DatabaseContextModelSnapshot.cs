@@ -249,7 +249,7 @@ namespace PersonApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Department");
+                    b.ToTable("Department", (string)null);
 
                     b.HasData(
                         new
@@ -273,14 +273,18 @@ namespace PersonApi.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("Address");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("date");
+                        .HasColumnType("date")
+                        .HasColumnName("BirthDay")
+                        .HasColumnOrder(5);
 
                     b.Property<string>("City")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("City");
 
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
@@ -288,43 +292,54 @@ namespace PersonApi.Migrations
                     b.Property<string>("District")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("District");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("FirstName ")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("FirstName")
                         .HasColumnOrder(2);
 
                     b.Property<int>("IdentityNumber")
-                        .HasColumnType("int")
+                        .HasMaxLength(50)
+                        .HasColumnType("integer")
+                        .HasColumnName("Identification")
                         .HasColumnOrder(1);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("LastName")
+                        .HasColumnOrder(4);
 
                     b.Property<string>("MiddleName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("MiddleName")
+                        .HasColumnOrder(3);
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("PhoneNumber")
+                        .HasColumnOrder(6);
 
                     b.Property<string>("Province")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("Province")
+                        .HasColumnOrder(7);
 
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Employee");
+                    b.ToTable("InforEmployee", (string)null);
 
                     b.HasData(
                         new
@@ -379,7 +394,7 @@ namespace PersonApi.Migrations
 
                     b.HasIndex("StudyId");
 
-                    b.ToTable("Employee_Learning");
+                    b.ToTable("Employee_Learning", (string)null);
 
                     b.HasData(
                         new
@@ -416,7 +431,7 @@ namespace PersonApi.Migrations
                     b.HasIndex("EmployId", "SkillId")
                         .IsUnique();
 
-                    b.ToTable("Employee_Skill");
+                    b.ToTable("Employee_Skill", (string)null);
 
                     b.HasData(
                         new
@@ -465,7 +480,7 @@ namespace PersonApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Learning");
+                    b.ToTable("Learning", (string)null);
 
                     b.HasData(
                         new
@@ -534,7 +549,7 @@ namespace PersonApi.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Relative");
+                    b.ToTable("Relative", (string)null);
 
                     b.HasData(
                         new
@@ -592,7 +607,7 @@ namespace PersonApi.Migrations
                     b.HasIndex("DateTime", "EmployeeId")
                         .IsUnique();
 
-                    b.ToTable("Salary");
+                    b.ToTable("Salary", (string)null);
 
                     b.HasData(
                         new
@@ -636,7 +651,7 @@ namespace PersonApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Skill");
+                    b.ToTable("Skill", (string)null);
 
                     b.HasData(
                         new

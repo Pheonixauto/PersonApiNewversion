@@ -12,8 +12,8 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220309022008_09030920")]
-    partial class _09030920
+    [Migration("20220309042804_aa")]
+    partial class aa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -275,14 +275,18 @@ namespace PersonApi.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("Address");
 
                     b.Property<DateTime>("BirthDay")
-                        .HasColumnType("date");
+                        .HasColumnType("date")
+                        .HasColumnName("BirthDay")
+                        .HasColumnOrder(5);
 
                     b.Property<string>("City")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("City");
 
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
@@ -290,43 +294,54 @@ namespace PersonApi.Migrations
                     b.Property<string>("District")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("District");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("FirstName ")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("FirstName")
                         .HasColumnOrder(2);
 
                     b.Property<int>("IdentityNumber")
-                        .HasColumnType("int")
+                        .HasMaxLength(50)
+                        .HasColumnType("integer")
+                        .HasColumnName("Identification")
                         .HasColumnOrder(1);
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("LastName")
+                        .HasColumnOrder(4);
 
                     b.Property<string>("MiddleName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("MiddleName")
+                        .HasColumnOrder(3);
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("PhoneNumber")
+                        .HasColumnOrder(6);
 
                     b.Property<string>("Province")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("Province")
+                        .HasColumnOrder(7);
 
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Employee");
+                    b.ToTable("InforEmployee", (string)null);
 
                     b.HasData(
                         new
@@ -462,9 +477,8 @@ namespace PersonApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("UniversityName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 

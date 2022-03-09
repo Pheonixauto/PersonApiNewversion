@@ -22,9 +22,6 @@ namespace PersonApi.Datas
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<InformationEmployee>()
-                .HasKey(e => e.Id);
             modelBuilder.Entity<InformationSkill>()
                 .HasKey(e => e.Id);
 

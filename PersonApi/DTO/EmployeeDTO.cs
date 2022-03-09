@@ -13,12 +13,7 @@ namespace PersonApi.ModelsDTO
 
     public class CreateEmployeeDTO
     {
-
-        [Required]
         public int IdentityNumber { get; set; }
-
-        [Required]
-        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
         public string FirstName { get; set; } = string.Empty;
 
         [Required]
