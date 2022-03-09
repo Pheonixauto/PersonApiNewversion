@@ -11,7 +11,7 @@ namespace PersonApi.Configurations.Entities
             builder.HasData(
                 new InformationEmployeeSkill
                 {
-                    EmployId = 2,
+                    EmployId = 1,
                     SkillId = 1,
                     Rating = 4
                 },
@@ -32,13 +32,13 @@ namespace PersonApi.Configurations.Entities
                      EmployId = 1,
                      SkillId = 3,
                      Rating = 5
-                 },
-                 new InformationEmployeeSkill
-                 {
-                     EmployId = 5,
-                     SkillId = 1,
-                     Rating = 5
                  }
+                 //new InformationEmployeeSkill
+                 //{
+                 //    EmployId = 1,
+                 //    SkillId = 1,
+                 //    Rating = 5
+                 //}
 
                 );
         }

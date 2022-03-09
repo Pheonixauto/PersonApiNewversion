@@ -7,10 +7,8 @@ namespace PersonApi.Models
     public class InformationDepartment
     {
         public int Id { get; set; }
-
-        [StringLength(50)]
         public string Name { get; set; } = string.Empty;
-        public int? NumberEmployee { get; set; }
+        public int NumberEmployee { get; set; }
         public int LeaderId { get; set; }
         public virtual ICollection<InformationEmployee>?  InformationEmployees { get; set; }
 

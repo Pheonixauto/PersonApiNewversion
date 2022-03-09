@@ -12,6 +12,9 @@ namespace PersonApi.Repository.GenericRepository
         Task Add(T entity);
         void Delete(T entity);
         void Update(T entity);
+        Task<IList<T>> GetMultiChild(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
+        Task<IPagedList<T>> GetPageList(RequestParams requestParams, List<string> include = null);
+
 
         ////////////////////////////////////////////////////////////
         Task<IList<T>> GetAllAsync(
@@ -19,8 +22,6 @@ namespace PersonApi.Repository.GenericRepository
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             List<string> include = null
             );
-
-        Task<IPagedList<T>> GetPageList(RequestParams requestParams, List<string> include = null );
 
         //////////////////////////////////////
 
@@ -30,6 +31,5 @@ namespace PersonApi.Repository.GenericRepository
                                    Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
                                    Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
                                    );
-        Task<IList<T>> GetMultiChild(Func<IQueryable<T>, IIncludableQueryable<T,object>> include =null);
     }
 }

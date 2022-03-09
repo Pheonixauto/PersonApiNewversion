@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PersonApi.Entities;
 using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
@@ -12,7 +13,10 @@ namespace PersonApi.Configurations.Entities
             builder.ToTable("InforEmployee");
             // Config primary key
             //builder.HasKey(e => e.Id);
-            
+
+            // config one to one 
+            //builder.HasOne(c => c.InformationPosition).WithOne(c => c.InformationEmployee);
+
             //Config column
             builder.Property(p => p.Id)
                    .IsRequired()
@@ -97,6 +101,8 @@ namespace PersonApi.Configurations.Entities
                      Address = "34, Kim Mã",
                      PhoneNumber = "0899880028",
                      DepartmentId = 1,
+                     PositionId =1
+                    
 
                  }, new InformationEmployee
                  {

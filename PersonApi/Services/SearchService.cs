@@ -17,6 +17,16 @@ namespace PersonApi.Services
             _unitOfWork = unitOfWork;
             _context = context;
         }
+
+        public async Task<object> GetInforDepartment(string name)
+        {
+            var infDep = await _unitOfWork.DepartmentRepository.GetMultiChild(include: ic =>
+                                         ic.Include(c => c.InformationEmployees)
+            );
+            var result = infDep.Where(c => c.Name == name).Select(s => new { Name = s.Name, NumberEmployee = s.NumberEmployee, EmployeesName = s.InformationEmployees.Select(s1 => s1.LastName) });
+            return result;
+        }
+
         public async Task<object> GetInforEmployee(string name)
         {
             var inforEp = await _unitOfWork
@@ -27,6 +37,7 @@ namespace PersonApi.Services
                                        .ThenInclude(tc => tc.InformationSkill)
                                        .Include(c => c.InformationEmployeeLearnings)
                                        .ThenInclude(tc => tc.InformationLearning)
+                                       .Include(c => c.InformationPosition)
                                                );
             var result = inforEp.Where(c => c.LastName == name)
                                 .Select(s => new
@@ -39,7 +50,8 @@ namespace PersonApi.Services
                                                    Major = s.Major,
                                                    University = s.InformationLearning.UniversityName
                                                }),
-                                    DepartmentName = s.InformationDepartment.Name,
+                                    Position = s.InformationPosition?.Name,
+                                    DepartmentName = s.InformationDepartment?.Name,
                                     Skill = s.InformationEmployeeSkills
                                               .Select(s => new
                                               {

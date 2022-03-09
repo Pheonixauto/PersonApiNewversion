@@ -6,6 +6,7 @@ namespace PersonApi.Models
     [Table("Learning")]
     public class InformationLearning
     {
+         
         public int Id { get; set; } 
         [StringLength(200, ErrorMessage = "University Name cannot be longer than 200 characters.")]
         public string? UniversityName { get; set; } 

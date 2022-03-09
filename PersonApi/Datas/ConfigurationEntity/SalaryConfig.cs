@@ -20,7 +20,7 @@ namespace PersonApi.Configurations.Entities
                  },
                 new InformationSalary
                 {
-                    Id = 5,
+                    Id = 2,
                     Salary = 1000,
                     DateTime = new DateTime(2022, 02, 01),
                     Tax = 15,

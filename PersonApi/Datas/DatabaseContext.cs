@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PersonApi.Configurations.Entities;
+using PersonApi.Datas.ConfigurationEntity;
 using PersonApi.DTO;
+using PersonApi.Entities;
 using PersonApi.Models;
 
 namespace PersonApi.Datas
@@ -18,6 +20,7 @@ namespace PersonApi.Datas
         public DbSet<InformationSkill> informationSkills { get; set; }
         public DbSet<InformationSalary> informationSalaries { get; set; }
         public DbSet<InformationLearning> informationLearnings { get; set; }
+      public DbSet<InformationPosition> informationPositions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -80,7 +83,7 @@ namespace PersonApi.Datas
             modelBuilder.Entity<InformationSalary>()
                         .HasIndex(p => new { p.DateTime, p.EmployeeId })
                         .IsUnique();
-           
+
 
             // Seed data employee
             modelBuilder.ApplyConfiguration(new EmployeeConfig());
@@ -100,6 +103,9 @@ namespace PersonApi.Datas
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             // seed EmployeeLearning
             modelBuilder.ApplyConfiguration(new EmployeeLearningConfig());
+            // seed Position
+            modelBuilder.ApplyConfiguration(new PositionConfig());
+
         }
     }
 }

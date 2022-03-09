@@ -4,5 +4,7 @@
     {
         // Search Information from Employee Name
         Task<object> GetInforEmployee(string name);
+        // search information from department
+        Task<object> GetInforDepartment(string name);
     }
 }

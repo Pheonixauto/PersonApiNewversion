@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonApi.Datas;
 
@@ -11,9 +12,10 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220309151234_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5d770c91-ece2-4224-aa9b-86f7d1f59d40",
-                            ConcurrencyStamp = "dd9209f9-29b9-4a14-8e7c-909551eeb9b4",
+                            Id = "1e546a50-daa3-43b3-a41c-8d501d32337d",
+                            ConcurrencyStamp = "70efd550-bfbf-4f7f-8016-1664f85c53b1",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "cbb16729-769c-4813-b6a3-2998fe2b5c0b",
-                            ConcurrencyStamp = "80e1f8bf-6cb3-4c52-a45f-6415e21eb241",
+                            Id = "ca05c4c6-f19c-48ee-9be5-53b4f7712f43",
+                            ConcurrencyStamp = "169998b2-cfa8-4cfe-ad3a-54110ec98de9",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -179,11 +181,17 @@ namespace PersonApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("informationPositions");
 
@@ -191,6 +199,7 @@ namespace PersonApi.Migrations
                         new
                         {
                             Id = 1,
+                            EmployeeId = 1,
                             Name = "Trưởng phòng"
                         });
                 });
@@ -385,9 +394,6 @@ namespace PersonApi.Migrations
                         .HasColumnName("PhoneNumber")
                         .HasColumnOrder(6);
 
-                    b.Property<int?>("PositionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Province")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)")
@@ -397,10 +403,6 @@ namespace PersonApi.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("PositionId")
-                        .IsUnique()
-                        .HasFilter("[PositionId] IS NOT NULL");
 
                     b.ToTable("InforEmployee", (string)null);
 
@@ -417,8 +419,7 @@ namespace PersonApi.Migrations
                             IdentityNumber = 12345,
                             LastName = "A1",
                             MiddleName = "Văn",
-                            PhoneNumber = "0899880028",
-                            PositionId = 1
+                            PhoneNumber = "0899880028"
                         },
                         new
                         {
@@ -780,6 +781,17 @@ namespace PersonApi.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PersonApi.Entities.InformationPosition", b =>
+                {
+                    b.HasOne("PersonApi.Models.InformationEmployee", "InformationEmployee")
+                        .WithOne("InformationPosition")
+                        .HasForeignKey("PersonApi.Entities.InformationPosition", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InformationEmployee");
+                });
+
             modelBuilder.Entity("PersonApi.Models.InformationEmployee", b =>
                 {
                     b.HasOne("PersonApi.Models.InformationDepartment", "InformationDepartment")
@@ -788,13 +800,7 @@ namespace PersonApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PersonApi.Entities.InformationPosition", "InformationPosition")
-                        .WithOne("InformationEmployee")
-                        .HasForeignKey("PersonApi.Models.InformationEmployee", "PositionId");
-
                     b.Navigation("InformationDepartment");
-
-                    b.Navigation("InformationPosition");
                 });
 
             modelBuilder.Entity("PersonApi.Models.InformationEmployeeLearning", b =>
@@ -857,12 +863,6 @@ namespace PersonApi.Migrations
                     b.Navigation("InformationEmployee");
                 });
 
-            modelBuilder.Entity("PersonApi.Entities.InformationPosition", b =>
-                {
-                    b.Navigation("InformationEmployee")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PersonApi.Models.InformationDepartment", b =>
                 {
                     b.Navigation("InformationEmployees");
@@ -873,6 +873,9 @@ namespace PersonApi.Migrations
                     b.Navigation("InformationEmployeeLearnings");
 
                     b.Navigation("InformationEmployeeSkills");
+
+                    b.Navigation("InformationPosition")
+                        .IsRequired();
 
                     b.Navigation("InformationRelatives");
 
