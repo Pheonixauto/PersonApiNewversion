@@ -26,5 +26,17 @@ namespace PersonApi.Controllers
             var result = await _searchService.GetInforDepartment(name);
             return Ok(result);
         }
+
+        [HttpGet("GetInfor")]
+        public async Task<IActionResult> GetInfor()
+        {
+            
+            var result = await _searchService.GetEmployeeFromCSV();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
     }
 }

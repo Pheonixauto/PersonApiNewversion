@@ -96,6 +96,7 @@ namespace PersonApi.Configurations.Entities
                      MiddleName = "Văn",
                      LastName = "A1",
                      BirthDay = new DateTime(1994, 04, 26),
+                     //Province = null,
                      City = "Hà Nội",
                      District = "Hoàn Kiếm",
                      Address = "34, Kim Mã",

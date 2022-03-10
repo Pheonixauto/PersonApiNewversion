@@ -104,7 +104,7 @@ namespace PersonApi.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpDelete("{employeeId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

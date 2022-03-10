@@ -1,4 +1,6 @@
-﻿namespace PersonApi.Services.Interfaces
+﻿using PersonApi.ModelsDTO;
+
+namespace PersonApi.Services.Interfaces
 {
     public interface ISearchService
     {
@@ -6,5 +8,7 @@
         Task<object> GetInforEmployee(string name);
         // search information from department
         Task<object> GetInforDepartment(string name);
+
+        Task<bool> GetEmployeeFromCSV();
     }
 }
