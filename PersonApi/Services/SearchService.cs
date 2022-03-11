@@ -29,14 +29,13 @@ namespace PersonApi.Services
             _mapper = mapper;
         }
 
-        public async Task<bool> GetEmployeeRelativeFromCSV()
+        public async Task<bool> GetEmployeeRelativeFromCSV(string path)
         {
-            using (var reader = new StreamReader(@"D:\ATSProject\PersonApi\PersonApi\SeedDataFromFile\EmployeeData.csv"))
+            using (var reader = new StreamReader(@$"D:\ATSProject\PersonApi\PersonApi\SeedDataFromFile\{path}.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture, leaveOpen: false))
             {            
                 csv.Context.RegisterClassMap<EmployeeRelativeMap>();
                 var records1 = csv.GetRecords<EmployeeRelativeDTO>();
-
                 foreach (var item in records1)
                 {
                     var result1 = _mapper.Map<InformationEmployee>(item);

@@ -12,21 +12,24 @@ namespace PersonApi.Controllers.UpLoadFile
         {
             _webHostEnvironment = webHostEnvironment;
         }
-        [HttpPost("Up")]
-        public async Task<IActionResult> UploadFile(List<IFormFile> files)
+
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            if (files.Count == 0)
-                return BadRequest();
-            string directoryPath = Path.Combine(_webHostEnvironment.ContentRootPath, "UploadFiles");
-            foreach(IFormFile file in files)
+            string directoryPath = Path.Combine(_webHostEnvironment.ContentRootPath, "UploadFiles"); ;
+            if (!Directory.Exists(directoryPath))
+                Directory.CreateDirectory(directoryPath);
+            FileInfo fileInfo = new FileInfo(file.FileName);
+            var fullPath = Path.Combine(directoryPath, fileInfo.Name);
+            if (!System.IO.File.Exists(fullPath))
             {
-                string filePath = Path.Combine(directoryPath, file.Name);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (FileStream fileStream = new FileStream(fullPath, FileMode.Create))
                 {
-                    file.CopyTo(stream);
+                    await file.CopyToAsync(fileStream);
                 }
+                return new JsonResult(new { FileName = fileInfo.Name });
             }
-            return Ok("Upload file succseeful");
+            return BadRequest();
         }
     }
 }

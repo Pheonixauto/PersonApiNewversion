@@ -27,12 +27,12 @@ namespace PersonApi.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetInfor")]
+        [HttpPost("GetInfor")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetInfor()
         {
-       
-            var result = await _searchService.GetEmployeeRelativeFromCSV();
+            string path = "EmployeeData";
+            var result = await _searchService.GetEmployeeRelativeFromCSV(path);
 
             if (!result)
             {
