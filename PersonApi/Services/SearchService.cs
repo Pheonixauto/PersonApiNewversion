@@ -31,7 +31,6 @@ namespace PersonApi.Services
 
         public async Task<bool> GetEmployeeRelativeFromCSV()
         {
-
             using (var reader = new StreamReader(@"D:\ATSProject\PersonApi\PersonApi\SeedDataFromFile\EmployeeData.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture, leaveOpen: false))
             {
