@@ -9,45 +9,45 @@ namespace PersonApi.Models
         public int Id { get; set; }
 
         [Required]
-        public int IdentityNumber { get; set; }
+        public int IdentityNumberRel { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "First name cannot be longer than 100 characters.")]
-        public string FullName { get; set; }
+        public string FullNameRel { get; set; }
 
 
         [Required]
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
-        public DateTime BirthDay { get; set; }
+        public DateTime BirthDayRel { get; set; }
 
         [Required]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumberRel { get; set; }
 
-        
-        [StringLength(200, MinimumLength = 2)]
-        public string? Province { get; set; }
 
-        
         [StringLength(200, MinimumLength = 2)]
-        public string? City { get; set; }
+        public string? ProvinceRel { get; set; }
 
-        [Required]
+
         [StringLength(200, MinimumLength = 2)]
-        public string District { get; set; }
+        public string? CityRel { get; set; }
 
         [Required]
         [StringLength(200, MinimumLength = 2)]
-        public string Address { get; set; }
+        public string DistrictRel { get; set; }
+
+        [Required]
+        [StringLength(200, MinimumLength = 2)]
+        public string AddressRel { get; set; }
 
         [Required]
         [StringLength(10)]
-        public string Relationship { get; set; }
+        public string RelationshipRel { get; set; }
 
         [ForeignKey(nameof(InformationEmployee))]
-        [Column(Order =1)]
-        public int EmployeeId { get; set; }
-        public virtual InformationEmployee  InformationEmployee{ get; set; }
+        [Column(Order = 1)]
+        public int EmployeeIdRel { get; set; }
+        public virtual InformationEmployee InformationEmployee { get; set; }
 
 
 

@@ -1,2 +1,2 @@
-﻿Id,IdentityNumber,FirstName,MiddleName,LastName,BirthDay,Province,City,District,Address,PhoneNumber,DepartmentId,PositionId,FullName,BirthDayRelative,PhoneNumberRelative,ProvinceRelative,CityRelative,DistrictRelative,IdentityNumberRelative,AddressRelative,EmployeeId,Relationship
-3,12345,Nguyễn,Văn,A3,4/26/1994,,Hà Nội,Hoàn Kiếm,"34, Kim Mã",899880028,1,,Nguyễn Văn B2,9/7/1970,899880028,,Hà Nội,Hoàng Kiếm,12345,35 Kim Mã,1,Bố
+﻿IdentityNumberEmp,FirstNameEmp,MiddleNameEmp,LastNameEmp,BirthDayEmp,PhoneNumberEmp,ProvinceEmp,CityEmp,DistrictEmp,AddressEmp,DepartmentIdEmp,PositionIdEmp,IdentityNumberRel,FullNameRel,BirthDayRel,PhoneNumberRel,ProvinceRel,CityRel,DistrictRel,AddressRel,RelationshipRel,EmployeeIdRel
+12345,Nguyễn,Văn,A3,4/26/1994,899880028,,Hà Nội,Hoàn Kiếm,"34, Kim Mã",1,,123456,Nguyễn Văn B2,9/7/1970,899880028,,Hà Nội,Hoàng Kiếm,35 Kim Mã,Bố,1

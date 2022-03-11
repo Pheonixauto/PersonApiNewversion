@@ -9,6 +9,8 @@ namespace PersonApi.Services.Interfaces
         // search information from department
         Task<object> GetInforDepartment(string name);
 
-        Task<bool> GetEmployeeFromCSV();
+        Task<bool> GetEmployeeRelativeFromCSV();
+        
+
     }
 }

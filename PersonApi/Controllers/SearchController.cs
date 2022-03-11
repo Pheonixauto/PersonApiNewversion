@@ -14,7 +14,7 @@ namespace PersonApi.Controllers
             _searchService = searchService;
         }
         [HttpGet("GetInforEmployeeByName")]
-        public async Task<IActionResult> GetInforByEmployeeName ([FromQuery] string name)
+        public async Task<IActionResult> GetInforByEmployeeName([FromQuery] string name)
         {
             var result = await _searchService.GetInforEmployee(name);
             return Ok(result);
@@ -28,11 +28,13 @@ namespace PersonApi.Controllers
         }
 
         [HttpGet("GetInfor")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetInfor()
         {
-            
-            var result = await _searchService.GetEmployeeFromCSV();
-            if (result == null)
+       
+            var result = await _searchService.GetEmployeeRelativeFromCSV();
+
+            if (!result)
             {
                 return BadRequest();
             }
