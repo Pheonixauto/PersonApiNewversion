@@ -12,7 +12,7 @@ namespace PersonApi.SeedDataFromFile
     {
         public EmployeeRelativeMap()
         {
-            Map(m => m.IdentityNumber).Name("IdentityNumberEmp");
+            Map(m => m.IdentityNumber).Name("IdentityNumberEmp").TypeConverterOption.NullValues("0");
             Map(m => m.FirstName).Name("FirstNameEmp");
             Map(m => m.MiddleName).Name("MiddleNameEmp");
             Map(m => m.LastName).Name("LastNameEmp");
@@ -25,7 +25,7 @@ namespace PersonApi.SeedDataFromFile
             Map(m => m.DepartmentId).Name("DepartmentIdEmp");
             Map(m => m.PositionId).Name("PositionIdEmp");
 
-            Map(m => m.IdentityNumberRel).Name("IdentityNumberRel");
+            Map(m => m.IdentityNumberRel).Name("IdentityNumberRel").TypeConverterOption.NullValues("0");
             Map(m => m.FullNameRel).Name("FullNameRel");
             Map(m => m.BirthDayRel).Name("BirthDayRel");
             Map(m => m.PhoneNumberRel).Name("PhoneNumberRel");

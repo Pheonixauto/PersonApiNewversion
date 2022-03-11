@@ -7,24 +7,24 @@ namespace PersonApi.DTO
     {
 
         [Column("IdentityNumberEmp")]
-        public int IdentityNumber { get; set; }
+        public int? IdentityNumber { get; set; }
 
         [Column("FirstNameEmp")]
-        public string FirstName { get; set; } = string.Empty;
+        public string? FirstName { get; set; }
 
         [Column("MiddleNameEmp")]
-        public string MiddleName { get; set; } = string.Empty;
+        public string? MiddleName { get; set; } 
 
         [Column("LastNameEmp")]
-        public string LastName { get; set; } = string.Empty;
+        public string? LastName { get; set; } 
 
         [Column("BirthDayEmp")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime BirthDay { get; set; }
+        public DateTime? BirthDay { get; set; }
 
         [Column("PhoneNumberEmp")]
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; }
 
         [Column("ProvinceEmp")]
         public string? Province { get; set; }
@@ -33,13 +33,13 @@ namespace PersonApi.DTO
         public string? City { get; set; }
 
         [Column("DistrictEmp")]
-        public string District { get; set; } = string.Empty;
+        public string? District { get; set; } 
 
         [Column("AddressEmp")]
-        public string Address { get; set; } = string.Empty;
+        public string? Address { get; set; }
 
         [Column("DepartmentIdEmp")]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         [Column("PositionIdEmp")]
         public int? PositionId { get; set; }

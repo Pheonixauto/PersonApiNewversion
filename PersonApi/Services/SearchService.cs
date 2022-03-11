@@ -33,15 +33,23 @@ namespace PersonApi.Services
         {
             using (var reader = new StreamReader(@"D:\ATSProject\PersonApi\PersonApi\SeedDataFromFile\EmployeeData.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture, leaveOpen: false))
-            {
+            {            
                 csv.Context.RegisterClassMap<EmployeeRelativeMap>();
                 var records1 = csv.GetRecords<EmployeeRelativeDTO>();
+
                 foreach (var item in records1)
                 {
                     var result1 = _mapper.Map<InformationEmployee>(item);
                     var result2 = _mapper.Map<InformationRelative>(item);
-                    await _unitOfWork.EmployeeRepository.Add(result1);
-                    await _unitOfWork.RelativeRepository.Add(result2);
+
+                    if (result1.IdentityNumber != 0)
+                    {
+                        await _unitOfWork.EmployeeRepository.Add(result1);
+                    }
+                    if (result2.IdentityNumberRel != 0)
+                    {
+                        await _unitOfWork.RelativeRepository.Add(result2);
+                    }             
                 }
                 var br = _unitOfWork.Complete();
                 if (br > 0)
@@ -53,7 +61,6 @@ namespace PersonApi.Services
                     return false;
                 }
             }
-
         }
         public async Task<object> GetInforDepartment(string name)
         {

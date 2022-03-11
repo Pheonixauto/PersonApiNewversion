@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonApi.Datas;
 
@@ -11,9 +12,10 @@ using PersonApi.Datas;
 namespace PersonApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220311074547_11031445")]
+    partial class _11031445
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace PersonApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "84883e55-29a3-4a53-ae92-4dcc7d127e53",
-                            ConcurrencyStamp = "20ba6802-96fe-4ef5-a50f-6a21dd449656",
+                            Id = "64db4b1a-bd2f-4ee0-8758-43aefc3bdbd0",
+                            ConcurrencyStamp = "c6163d54-eee1-40aa-aa35-b1052092f506",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "90fecefc-b6c4-4371-ad49-1ca0be98f336",
-                            ConcurrencyStamp = "8667e5bc-a9f9-4985-8c60-df46265ec0ed",
+                            Id = "43c5faf3-fecf-4dde-8a6c-3b30c7616f22",
+                            ConcurrencyStamp = "ec46b818-fd47-499b-8a58-1e7e1bb6eaf7",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -610,9 +612,6 @@ namespace PersonApi.Migrations
 
                     b.HasIndex("EmployeeIdRel");
 
-                    b.HasIndex("IdentityNumberRel")
-                        .IsUnique();
-
                     b.ToTable("Relative");
 
                     b.HasData(
@@ -625,7 +624,7 @@ namespace PersonApi.Migrations
                             DistrictRel = "Hoàng Kiếm",
                             EmployeeIdRel = 1,
                             FullNameRel = "Nguyễn Văn B1",
-                            IdentityNumberRel = 1234567,
+                            IdentityNumberRel = 12345,
                             PhoneNumberRel = "0899880028",
                             RelationshipRel = "Bố"
                         },
@@ -638,7 +637,7 @@ namespace PersonApi.Migrations
                             DistrictRel = "Hoàng Kiếm",
                             EmployeeIdRel = 1,
                             FullNameRel = "Nguyễn Thị B1",
-                            IdentityNumberRel = 1234589,
+                            IdentityNumberRel = 12345,
                             PhoneNumberRel = "0899880028",
                             RelationshipRel = "Mẹ"
                         });

@@ -8,6 +8,10 @@ namespace PersonApi.Configurations.Entities
     {
         public void Configure(EntityTypeBuilder<InformationRelative> builder)
         {
+            builder.HasIndex(c => c.IdentityNumberRel)
+                   .IsUnique();
+
+
             builder.HasData(
                  new InformationRelative
                  {
@@ -17,7 +21,7 @@ namespace PersonApi.Configurations.Entities
                      PhoneNumberRel = "0899880028",
                      CityRel = "Hà Nội",
                      DistrictRel = "Hoàng Kiếm",
-                     IdentityNumberRel = 12345,
+                     IdentityNumberRel = 1234567,
                      AddressRel = "35 Kim Mã",
                      EmployeeIdRel = 1,
                      RelationshipRel = "Bố"
@@ -30,7 +34,7 @@ namespace PersonApi.Configurations.Entities
                      PhoneNumberRel = "0899880028",
                      CityRel = "Hà Nội",
                      DistrictRel = "Hoàng Kiếm",
-                     IdentityNumberRel = 12345,
+                     IdentityNumberRel = 1234589,
                      AddressRel = "35 Kim Mã",
                      EmployeeIdRel = 1,
                      RelationshipRel = "Mẹ"

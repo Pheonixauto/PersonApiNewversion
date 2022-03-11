@@ -11,8 +11,10 @@ namespace PersonApi.Configurations.Entities
         {
             // Map Entity to table
             builder.ToTable("InforEmployee");
-            // Config primary key
-            //builder.HasKey(e => e.Id);
+
+
+            builder.HasIndex(c => c.IdentityNumber)
+                   .IsUnique();
 
             // config one to one 
             //builder.HasOne(c => c.InformationPosition).WithOne(c => c.InformationEmployee);
@@ -102,8 +104,8 @@ namespace PersonApi.Configurations.Entities
                      Address = "34, Kim Mã",
                      PhoneNumber = "0899880028",
                      DepartmentId = 1,
-                     PositionId =1
-                    
+                     PositionId = 1
+
 
                  }, new InformationEmployee
                  {
