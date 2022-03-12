@@ -18,6 +18,7 @@ namespace PersonApi.Repository.UnitOfWork
         public IEmployeeSkillRepository EmployeeSkillRepository { get; }
         public IEmployeeLearningRepository EmployeeLearningRepository { get; }
         public ISearchRepository SearchRepository { get; }
+        public IHandleFileRepository HandleFileRepository { get; }
 
         public UnitOfWork(DatabaseContext dbcontext,
                           IEmployeeRepository employeeRepository,
@@ -27,7 +28,8 @@ namespace PersonApi.Repository.UnitOfWork
                           IRelativeRepository relativeRepository,
                           ISalaryRepository salaryRepository,
                           IEmployeeSkillRepository employeeSkillRepository,
-                          IEmployeeLearningRepository employeeLearningRepository)
+                          IEmployeeLearningRepository employeeLearningRepository,
+                          IHandleFileRepository handleFileRepository)
         {
             _dbcontext = dbcontext;
             EmployeeRepository = employeeRepository;
@@ -38,6 +40,7 @@ namespace PersonApi.Repository.UnitOfWork
             SalaryRepository = salaryRepository;
             EmployeeSkillRepository = employeeSkillRepository;
             EmployeeLearningRepository = employeeLearningRepository;
+            HandleFileRepository = handleFileRepository;
         }
 
         public int Complete()

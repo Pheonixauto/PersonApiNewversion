@@ -8,7 +8,7 @@ using System.Reflection.Metadata;
 
 namespace PersonApi.SeedDataFromFile
 {
-    public class EmployeeRelativeMap : ClassMap<EmployeeRelativeDTO>
+    public class EmployeeRelativeMap : ClassMap<ImportEmployeeRelativeDTO>
     {
         public EmployeeRelativeMap()
         {

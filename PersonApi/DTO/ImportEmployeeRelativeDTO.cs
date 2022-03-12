@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonApi.DTO
 {
-    public class EmployeeRelativeDTO
+    public class ImportEmployeeRelativeDTO
     {
 
         [Column("IdentityNumberEmp")]

@@ -87,6 +87,9 @@ builder.Services.AddScoped<IEmployeeLearningService, EmployeeLearningService>();
 builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 builder.Services.AddScoped<ISearchService, SearchService>();
 
+builder.Services.AddScoped<IHandleFileRepository, HandleFileRepository>();
+builder.Services.AddScoped<IHandleFileService, HandleFileService>();
+
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 //builder.Services.AddResponseCaching();

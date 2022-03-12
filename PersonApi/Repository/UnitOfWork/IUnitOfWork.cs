@@ -15,6 +15,7 @@ namespace PersonApi.Repository.UnitOfWork
         IEmployeeSkillRepository EmployeeSkillRepository { get; }
         IEmployeeLearningRepository EmployeeLearningRepository { get; }
         ISearchRepository SearchRepository { get; }
+        IHandleFileRepository HandleFileRepository { get; }
         int Complete();
     }
 }

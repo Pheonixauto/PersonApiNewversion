@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PersonApi.DTO;
-using PersonApi.Models;
 using PersonApi.Services.Interfaces;
 
 namespace PersonApi.Controllers

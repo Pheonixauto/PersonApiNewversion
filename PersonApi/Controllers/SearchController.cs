@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PersonApi.Services.Interfaces;
 
 namespace PersonApi.Controllers
@@ -27,18 +26,6 @@ namespace PersonApi.Controllers
             return Ok(result);
         }
 
-        [HttpPost("GetInfor")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetInfor()
-        {
-            string path = "EmployeeData";
-            var result = await _searchService.GetEmployeeRelativeFromCSV(path);
-
-            if (!result)
-            {
-                return BadRequest();
-            }
-            return Ok(result);
-        }
+       
     }
 }

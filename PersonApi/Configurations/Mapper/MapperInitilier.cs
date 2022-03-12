@@ -11,7 +11,7 @@ namespace PersonApi.Configurations.Mapper
         {
             CreateMap<InformationEmployee, EmployeeDTO>().ReverseMap();
             CreateMap<InformationEmployee, CreateEmployeeDTO>().ReverseMap();
-            CreateMap<InformationEmployee, EmployeeRelativeDTO>().ReverseMap();
+            CreateMap<InformationEmployee, ImportEmployeeRelativeDTO>().ReverseMap();
 
 
             CreateMap<InformationDepartment, DepartmentDTO>().ReverseMap();
@@ -22,7 +22,7 @@ namespace PersonApi.Configurations.Mapper
 
             CreateMap<InformationRelative, RelativeDTO>().ReverseMap();
             CreateMap<InformationRelative, CreateRelativeDTO>().ReverseMap();
-            CreateMap<InformationRelative, EmployeeRelativeDTO>().ReverseMap();
+            CreateMap<InformationRelative, ImportEmployeeRelativeDTO>().ReverseMap();
 
             CreateMap<InformationSalary, SalaryDTO>().ReverseMap();
             CreateMap<InformationSalary, CreateSalaryDTO>().ReverseMap();

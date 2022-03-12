@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using PersonApi.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using PersonApi.ModelsDTO;
 using PersonApi.Services.Interfaces;
 

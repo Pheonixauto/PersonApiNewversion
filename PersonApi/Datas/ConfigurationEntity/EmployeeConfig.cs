@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PersonApi.Entities;
 using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
