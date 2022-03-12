@@ -3,6 +3,7 @@ using CsvHelper;
 using PersonApi.Datas;
 using PersonApi.DTO;
 using PersonApi.Models;
+using PersonApi.ModelsDTO;
 using PersonApi.Repository.UnitOfWork;
 using PersonApi.SeedDataFromFile;
 using PersonApi.Services.Interfaces;
@@ -26,9 +27,9 @@ namespace PersonApi.Services
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
         }
-        public async Task<bool> GetEmployeeRelativeFromCSV(string path)
+        public async Task<bool> AddEmployeeRelativeFromCSV(string path)
         {
-            using (var reader = new StreamReader(@$"D:\ATSProject\PersonApi\PersonApi\UploadFiles\{path}"))
+            using (var reader = new StreamReader(@$"D:\ATSProject\PersonApi\PersonApi\HandleFile\ImportFileCsv\{path}"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture, leaveOpen: false))
             {
                 csv.Context.RegisterClassMap<EmployeeRelativeMap>();
@@ -59,9 +60,9 @@ namespace PersonApi.Services
             }
         }
 
-        public async Task<string> HandleFile(IFormFile file)
+        public async Task<string> ImportFileCsv(IFormFile file)
         {
-            string directoryPath = Path.Combine(_webHostEnvironment.ContentRootPath, "UploadFiles"); ;
+            string directoryPath = Path.Combine(_webHostEnvironment.ContentRootPath, @"HandleFile\ImportFileCsv");
             if (!Directory.Exists(directoryPath))
                 Directory.CreateDirectory(directoryPath);
             FileInfo fileInfo = new FileInfo(file.FileName);
@@ -75,6 +76,18 @@ namespace PersonApi.Services
                 return fileInfo.Name;
             }
             return string.Empty;
+        }
+
+        public async Task<bool> CreateFileSalary()
+        {
+            var salaryList = await _unitOfWork.SalaryRepository.GetAll();
+            var re = _mapper.Map<List<CreateSalaryDTO>>(salaryList);
+            using (var writer = new StreamWriter(@"D:\ATSProject\PersonApi\PersonApi\HandleFile\CreateFileCsv\Salary.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(re);
+            }
+            return true;
         }
     }
 }

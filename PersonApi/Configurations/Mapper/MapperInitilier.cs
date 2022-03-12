@@ -26,6 +26,8 @@ namespace PersonApi.Configurations.Mapper
 
             CreateMap<InformationSalary, SalaryDTO>().ReverseMap();
             CreateMap<InformationSalary, CreateSalaryDTO>().ReverseMap();
+            CreateMap<CreateSalaryDTO,InformationSalary>().ReverseMap();
+
 
             CreateMap<InformationSkill, SkillDTO>().ReverseMap();
             CreateMap<InformationSkill, CreateSkillDTO>().ReverseMap();

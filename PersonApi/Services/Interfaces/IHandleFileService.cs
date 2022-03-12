@@ -1,11 +1,13 @@
-﻿using PersonApi.Repository.Repositories.Interfaces;
+﻿using PersonApi.ModelsDTO;
+using PersonApi.Repository.Repositories.Interfaces;
 
 namespace PersonApi.Services.Interfaces
 {
     public interface IHandleFileService 
     {
-        Task<bool> GetEmployeeRelativeFromCSV(string path);
-        
-        Task<string> HandleFile(IFormFile file);
+        Task<bool> AddEmployeeRelativeFromCSV(string path);      
+        Task<string> ImportFileCsv(IFormFile file);
+        Task<bool> CreateFileSalary();
+
     }
 }

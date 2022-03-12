@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UploadFiles\" />
+    <Folder Include="HandleFile\ImportFileCsv\" />
   </ItemGroup>
 
 </Project>

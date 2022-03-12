@@ -1,11 +1,5 @@
 ﻿using CsvHelper.Configuration;
-using Microsoft.VisualBasic;
 using PersonApi.DTO;
-using PersonApi.Models;
-using PersonApi.ModelsDTO;
-using Serilog.Core;
-using System.Reflection.Metadata;
-
 namespace PersonApi.SeedDataFromFile
 {
     public class EmployeeRelativeMap : ClassMap<ImportEmployeeRelativeDTO>
