@@ -7,7 +7,8 @@ namespace PersonApi.Services.Interfaces
         Task<JiraUser> CreateUser(JiraUserCreationInfo jiraUserCreationInfo);
         Task<IEnumerable<JiraUser>> GetUsers();
         Task<IEnumerable<Project>> GetProjectInfor();
-        Task<IEnumerable<Project>> InActiveUser();
+        Task<IEnumerable<Project>> GetProjects();
         Task<JiraUser> GetUser();
+        Task<IEnumerable<JiraUser>> GetUsersByGroups();
     }
 }

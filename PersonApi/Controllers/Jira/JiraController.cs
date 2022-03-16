@@ -21,10 +21,10 @@ namespace PersonApi.Controllers.Jira
             return Ok(result);
         }
 
-        [HttpGet("ActiveUsser")]
-        public async Task<IActionResult> ActiveUsser()
+        [HttpGet("GetProjiects")]
+        public async Task<IActionResult> GetProjiects()
         {
-            var result = await _jiraService.InActiveUser();
+            var result = await _jiraService.GetProjects();
             return Ok(result);
         }
 
@@ -35,11 +35,17 @@ namespace PersonApi.Controllers.Jira
             return Ok(result);
         }
 
-
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers()
         {
             var result = await _jiraService.GetUsers();
+            return Ok(result);
+        }
+
+        [HttpGet("GetUsersByGroups")]
+        public async Task<IActionResult> GetUsersByGroups()
+        {
+            var result = await _jiraService.GetUsersByGroups();
             return Ok(result);
         }
 

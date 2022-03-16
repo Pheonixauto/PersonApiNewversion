@@ -29,7 +29,7 @@ namespace PersonApi.Controllers.HttpClient
             List<string> account = new List<string> { "4ymFi38BYn3GWoLXPw2O7964" };
             var httpClient = _clientFactory.CreateClient();
           
-            using (var response = await httpClient.GetAsync("https://automationtechnologysolution.atlassian.net/rest/api/2/myself", HttpCompletionOption.ResponseHeadersRead))
+            using (var response = await httpClient.GetAsync("https://automationtechnologysolution.atlassian.net", HttpCompletionOption.ResponseHeadersRead))
             {
                 response.EnsureSuccessStatusCode();
                 var stream = await response.Content.ReadAsStreamAsync();
