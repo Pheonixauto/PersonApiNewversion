@@ -50,9 +50,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DatabaseContext>(dbContextOptions =>
 {
-    dbContextOptions./*UseLazyLoadingProxies().*/UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
+    dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
 
 });
+
+
 
 
 

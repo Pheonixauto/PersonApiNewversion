@@ -27,9 +27,9 @@ namespace PersonApi.Services
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
         }
-        public async Task<bool> AddEmployeeRelativeFromCSV(string path)
+        public async Task<bool> AddEmployeeRelativeFromCSV(IFormFile file)
         {
-            using (var reader = new StreamReader(@$"D:\ATSProject\PersonApi\PersonApi\HandleFile\ImportFileCsv\{path}"))
+            using (var reader = new StreamReader(file.OpenReadStream()))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture, leaveOpen: false))
             {
                 csv.Context.RegisterClassMap<EmployeeRelativeMap>();
@@ -60,34 +60,13 @@ namespace PersonApi.Services
             }
         }
 
-        public async Task<string> ImportFileCsv(IFormFile file)
-        {
-            string directoryPath = Path.Combine(_webHostEnvironment.ContentRootPath, @"HandleFile\ImportFileCsv");
-            if (!Directory.Exists(directoryPath))
-                Directory.CreateDirectory(directoryPath);
-            FileInfo fileInfo = new FileInfo(file.FileName);
-            var fullPath = Path.Combine(directoryPath, fileInfo.Name);
-            if (!System.IO.File.Exists(fullPath))
-            {
-                using (FileStream fileStream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await file.CopyToAsync(fileStream);
-                }
-                return fileInfo.Name;
-            }
-            return string.Empty;
-        }
-
-        public async Task<bool> CreateFileSalary()
+        public async Task<List<CreateSalaryDTO>> CreateFileSalary()
         {
             var salaryList = await _unitOfWork.SalaryRepository.GetAll();
             var re = _mapper.Map<List<CreateSalaryDTO>>(salaryList);
-            using (var writer = new StreamWriter(@"D:\ATSProject\PersonApi\PersonApi\HandleFile\CreateFileCsv\Salary.csv"))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
-                csv.WriteRecords(re);
-            }
-            return true;
+            return re;
+
         }
+
     }
 }

@@ -14,10 +14,10 @@ namespace PersonApi.Controllers.Jira
             _jiraService = jiraService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("GetProjiectInfor")]
+        public async Task<IActionResult> GetProjiectInfor()
         {
-            var result = await _jiraService.GetProjectInfor();
+            var result = await _jiraService.GetProjiectInfor();
             return Ok(result);
         }
 
@@ -42,12 +42,7 @@ namespace PersonApi.Controllers.Jira
             return Ok(result);
         }
 
-        [HttpGet("GetUsersByGroups")]
-        public async Task<IActionResult> GetUsersByGroups()
-        {
-            var result = await _jiraService.GetUsersByGroups();
-            return Ok(result);
-        }
+      
 
         [HttpPost("CreateUser")]
         public async Task<IActionResult> CreateUser([FromQuery] JiraUserCreationInfo jiraUserCreationInfo)
