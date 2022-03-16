@@ -5,15 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using PersonApi;
 using PersonApi.Configurations.Mapper;
 using PersonApi.Datas;
-using PersonApi.Repository;
 using PersonApi.Repository.Repositories;
 using PersonApi.Repository.Repositories.Implement;
 using PersonApi.Repository.Repositories.Interfaces;
 using PersonApi.Repository.UnitOfWork;
 using PersonApi.Services;
 using PersonApi.Services.AuthManager;
+using PersonApi.Services.HttpClientService;
 using PersonApi.Services.Interfaces;
-using System.Globalization;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,6 +55,7 @@ builder.Services.AddDbContext<DatabaseContext>(dbContextOptions =>
 });
 
 
+
 builder.Services.AddAutoMapper(typeof(MapperInitilier));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
@@ -90,6 +90,11 @@ builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IHandleFileRepository, HandleFileRepository>();
 builder.Services.AddScoped<IHandleFileService, HandleFileService>();
 
+
+builder.Services.AddScoped<IJiraService, JiraService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+
+
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 //builder.Services.AddResponseCaching();
@@ -112,11 +117,16 @@ builder.Services.AddControllers(cf =>
                ).AddNewtonsoftJson(op =>
 op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-//builder.Services.Configure<RequestLocalizationOptions>(options =>
-//{
-//    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("tr-TR");
-//    options.SupportedCultures = new List<CultureInfo> { new CultureInfo("tr-TR") };
-//});
+builder.Services.AddHttpClient();
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    // This lambda determines whether user consent for non-essential 
+    // cookies is needed for a given request.
+    options.CheckConsentNeeded = context => true;
+    // requires using Microsoft.AspNetCore.Http;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
 var app = builder.Build();
 
 app.UseSwagger();
@@ -136,6 +146,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
+
+app.UseCookiePolicy();
 
 app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
