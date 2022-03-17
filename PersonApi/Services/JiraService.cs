@@ -43,7 +43,7 @@ namespace PersonApi.Services
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:userpicker"] = new Atlassian.Jira.Remote.SingleObjectCustomFieldValueSerializer("displayName");
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:multiuserpicker"] = new Atlassian.Jira.Remote.MultiObjectCustomFieldValueSerializer("displayName");
             var jira = Jira.CreateRestClient(Url, UserName, Password, settings);
-            var result = await jira.Users.GetUserAsync("622dce7c75f257006a989b05");
+            var result = await jira.Users.GetUserAsync("JIRAUSER10101");
             return result;         
         }
         public async Task<IEnumerable<JiraUser>> GetUsers()
@@ -55,7 +55,7 @@ namespace PersonApi.Services
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:userpicker"] = new Atlassian.Jira.Remote.SingleObjectCustomFieldValueSerializer("displayName");
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:multiuserpicker"] = new Atlassian.Jira.Remote.MultiObjectCustomFieldValueSerializer("displayName");
             var jira = Jira.CreateRestClient(Url, UserName, Password, settings);
-            var result = await jira.Users.SearchUsersAsync("FUL");
+            var result = await jira.Users.SearchUsersAsync("thanhthai2604@gmail.com");
             return result;
         }
         public async Task<Project> GetProjiectInfor()

@@ -1,6 +1,14 @@
-﻿using PersonApi.Controllers.HttpClient;
+﻿using Atlassian.Jira;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using PersonApi.Controllers.HttpClient;
+using PersonApi.DTO.Account;
+using PersonApi.DTO.Jira;
+using PersonApi.DTO.Login;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Text.Json;
+using System.Text.Encodings;
 
 namespace PersonApi.Services.HttpClientService
 {
@@ -8,40 +16,76 @@ namespace PersonApi.Services.HttpClientService
     {
         public ClientService()
         {
-
         }
-        public async Task<string> Test()
+        public async Task<JiraUser> Getmyselfcompanyjira()
         {
-
-            // Create a client
-            //HttpClient httpClient = new HttpClient();
-
-            //// Assign the authentication headers
-            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("");
-
-            //// Call out to the site
-            //HttpResponseMessage response = await httpClient.GetAsync("https://automationtechnologysolution.atlassian.net/rest/api/2/myself");
-
-            //// Just as an example I'm turning the response into a string here
-            //string responseAsString = await response.Content.ReadAsStringAsync();
-            //return responseAsString;
-
-            var url = "https://automationtechnologysolution.atlassian.net/rest/api/2/myself";
-
-            var httpRequest = (HttpWebRequest)WebRequest.Create(url);
-
-            httpRequest.Headers["Authorization"] = "Basic 4ymFi38BYn3GWoLXPw2O7964";
-
-
-            var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+            headers.Add("Accept", "application/json");
+            headers.Add("Authorization", "Basic amlyYXRlc3Q6UEBzczEyMzQ1");
+            headers.Add("username", "nam");
+            var urlgetmyself = "https://jira.aisolutions.com.vn/rest/api/2/user?username=nam";
+            using (var client = new HttpClient())
             {
-                var result = streamReader.ReadToEnd();
-                return result;
+                using (var requestmessage = new HttpRequestMessage(HttpMethod.Get, urlgetmyself))
+                {
+                    requestmessage.Headers.Add("Authorization", "Basic amlyYXRlc3Q6UEBzczEyMzQ1");
+                
+                    var response = await client.SendAsync(requestmessage);
+                    var result = await response.Content.ReadAsStringAsync();
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        public async Task<string> Logincompanyjira()
+        {
+            var urllogin = "https://jira.aisolutions.com.vn/rest/auth/1/session";
+
+            using (var client = new HttpClient())
+            {
+                var newAcount = new CompanyAcount() { username = "jiratest", password = "P@ss12345" };
+                var response = await client.PostAsJsonAsync(urllogin, newAcount);
+                if (response.IsSuccessStatusCode)
+                {
+                    var id = await response.Content.ReadAsStringAsync();
+                    return id;
+                }
+                return null;
             }
         }
 
-      
+        public async Task<string> Testmyjira()
+        {
+            var url = "https://localhost:7263/api/Account/login";
+            using (var client = new HttpClient())
+            {
+                var newAcount = new MyAccount() { email = "user@example.com", passWord = "P@1string" };
+                var response = await client.PostAsJsonAsync(url, newAcount);
+                if (response.IsSuccessStatusCode)
+                {
+                    var id = await response.Content.ReadAsStringAsync();
+                    return id;
+                }
+                return null;
+            }
+        }
 
+        public async Task<dynamic> UpdateUser(string key, UpdateUserJira updateUserJira)
+        {
+          
+            var urlgetmyself = $"https://jira.aisolutions.com.vn/rest/api/2/user?key={key}";
+            using (var client = new HttpClient())
+            {
+                using (var requestmessage = new HttpRequestMessage(HttpMethod.Put, urlgetmyself))
+                {
+                    requestmessage.Headers.Add("Authorization", "Basic amlyYXRlc3Q6UEBzczEyMzQ1");
+                    requestmessage.Method = HttpMethod.Put;
+                    requestmessage.Content = new StringContent(JsonConvert.SerializeObject(updateUserJira), System.Text.Encoding.UTF8, "application/json");
+                    var response = await client.SendAsync(requestmessage);
+                    return response;
+                }
+            }         
+        }
     }
 }

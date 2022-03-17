@@ -36,10 +36,24 @@ namespace PersonApi.Controllers.HttpClient
                 return Ok(companies);
             }
         }
-        [HttpGet("test")]
+        [HttpGet("testmy")]
         public async Task<IActionResult> Gettest()
         {
-           var re=  await _clientService.Test();
+           var re=  await _clientService.Testmyjira();
+            return Ok(re);
+        }
+
+        [HttpGet("testlogincompany")]
+        public async Task<IActionResult> logincopany()
+        {
+            var re = await _clientService.Logincompanyjira();
+            return Ok(re);
+        }
+
+        [HttpGet("getmyselfcompany")]
+        public async Task<IActionResult> getmyselfcompany()
+        {
+            var re = await _clientService.Getmyselfcompanyjira();
             return Ok(re);
         }
 
