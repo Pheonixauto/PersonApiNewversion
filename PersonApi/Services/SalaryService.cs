@@ -3,7 +3,6 @@ using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Repository.UnitOfWork;
 using PersonApi.Services.Interfaces;
-using System.Linq;
 using X.PagedList;
 
 namespace PersonApi.Services
@@ -136,9 +135,12 @@ namespace PersonApi.Services
             //                                                                 s.Salary))
             //                                                          .Sum()}
             //                       );
-            var result = employeeList.Select(x => new { name=x.InformationDepartment.Name,
-                                                        totalsalary =x.InformationSalaries.Where(x=>x.DateTime==date1).Sum(y=>y.Salary)});
-            var result1 = result.GroupBy(x => x.name).Select(x=> new { NameDepartment  = x.Key,SalaryTotal = x.Select(x => x.totalsalary).Sum()});
+            var result = employeeList.Select(x => new
+            {
+                name = x.InformationDepartment.Name,
+                totalsalary = x.InformationSalaries.Where(x => x.DateTime == date1).Sum(y => y.Salary)
+            });
+            var result1 = result.GroupBy(x => x.name).Select(x => new { NameDepartment = x.Key, SalaryTotal = x.Select(x => x.totalsalary).Sum() });
             return result1;
         }
 
@@ -150,7 +152,30 @@ namespace PersonApi.Services
                                     .Select(x => x.InformationSalaries);
             var re = result.Select(x => x.Select(y => new { y.DateTime, y.Salary, y.Tax }));
             return re;
+        }
 
+        public async Task<IEnumerable<CreateSalaryDTO>> GetFileSalariesByDepartment(string departmentName, DateTime date)
+        {
+            List<CreateSalaryDTO> createSalaryDTOs = new List<CreateSalaryDTO>();
+
+            List<string> include = new List<string> { "InformationDepartment", "InformationSalaries" };
+            var employeeList = await _unitOfWork.EmployeeRepository.GetAllAsync(null, null, include);
+            var employees = employeeList.Where(x => x.InformationDepartment.Name == departmentName);
+
+            foreach (var item in employees)
+            {
+               foreach(var i in item.InformationSalaries)
+                {
+                    createSalaryDTOs.Add(new CreateSalaryDTO { DateTime=i.DateTime, EmployeeId=i.EmployeeId,Salary=i.Salary,Tax=i.Tax});
+                }
+            }
+
+            var result = createSalaryDTOs.Where(x => x.DateTime.Month == date.Month);
+
+            return result;
+
+
+         
         }
     }
 }

@@ -26,6 +26,8 @@ namespace PersonApi.Services.Interfaces
         // danh sách lương cá nhân
         Task<object> GetEmployeeSalary(int identityNumber);
 
+        Task<IEnumerable<CreateSalaryDTO>> GetFileSalariesByDepartment(string departmentName, DateTime date);
+
 
 
     }

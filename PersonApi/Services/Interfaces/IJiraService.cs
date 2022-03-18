@@ -6,8 +6,6 @@ namespace PersonApi.Services.Interfaces
     {
         Task<JiraUser> CreateUser(JiraUserCreationInfo jiraUserCreationInfo);
         Task<IEnumerable<JiraUser>> GetUsers();   
-        Task<IEnumerable<Project>> GetProjects();
-      
-
+        Task<IEnumerable<Project>> GetProjects();    
     }
 }
