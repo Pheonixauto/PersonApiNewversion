@@ -43,14 +43,6 @@ namespace PersonApi.Services
             var result = await jira.Users.SearchUsersAsync("thanhthai2604@gmail.com");
             return result;
         }
-        public async Task<Project> GetProjiectInfor()
-        {
-            string UserName = "jiratest";
-            string Password = "P@ss12345";
-            string Url = "https://jira.aisolutions.com.vn/";
-            var jira = Jira.CreateRestClient(Url, UserName, Password);
-            var result = await jira.Projects.GetProjectAsync("FUL");
-            return result;
-        }     
+       
     }
 }

@@ -13,13 +13,6 @@ namespace PersonApi.Controllers.Jira
         {
             _jiraService = jiraService;
         }
-
-        [HttpGet("GetProjiectInfor")]
-        public async Task<IActionResult> GetProjiectInfor()
-        {
-            var result = await _jiraService.GetProjiectInfor();
-            return Ok(result);
-        }
         [HttpGet("GetProjiects")]
         public async Task<IActionResult> GetProjiects()
         {

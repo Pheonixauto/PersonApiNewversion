@@ -1,8 +1,6 @@
 ﻿using Atlassian.Jira;
 using Newtonsoft.Json;
-using PersonApi.DTO.Account;
 using PersonApi.DTO.Jira;
-using PersonApi.DTO.Login;
 
 namespace PersonApi.Services.HttpClientService
 {
@@ -38,9 +36,7 @@ namespace PersonApi.Services.HttpClientService
 
             }
             return listproject;
-
         }
-
         public async Task<Dictionary<string, string>> GetAllKeysProjects()
         {
             var url = "https://jira.aisolutions.com.vn/rest/api/2/project";
@@ -61,12 +57,10 @@ namespace PersonApi.Services.HttpClientService
                     {
                         keyValuePairs.Add(key.Key, key.NameProject);
                     }
-
                     return keyValuePairs;
                 }
             }
         }
-
         public async Task<JiraUser> Getmyselfcompanyjira()
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
@@ -85,37 +79,6 @@ namespace PersonApi.Services.HttpClientService
                 }
             }
             return null;
-        }
-        public async Task<string> Logincompanyjira()
-        {
-            var urllogin = "https://jira.aisolutions.com.vn/rest/auth/1/session";
-
-            using (var client = new HttpClient())
-            {
-                var newAcount = new CompanyAcount() { username = "jiratest", password = "P@ss12345" };
-                var response = await client.PostAsJsonAsync(urllogin, newAcount);
-                if (response.IsSuccessStatusCode)
-                {
-                    var id = await response.Content.ReadAsStringAsync();
-                    return id;
-                }
-                return null;
-            }
-        }
-        public async Task<string> Testmyjira()
-        {
-            var url = "https://localhost:7263/api/Account/login";
-            using (var client = new HttpClient())
-            {
-                var newAcount = new MyAccount() { email = "user@example.com", passWord = "P@1string" };
-                var response = await client.PostAsJsonAsync(url, newAcount);
-                if (response.IsSuccessStatusCode)
-                {
-                    var id = await response.Content.ReadAsStringAsync();
-                    return id;
-                }
-                return null;
-            }
         }
         public async Task<dynamic> UpdateUser(string key, UpdateUserJira updateUserJira)
         {
