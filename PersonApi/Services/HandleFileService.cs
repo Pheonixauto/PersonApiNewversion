@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using ClosedXML.Excel;
 using CsvHelper;
+using Microsoft.AspNetCore.Mvc;
 using PersonApi.Datas;
 using PersonApi.DTO;
 using PersonApi.Models;
@@ -68,5 +70,15 @@ namespace PersonApi.Services
 
         }
 
+        public async Task<IEnumerable<CreateSalaryDTO>> GetSalariesOfCompanyByMonth(DateTime date)
+        {
+            var salaryList = await _unitOfWork.SalaryRepository.GetAll();
+            var re = _mapper.Map<List<CreateSalaryDTO>>(salaryList);
+            var result = re.Where(x => x.DateTime.Month == date.Month);
+            return result;
+
+        }
+
+       
     }
 }

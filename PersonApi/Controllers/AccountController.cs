@@ -12,18 +12,15 @@ namespace PersonApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<ApiUser> _userManager;
-        //private readonly SignInManager<ApiUser> _signInManager;
         private readonly ILogger<AccountController> _logger;
         private readonly IMapper _mapper;
         private readonly IAuthManager _authManager;
         public AccountController(UserManager<ApiUser> userManager,
-                                 //SignInManager<ApiUser> signInManager,
                                  ILogger<AccountController> logger,
                                  IMapper mapper,
                                  IAuthManager authManager)
         {
             _userManager = userManager;
-            //_signInManager = signInManager;
             _logger = logger;
             _mapper = mapper;
             _authManager = authManager;
@@ -55,12 +52,10 @@ namespace PersonApi.Controllers
             }
             catch (Exception e)
             {
-
                 _logger.LogError(e, $"Something went wrong in {nameof(Register)}");
                 return Problem($"Something went wrong in {nameof(Register)}", statusCode: 500);
             }
         }
-
 
         [HttpPost]
         [Route("login")]
@@ -72,8 +67,7 @@ namespace PersonApi.Controllers
                 return BadRequest(ModelState);
             }
             try
-            {
-               
+            {               
                if(!await _authManager.ValidateUser(loginUserDTO))
                 {
                     return Unauthorized();
@@ -82,10 +76,11 @@ namespace PersonApi.Controllers
             }
             catch (Exception e)
             {
-
                 _logger.LogError(e,$"Something went wrong in {nameof(Login)}");
                 return Problem($"Something went wrong in {nameof(Login)}", statusCode: 500);
             }
         }
+
+    
     }
 }
