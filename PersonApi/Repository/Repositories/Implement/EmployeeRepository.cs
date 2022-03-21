@@ -4,7 +4,7 @@ using PersonApi.Repository.GenericRepository;
 
 namespace PersonApi.Repository.Repositories.Implement
 {
-    public class EmployeeRepository : GenericRepository<InformationEmployee>, IEmployeeRepository
+    public class EmployeeRepository : GenericRepository<InforEmployee>, IEmployeeRepository
     {
         public EmployeeRepository(DatabaseContext context) : base(context)
         {

@@ -12,7 +12,7 @@ using System.Text.Json.Serialization;
 namespace PersonApi.Models
 {
     [Table("Salary")]
-    public class InformationSalary
+    public class InforSalary
     {
         public int Id { get; set; }
 
@@ -32,7 +32,7 @@ namespace PersonApi.Models
 
         [ForeignKey(nameof(InformationEmployee))]
         public int EmployeeId { get; set; }
-        public virtual InformationEmployee? InformationEmployee { get; set; }
+        public virtual InforEmployee? InformationEmployee { get; set; }
     }
 
 }

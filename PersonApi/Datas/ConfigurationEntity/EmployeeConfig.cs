@@ -4,9 +4,9 @@ using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
 {
-    public class EmployeeConfig : IEntityTypeConfiguration<InformationEmployee>
+    public class EmployeeConfig : IEntityTypeConfiguration<InforEmployee>
     {
-        public void Configure(EntityTypeBuilder<InformationEmployee> builder)
+        public void Configure(EntityTypeBuilder<InforEmployee> builder)
         {
             // Map Entity to table
             builder.ToTable("InforEmployee");
@@ -89,7 +89,7 @@ namespace PersonApi.Configurations.Entities
 
             //Seed
             builder.HasData(
-                 new InformationEmployee
+                 new InforEmployee
                  {
                      Id = 1,
                      IdentityNumber = 12345,
@@ -106,7 +106,7 @@ namespace PersonApi.Configurations.Entities
                      PositionId = 1
 
 
-                 }, new InformationEmployee
+                 }, new InforEmployee
                  {
                      Id = 2,
                      IdentityNumber = 23456,

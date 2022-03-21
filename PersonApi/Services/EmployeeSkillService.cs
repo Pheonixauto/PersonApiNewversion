@@ -17,19 +17,19 @@ namespace PersonApi.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<List<InformationEmployeeSkill>> GetAllEmployeeSkill()
+        public async Task<List<InforEmployeeSkill>> GetAllEmployeeSkill()
         {
             var employeeSkillList = await _unitOfWork.EmployeeSkillRepository.GetAll();
-            return (List<InformationEmployeeSkill>)employeeSkillList;
+            return (List<InforEmployeeSkill>)employeeSkillList;
         }
 
-        public async Task<List<InformationEmployeeSkill>> GetAllDetail()
+        public async Task<List<InforEmployeeSkill>> GetAllDetail()
         {
             List<string> include = new List<string> { "InformationSkill", "InformationEmployee" };
             var list = await _unitOfWork.EmployeeSkillRepository.GetAllAsync(null, null, include);
             var query = from x in list
                         select x.InformationSkill.Name;
-            return (List<InformationEmployeeSkill>)list;
+            return (List<InforEmployeeSkill>)list;
         }
 
         public async Task<object> GetNameSkillEmployee()
@@ -41,7 +41,7 @@ namespace PersonApi.Services
                         select new { x.InformationSkill.Name, x.InformationEmployee.LastName };
             return query;
         }
-        public async Task<List<InformationEmployeeSkill>> GetEmployeeSkillById(int id)
+        public async Task<List<InforEmployeeSkill>> GetEmployeeSkillById(int id)
         {
             var list = await _unitOfWork.EmployeeSkillRepository.GetAll();
 
@@ -54,7 +54,7 @@ namespace PersonApi.Services
 
         public async Task<bool> AddEmployeeSkill(CreateEmployeeSkillDTO createEmployeeSkillDTO)
         {
-            var empSkillMap = _mapper.Map<InformationEmployeeSkill>(createEmployeeSkillDTO);
+            var empSkillMap = _mapper.Map<InforEmployeeSkill>(createEmployeeSkillDTO);
             await _unitOfWork.EmployeeSkillRepository.Add(empSkillMap);
             var result = _unitOfWork.Complete();
             if (result > 0)

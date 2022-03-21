@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonApi.Models;
 using PersonApi.Services.Interfaces;
 
@@ -15,7 +16,7 @@ namespace PersonApi.Controllers.Employee
         {
             _employeeService = employeeService;
         }
-        //[Authorize(Roles ="Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetAll")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

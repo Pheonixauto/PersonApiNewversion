@@ -1,4 +1,5 @@
 ﻿using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonApi.Models;
 using PersonApi.Models.FluentValidation;
@@ -17,7 +18,7 @@ namespace PersonApi.Controllers
         {
             _employeeService = employeeService;
         }
-        //[Authorize(Roles ="Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetAll")]
         [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 90)]
         [HttpCacheValidation(MustRevalidate = false)]
@@ -30,7 +31,7 @@ namespace PersonApi.Controllers
             return Ok(userList);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("{employeeId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -50,7 +51,7 @@ namespace PersonApi.Controllers
         }
 
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost("Create")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -76,7 +77,7 @@ namespace PersonApi.Controllers
             }
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{employeeId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -102,7 +103,7 @@ namespace PersonApi.Controllers
             }
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{employeeId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

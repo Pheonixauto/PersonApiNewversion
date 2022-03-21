@@ -3,7 +3,7 @@ using PersonApi.Repository.GenericRepository;
 
 namespace PersonApi.Repository.Repositories.Implement
 {
-    public interface ISkillRepository : IGenericRepository<InformationSkill>
+    public interface ISkillRepository : IGenericRepository<InforSkill>
     {
     }
 }

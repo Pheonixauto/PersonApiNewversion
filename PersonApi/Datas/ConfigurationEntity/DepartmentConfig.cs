@@ -4,9 +4,9 @@ using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
 {
-    public class DepartmentConfig : IEntityTypeConfiguration<InformationDepartment>
+    public class DepartmentConfig : IEntityTypeConfiguration<InforDepartment>
     {
-        public void Configure(EntityTypeBuilder<InformationDepartment> builder)
+        public void Configure(EntityTypeBuilder<InforDepartment> builder)
         {
             builder.ToTable("InforDepartment");
             builder.HasKey(x => x.Id);
@@ -24,7 +24,7 @@ namespace PersonApi.Configurations.Entities
 
             //seed
             builder.HasData(
-                     new InformationDepartment
+                     new InforDepartment
                      {
                          Id = 1,
                          Name = "Hành Chính Nhân Sự",
@@ -32,14 +32,14 @@ namespace PersonApi.Configurations.Entities
                          LeaderId = 1,
                          
                      },
-                      new InformationDepartment
+                      new InforDepartment
                       {
                           Id = 2,
                           Name = "Hành Kế Toán Tổng Hợp",
                           NumberEmployee = 3,
                           LeaderId = 2
                       },
-                       new InformationDepartment
+                       new InforDepartment
                        {
                            Id = 3,
                            Name = "Phòng Kinh Doanh",

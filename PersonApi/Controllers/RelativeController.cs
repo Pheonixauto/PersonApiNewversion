@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Services.Interfaces;
@@ -14,11 +15,13 @@ namespace PersonApi.Controllers
         {
             _relativeService = relativeService;
         }
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetAllPagedList")]
         public async Task<IActionResult> GetAll([FromQuery] RequestParams requestParams)
         {
             return Ok(await _relativeService.GetRelativePagedList(requestParams));
         }
+        [Authorize(Roles = "Administrator")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -32,6 +35,7 @@ namespace PersonApi.Controllers
                 return Ok(relative);
             }
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> Post(CreateRelativeDTO createRelativeDTO)
         {
@@ -46,6 +50,7 @@ namespace PersonApi.Controllers
             }
             return Ok(createRelativeDTO);
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Put(int id, UpdateRelativeDTO updateRelativeDTO)
         {
@@ -58,7 +63,7 @@ namespace PersonApi.Controllers
                 return BadRequest();
             return Ok(updateRelativeDTO);
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteById(int id)
         {

@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using ClosedXML.Excel;
 using CsvHelper;
-using Microsoft.AspNetCore.Mvc;
 using PersonApi.Datas;
 using PersonApi.DTO;
 using PersonApi.Models;
@@ -15,19 +13,17 @@ namespace PersonApi.Services
 {
     public class HandleFileService : IHandleFileService
     {
-
         public readonly IUnitOfWork _unitOfWork;
         public DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
 
         public HandleFileService(IUnitOfWork unitOfWork, DatabaseContext context, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _context = context;
             _mapper = mapper;
-            _webHostEnvironment = webHostEnvironment;
+           _webHostEnvironment = webHostEnvironment;
         }
         public async Task<bool> AddEmployeeRelativeFromCSV(IFormFile file)
         {
@@ -38,8 +34,8 @@ namespace PersonApi.Services
                 var records1 = csv.GetRecords<ImportEmployeeRelativeDTO>();
                 foreach (var item in records1)
                 {
-                    var result1 = _mapper.Map<InformationEmployee>(item);
-                    var result2 = _mapper.Map<InformationRelative>(item);
+                    var result1 = _mapper.Map<InforEmployee>(item);
+                    var result2 = _mapper.Map<InforRelative>(item);
 
                     if (result1.IdentityNumber != 0)
                     {
@@ -67,18 +63,13 @@ namespace PersonApi.Services
             var salaryList = await _unitOfWork.SalaryRepository.GetAll();
             var re = _mapper.Map<List<CreateSalaryDTO>>(salaryList);
             return re;
-
         }
-
         public async Task<IEnumerable<CreateSalaryDTO>> GetSalariesOfCompanyByMonth(DateTime date)
         {
             var salaryList = await _unitOfWork.SalaryRepository.GetAll();
             var re = _mapper.Map<List<CreateSalaryDTO>>(salaryList);
             var result = re.Where(x => x.DateTime.Month == date.Month);
             return result;
-
-        }
-
-       
+        }      
     }
 }

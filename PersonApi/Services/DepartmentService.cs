@@ -23,7 +23,7 @@ namespace PersonApi.Services
             {
                 return false;
             }
-            var newDepartment = _mapper.Map<InformationDepartment>(createDepartmentDTO);
+            var newDepartment = _mapper.Map<InforDepartment>(createDepartmentDTO);
             await _unitOfWork.DepartmentRepository.Add(newDepartment);
             var result = (_unitOfWork.Complete() > 0) ? true : false;
             //if (result > 0)
@@ -48,13 +48,13 @@ namespace PersonApi.Services
             return false;
         }
 
-        public async Task<List<InformationDepartment>> GetAllDepartment()
+        public async Task<List<InforDepartment>> GetAllDepartment()
         {
             var departments = await _unitOfWork.DepartmentRepository.GetAll();
-            return (List<InformationDepartment>)departments;
+            return (List<InforDepartment>)departments;
         }
 
-        public async Task<InformationDepartment> GetDepartment(int id)
+        public async Task<InforDepartment> GetDepartment(int id)
         {
             if (id > 0)
             {
@@ -69,9 +69,10 @@ namespace PersonApi.Services
             return null;
         }
 
-        public async Task<IPagedList<InformationDepartment>> GetDepartmentPagedList(RequestParams requestParams)
+        public async Task<IPagedList<InforDepartment>> GetDepartmentPagedList(RequestParams requestParams)
         {
-            var departmentList = await _unitOfWork.DepartmentRepository.GetPageList(requestParams, null);
+            List<string> include = new List<string> { "InformationEmployees" };
+            var departmentList = await _unitOfWork.DepartmentRepository.GetPageList(requestParams, include);
             return departmentList;
         }
 

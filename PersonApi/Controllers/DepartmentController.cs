@@ -16,7 +16,7 @@ namespace PersonApi.Controllers
         {
             _departmentService = departmentService;
         }
-
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(200)]
         public async Task<IActionResult> GetAll([FromQuery] RequestParams requestParams)
@@ -41,7 +41,7 @@ namespace PersonApi.Controllers
             return Ok(department);
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -60,7 +60,7 @@ namespace PersonApi.Controllers
             return Ok();
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id:int}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

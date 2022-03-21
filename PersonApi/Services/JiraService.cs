@@ -9,38 +9,34 @@ namespace PersonApi.Services
         {
         }
         // create user
-        public async Task<JiraUser> CreateUser(JiraUserCreationInfo jiraUserCreationInfo)
+        public async Task<JiraUser> CreateUser(string account, string password, JiraUserCreationInfo jiraUserCreationInfo)
         {
-            string UserName = "jiratest";
-            string Password = "P@ss12345";
+            //string UserName = "jiratest";
+            //string Password = "P@ss12345";
             string Url = "https://jira.aisolutions.com.vn/";
-            var jira = Jira.CreateRestClient(Url, UserName, Password);
+            var jira = Jira.CreateRestClient(Url, account, password);
             var cruser = await jira.Users.CreateUserAsync(jiraUserCreationInfo);
             return cruser;
         }
-        public async Task<IEnumerable<Project>> GetProjects()
-        {
-            string UserName = "jiratest";
-            string Password = "P@ss12345";
+        public async Task<IEnumerable<Project>> GetProjects(string account, string password)
+        {          
             string Url = "https://jira.aisolutions.com.vn/";
             var settings = new JiraRestClientSettings();
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:userpicker"] = new Atlassian.Jira.Remote.SingleObjectCustomFieldValueSerializer("displayName");
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:multiuserpicker"] = new Atlassian.Jira.Remote.MultiObjectCustomFieldValueSerializer("displayName");
-            var jira = Jira.CreateRestClient(Url, UserName, Password, settings);
+            var jira = Jira.CreateRestClient(Url, account, password, settings);
             var result = await jira.Projects.GetProjectsAsync();
             var ji = JiraUserStatus.Inactive;
             return result;
         }
-        public async Task<IEnumerable<JiraUser>> GetUsers()
+        public async Task<IEnumerable<JiraUser>> GetUsers(string account, string password, string member)
         {
-            string UserName = "jiratest";
-            string Password = "P@ss12345";
             string Url = "https://jira.aisolutions.com.vn/";
             var settings = new JiraRestClientSettings();
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:userpicker"] = new Atlassian.Jira.Remote.SingleObjectCustomFieldValueSerializer("displayName");
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:multiuserpicker"] = new Atlassian.Jira.Remote.MultiObjectCustomFieldValueSerializer("displayName");
-            var jira = Jira.CreateRestClient(Url, UserName, Password, settings);
-            var result = await jira.Users.SearchUsersAsync("thanhthai2604@gmail.com");
+            var jira = Jira.CreateRestClient(Url, account, password, settings);
+            var result = await jira.Users.SearchUsersAsync(member);
             return result;
         }
        

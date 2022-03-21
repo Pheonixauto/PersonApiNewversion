@@ -5,9 +5,9 @@ using PersonApi.Models;
 
 namespace PersonApi.Datas.ConfigurationEntity
 {
-    public class PositionConfig : IEntityTypeConfiguration<InformationPosition>
+    public class PositionConfig : IEntityTypeConfiguration<InforPosition>
     {
-        public void Configure(EntityTypeBuilder<InformationPosition> builder)
+        public void Configure(EntityTypeBuilder<InforPosition> builder)
         {
            
                 
@@ -16,7 +16,7 @@ namespace PersonApi.Datas.ConfigurationEntity
             //      .HasForeignKey<InformationEmployee>(fk => fk.PositionId);
 
             builder.HasData(
-                new InformationPosition
+                new InforPosition
                 {
                     Id = 1,
                     Name = "Trưởng phòng",

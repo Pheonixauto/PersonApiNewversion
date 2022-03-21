@@ -1,4 +1,5 @@
 ﻿using Atlassian.Jira;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonApi.Services.Interfaces;
 
@@ -13,22 +14,27 @@ namespace PersonApi.Controllers.Jira
         {
             _jiraService = jiraService;
         }
+        [Authorize]
         [HttpGet("GetProjiects")]
-        public async Task<IActionResult> GetProjiects()
+        public async Task<IActionResult> GetProjiects(string account, string password)
         {
-            var result = await _jiraService.GetProjects();
+            var result = await _jiraService.GetProjects(account, password);
             return Ok(result);
         }
         [HttpGet("GetUsers")]
-        public async Task<IActionResult> GetUsers()
+        [Authorize]
+        public async Task<IActionResult> GetUsers(string account, string password, string member)
         {
-            var result = await _jiraService.GetUsers();
+            var result = await _jiraService.GetUsers(account, password, member);
             return Ok(result);
-        }    
+        }
         [HttpPost("CreateUser")]
-        public async Task<IActionResult> CreateUser([FromQuery] JiraUserCreationInfo jiraUserCreationInfo)
+        [Authorize]
+        public async Task<IActionResult> CreateUser(string account,
+                                                    string password,
+                                                    [FromQuery] JiraUserCreationInfo jiraUserCreationInfo)
         {
-            var result = await _jiraService.CreateUser(jiraUserCreationInfo);
+            var result = await _jiraService.CreateUser(account, password, jiraUserCreationInfo);
             return Ok(result);
         }
     }

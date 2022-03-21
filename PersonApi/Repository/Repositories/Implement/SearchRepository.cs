@@ -5,7 +5,7 @@ using PersonApi.Repository.Repositories.Interfaces;
 
 namespace PersonApi.Repository.Repositories.Implement
 {
-    public class SearchRepository : GenericRepository<InformationEmployee>, ISearchRepository
+    public class SearchRepository : GenericRepository<InforEmployee>, ISearchRepository
     {
         public SearchRepository(DatabaseContext context) : base(context)
         {

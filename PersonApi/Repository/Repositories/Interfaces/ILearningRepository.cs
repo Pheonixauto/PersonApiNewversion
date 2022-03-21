@@ -3,7 +3,7 @@ using PersonApi.Repository.GenericRepository;
 
 namespace PersonApi.Repository.Repositories.Interfaces
 {
-    public interface ILearningRepository : IGenericRepository<InformationLearning>
+    public interface ILearningRepository : IGenericRepository<InforLearning>
     {
     }
 }

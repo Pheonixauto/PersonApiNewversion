@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonApi.Services.Interfaces;
 
 namespace PersonApi.Controllers
@@ -12,13 +13,14 @@ namespace PersonApi.Controllers
         {
             _searchService = searchService;
         }
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetInforEmployeeByName")]
         public async Task<IActionResult> GetInforByEmployeeName([FromQuery] string name)
         {
             var result = await _searchService.GetInforEmployee(name);
             return Ok(result);
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetInforDepartmentByName")]
         public async Task<IActionResult> GetInforDepartmentByName([FromQuery] string name)
         {

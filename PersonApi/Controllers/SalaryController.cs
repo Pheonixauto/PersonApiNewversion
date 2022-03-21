@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Services.Interfaces;
@@ -14,6 +15,7 @@ namespace PersonApi.Controllers
         {
             _salaryService = salaryService;
         }
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetAllPagedList")]
         public async Task<IActionResult> GetAll([FromQuery] RequestParams requestParams)
         {
@@ -25,7 +27,7 @@ namespace PersonApi.Controllers
             var salaryList = await _salaryService.GetSalaryPagedList(requestParams);
             return Ok(salaryList);
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpGet("{id:int}", Name = "GetSalaryById")]
         public async Task<IActionResult> Get(int id)
         {
@@ -37,6 +39,7 @@ namespace PersonApi.Controllers
             return Ok(salary);
         }
         // danh sach luong theo ngay thang
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetAllSalaryByDate")]
         public async Task<IActionResult> GetAllSalaryByDate( DateTime date1, DateTime date2 )
         {
@@ -44,6 +47,7 @@ namespace PersonApi.Controllers
             return Ok(result);
         }
         // danh sach luong the phong ban tinh theo ngay thang
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetSalaryByDepartment")]
         public async Task<IActionResult> GetSalaryByDepartment(string departmentName, DateTime date1, DateTime date2)
         {
@@ -52,6 +56,7 @@ namespace PersonApi.Controllers
         }
 
         // tổng lương theo phòng ban-ngày tháng
+        [Authorize(Roles = "Administrator")]
         [HttpGet("SumSalaryByDepartment")]
         public async Task<IActionResult> GetSumSalaryDepartment(DateTime date1)
         {
@@ -60,13 +65,14 @@ namespace PersonApi.Controllers
         }
 
         // danh sách lương của cá nhân theo ngày tháng
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetListSalaryByEmployee")]
         public async Task<IActionResult> GetEmployeeSalary(int identityNumber)
         {
             var result = await _salaryService.GetEmployeeSalary(identityNumber);
             return Ok(result);
         }
-
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> Post(CreateSalaryDTO createSalaryDTO)
         {
@@ -84,6 +90,7 @@ namespace PersonApi.Controllers
                 return StatusCode(500, $"Internal Server {ex}. Please try again!");
             }
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Put(int id, UpdateSalaryDTO updateSalaryDTO)
         {
@@ -101,6 +108,7 @@ namespace PersonApi.Controllers
                 return BadRequest(ex);
             }
         }
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id:int}", Name = "DeleteById")]
         public async Task<IActionResult> Delete(int id)
         {

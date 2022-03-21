@@ -4,16 +4,16 @@ using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
 {
-    public class RelativesConfig : IEntityTypeConfiguration<InformationRelative>
+    public class RelativesConfig : IEntityTypeConfiguration<InforRelative>
     {
-        public void Configure(EntityTypeBuilder<InformationRelative> builder)
+        public void Configure(EntityTypeBuilder<InforRelative> builder)
         {
             builder.HasIndex(c => c.IdentityNumberRel)
                    .IsUnique();
 
 
             builder.HasData(
-                 new InformationRelative
+                 new InforRelative
                  {
                      Id = 1,
                      FullNameRel = "Nguyễn Văn B1",
@@ -26,7 +26,7 @@ namespace PersonApi.Configurations.Entities
                      EmployeeIdRel = 1,
                      RelationshipRel = "Bố"
                  },
-                 new InformationRelative
+                 new InforRelative
                  {
                      Id = 2,
                      FullNameRel = "Nguyễn Thị B1",

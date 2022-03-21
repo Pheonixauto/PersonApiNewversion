@@ -20,7 +20,7 @@ namespace PersonApi.Services
         {
             if (createSalaryDTO != null)
             {
-                var salaryMap = _mapper.Map<InformationSalary>(createSalaryDTO);
+                var salaryMap = _mapper.Map<InforSalary>(createSalaryDTO);
                 await _unitOfWork.SalaryRepository.Add(salaryMap);
                 var result = _unitOfWork.Complete();
                 if (result > 0)
@@ -48,18 +48,18 @@ namespace PersonApi.Services
             return false;
         }
 
-        public async Task<List<InformationSalary>> GetAllSalary()
+        public async Task<List<InforSalary>> GetAllSalary()
         {
             var salaryList = await _unitOfWork.SalaryRepository.GetAll();
-            return (List<InformationSalary>)salaryList;
+            return (List<InforSalary>)salaryList;
         }
 
-        public async Task<InformationSalary> GetSalaryById(int id)
+        public async Task<InforSalary> GetSalaryById(int id)
         {
             if (id > 0)
             {
                 var salary = await _unitOfWork.SalaryRepository.Get(id);
-                return (InformationSalary)salary;
+                return (InforSalary)salary;
             }
             return null;
         }
@@ -84,13 +84,13 @@ namespace PersonApi.Services
             return false;
         }
 
-        public async Task<IPagedList<InformationSalary>> GetSalaryPagedList(RequestParams requestParams)
+        public async Task<IPagedList<InforSalary>> GetSalaryPagedList(RequestParams requestParams)
         {
             var salaryList = await _unitOfWork.SalaryRepository.GetPageList(requestParams, null);
             return salaryList;
         }
 
-        public async Task<List<InformationSalary>> GetSalaryByDate(DateTime date1, DateTime date2)
+        public async Task<List<InforSalary>> GetSalaryByDate(DateTime date1, DateTime date2)
         {
 
             var salaryList = await _unitOfWork.SalaryRepository.GetAll();

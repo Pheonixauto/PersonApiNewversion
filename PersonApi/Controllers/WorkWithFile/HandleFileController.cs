@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonApi.Services.Interfaces;
 
@@ -17,6 +18,7 @@ namespace PersonApi.Controllers.UpLoadFile
             _handleFileService = handleFileService;
             _salaryService = salaryService;
         }
+        [Authorize]
         [HttpPost("UpLoadFile")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpLoadFileIntoDataBase(IFormFile file)
@@ -25,6 +27,7 @@ namespace PersonApi.Controllers.UpLoadFile
             return Ok(result);
         }
         [HttpGet("DowloadFileCsv")]
+        [Authorize]
         public async Task<IActionResult> FileStreamResultCsv()
         {
             var result = await _handleFileService.CreateFileSalary();
@@ -38,10 +41,10 @@ namespace PersonApi.Controllers.UpLoadFile
             return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "users.txt");
         }
         [HttpGet("DowloadFileExcelSalary")]
+        [Authorize]
         public async Task<IActionResult> FileStreamResultExcelSalary()
         {
             var result = await _handleFileService.CreateFileSalary();
-
             using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("Salaries");
@@ -71,10 +74,10 @@ namespace PersonApi.Controllers.UpLoadFile
             }
         }
         [HttpGet("DowloadFileExcelSalaryDepartment")]
+        [Authorize]
         public async Task<IActionResult> DowloadFileExcelSalaryDepartment(string departmentName, DateTime date1)
         {
             var result = await _salaryService.GetFileSalariesByDepartment(departmentName, date1);
-
             using (var workbook = new XLWorkbook())
             {
                 var worksheet = workbook.Worksheets.Add("Salaries");
@@ -104,6 +107,7 @@ namespace PersonApi.Controllers.UpLoadFile
             }
         }
         [HttpGet("DowloadFileExcelSalaryCompany")]
+        [Authorize]
         public async Task<IActionResult> GetSalariesByCompany(DateTime date)
         {
             var result = await _handleFileService.GetSalariesOfCompanyByMonth(date);
@@ -127,7 +131,6 @@ namespace PersonApi.Controllers.UpLoadFile
                 {
                     workbook.SaveAs(stream);
                     var content = stream.ToArray();
-
                     return File(
                         content,
                         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

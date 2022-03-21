@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonApi.DTO.Jira;
 using PersonApi.Services.HttpClientService;
 using System.Text.Json;
@@ -17,27 +18,35 @@ namespace PersonApi.Controllers.HttpClient
             _clientFactory = clientFactory;
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             _clientService = clientService;
-        }     
+        }
+        [Authorize]
         [HttpGet("getmyselfcompany")]
-        public async Task<IActionResult> getmyselfcompany()
+        public async Task<IActionResult> getmyselfcompany(string account,
+                                                          string password, string member)
         {
-            var re = await _clientService.Getmyselfcompanyjira();
+            var re = await _clientService.Getmyselfcompanyjira(account, password, member);
             return Ok(re);
         }
+        [Authorize]
         [HttpGet("GetInforProjectByUser")]
-        public async Task<IActionResult> GetInforProjectByUser(string userName)
+        public async Task<IActionResult> GetInforProjectByUser(string account,
+                                                               string password, string member)
         {
-            var re = await _clientService.GetAllKeysProjects();
+            var re = await _clientService.GetAllKeysProjects(account, password);
 
-            var result = await _clientService.CheckInforProjectByUser(userName, re);
+            var result = await _clientService.CheckInforProjectByUser(account, password,
+                                                                      member, re);
 
             return Ok(result);
         }
-
+        [Authorize]
         [HttpPut("IsActiveUser")]
-        public async Task<IActionResult> IsactiveUser(string key, UpdateUserJira updateUserJira)
+        public async Task<IActionResult> IsactiveUser(string account,
+                                                      string password,
+                                                      string userKey,
+                                                      UpdateUserJira updateUserJira)
         {
-            var result = await _clientService.UpdateUser(key, updateUserJira);
+            var result = await _clientService.UpdateUser(account, password, userKey, updateUserJira);
             return Ok(result);
         }
     }

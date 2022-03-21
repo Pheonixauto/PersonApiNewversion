@@ -3,7 +3,7 @@ using PersonApi.Repository.GenericRepository;
 
 namespace PersonApi.Repository.Repositories.Interfaces
 {
-    public interface IDepartmentRepository : IGenericRepository<InformationDepartment>
+    public interface IDepartmentRepository : IGenericRepository<InforDepartment>
     {
     }
 }

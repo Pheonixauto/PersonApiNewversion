@@ -16,11 +16,12 @@ namespace PersonApi.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+        #region Create new employee
         public async Task<bool> CreateNewEmployee(CreateEmployeeDTO createEmployeeDTO)
         {
             if (createEmployeeDTO != null)
             {
-                var newEmployee = _mapper.Map<InformationEmployee>(createEmployeeDTO);
+                var newEmployee = _mapper.Map<InforEmployee>(createEmployeeDTO);
                 await _unitOfWork.EmployeeRepository.Add(newEmployee);
 
                 var result = _unitOfWork.Complete();
@@ -32,6 +33,7 @@ namespace PersonApi.Services
             }
             return false;
         }
+        #endregion
 
         public async Task<bool> DeleteEmployee(int employeeId)
         {
@@ -52,20 +54,20 @@ namespace PersonApi.Services
             return false;
         }
 
-        public async Task<List<InformationEmployee>> GetAllEmployees()
+        public async Task<List<InforEmployee>> GetAllEmployees()
         {
             var employeeList = await _unitOfWork.EmployeeRepository.GetAll();
-            return (List<InformationEmployee>)employeeList;
+            return (List<InforEmployee>)employeeList;
         }
 
-        public async Task<InformationEmployee> GetEmployeeById(int employeeId)
+        public async Task<InforEmployee> GetEmployeeById(int employeeId)
         {
             if (employeeId > 0)
             {
                 var emloyee = await _unitOfWork.EmployeeRepository.Get(employeeId);
                 if (emloyee != null)
                 {
-                    var result = _mapper.Map<InformationEmployee>(emloyee);
+                    var result = _mapper.Map<InforEmployee>(emloyee);
                     return result;
                 }
             }
@@ -88,7 +90,7 @@ namespace PersonApi.Services
             return false;
         }
 
-        public async Task<IPagedList<InformationEmployee>> GetEmployeePagedList(RequestParams requestParams)
+        public async Task<IPagedList<InforEmployee>> GetEmployeePagedList(RequestParams requestParams)
         {
             var employeeList = await _unitOfWork.EmployeeRepository.GetPageList(requestParams, null);
             return employeeList;

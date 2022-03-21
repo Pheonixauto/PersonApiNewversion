@@ -15,13 +15,13 @@ namespace PersonApi.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<List<InformationLearning>> GetAllLearning()
+        public async Task<List<InforLearning>> GetAllLearning()
         {
             var learningList = await _unitOfWork.LearningRepository.GetAll();
-            return (List<InformationLearning>)learningList;
+            return (List<InforLearning>)learningList;
         }
 
-        public async Task<InformationLearning> GetLearning(int id)
+        public async Task<InforLearning> GetLearning(int id)
         {
             if (id > 0)
             {
@@ -34,7 +34,7 @@ namespace PersonApi.Services
 
         public async Task<bool> CreateLearning(CreateLearningDTO learning)
         {
-            var learningMap = _mapper.Map<InformationLearning>(learning);
+            var learningMap = _mapper.Map<InforLearning>(learning);
             await _unitOfWork.LearningRepository.Add(learningMap);
             var result = _unitOfWork.Complete();
             if (result > 0)

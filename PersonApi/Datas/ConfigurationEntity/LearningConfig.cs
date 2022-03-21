@@ -4,18 +4,18 @@ using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
 {
-    public class LearningConfig : IEntityTypeConfiguration<InformationLearning>
+    public class LearningConfig : IEntityTypeConfiguration<InforLearning>
     {
-        public void Configure(EntityTypeBuilder<InformationLearning> builder)
+        public void Configure(EntityTypeBuilder<InforLearning> builder)
         {
             builder.HasData(
-                new InformationLearning
+                new InforLearning
                 {
                     Id = 1,
                     UniversityName = "Đại Học Bách Khoa Hà Nội",
 
                 },
-                new InformationLearning
+                new InforLearning
                 {
                     Id = 2,
                     UniversityName = "Đại Học Quốc Gia Hà Nội",

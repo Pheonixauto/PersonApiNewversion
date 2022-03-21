@@ -5,10 +5,10 @@ namespace PersonApi.Services.Interfaces
 {
     public interface IEmployeeSkillService
     {
-        Task<List<InformationEmployeeSkill>> GetAllEmployeeSkill();
+        Task<List<InforEmployeeSkill>> GetAllEmployeeSkill();
  
-        Task<List<InformationEmployeeSkill>> GetEmployeeSkillById(int id);
-        Task<List<InformationEmployeeSkill>> GetAllDetail();
+        Task<List<InforEmployeeSkill>> GetEmployeeSkillById(int id);
+        Task<List<InforEmployeeSkill>> GetAllDetail();
         Task<object> GetNameSkillEmployee();
 
         Task<bool> AddEmployeeSkill(CreateEmployeeSkillDTO createEmployeeSkillDTO);

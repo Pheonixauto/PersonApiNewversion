@@ -67,20 +67,33 @@ namespace PersonApi.Controllers
                 return BadRequest(ModelState);
             }
             try
-            {               
-               if(!await _authManager.ValidateUser(loginUserDTO))
+            {
+                if (!await _authManager.ValidateUser(loginUserDTO))
                 {
                     return Unauthorized();
                 }
-                return Accepted(new {Token= await _authManager.CreateToken()});
+                return Accepted(new { Token = await _authManager.CreateToken() });
             }
             catch (Exception e)
             {
-                _logger.LogError(e,$"Something went wrong in {nameof(Login)}");
+                _logger.LogError(e, $"Something went wrong in {nameof(Login)}");
                 return Problem($"Something went wrong in {nameof(Login)}", statusCode: 500);
             }
         }
+        [HttpPut]
+        [Route("UpdateUser")]
+        public async Task<IActionResult> UpdateUser(string email, string password, [FromBody] UserDTO userDTO)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            _mapper.Map(userDTO, user);
+            var check = await _userManager.CheckPasswordAsync(user, password);
+            if (check)
+            {
+                var result = await _userManager.UpdateAsync(user);
+                return Ok(result);
+            }
+            return BadRequest();
+        }
 
-    
     }
 }

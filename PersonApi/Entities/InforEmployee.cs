@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonApi.Models
 {
-    public class InformationEmployee
+    public class InforEmployee
     {
         public int Id { get; set; }
         public int IdentityNumber { get; set; }
@@ -21,18 +21,18 @@ namespace PersonApi.Models
 
         [ForeignKey(nameof(InformationDepartment))]
         public int DepartmentId { get; set; }
-        public virtual InformationDepartment InformationDepartment { get; set; }
+        public virtual InforDepartment InformationDepartment { get; set; }
 
         [ForeignKey("InformationPosition")]
         public int? PositionId { get; set; }
-        public virtual InformationPosition InformationPosition { get; set; } 
-        public virtual List<InformationSalary> InformationSalaries { get; set; }
+        public virtual InforPosition InformationPosition { get; set; } 
+        public virtual List<InforSalary> InformationSalaries { get; set; }
                      
-        public virtual ICollection<InformationEmployeeLearning> InformationEmployeeLearnings { get; set; }
+        public virtual ICollection<InforEmployeeLearning> InformationEmployeeLearnings { get; set; }
                       
-        public virtual ICollection<InformationRelative> InformationRelatives { get; set; }
+        public virtual ICollection<InforRelative> InformationRelatives { get; set; }
                      
-        public virtual List<InformationEmployeeSkill> InformationEmployeeSkills { get; set; }
+        public virtual List<InforEmployeeSkill> InformationEmployeeSkills { get; set; }
                      
     }
 }

@@ -5,9 +5,12 @@ namespace PersonApi.Services.HttpClientService
 {
     public interface IClientService
     {
-        Task<JiraUser> Getmyselfcompanyjira();
-        Task<dynamic> UpdateUser(string key, UpdateUserJira updateUserJira);
-        Task<Dictionary<string, string>> GetAllKeysProjects();
-        Task<List<string>> CheckInforProjectByUser(string userName, Dictionary<string, string> keyproject);
+        Task<JiraUser> Getmyselfcompanyjira(string account, string password, string member);
+        Task<dynamic> UpdateUser(string account, string password, string key, UpdateUserJira updateUserJira);
+        Task<Dictionary<string, string>> GetAllKeysProjects(string account, string password);
+        Task<List<string>> CheckInforProjectByUser(string account,
+                                                   string password,
+                                                   string member,
+                                                   Dictionary<string, string> keyProject);
     }
 }

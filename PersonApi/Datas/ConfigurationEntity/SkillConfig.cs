@@ -4,24 +4,24 @@ using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
 {
-    public class SkillConfig : IEntityTypeConfiguration<InformationSkill>
+    public class SkillConfig : IEntityTypeConfiguration<InforSkill>
     {
-        public void Configure(EntityTypeBuilder<InformationSkill> builder)
+        public void Configure(EntityTypeBuilder<InforSkill> builder)
         {
             builder.HasData(
-                 new InformationSkill
+                 new InforSkill
                  {
                      Id = 1,
                      Name = "Java",
 
                  },
-                new InformationSkill
+                new InforSkill
                 {
                     Id = 2,
                     Name = "CSharp",
 
                 },
-                new InformationSkill
+                new InforSkill
                 {
                     Id = 3,
                     Name = "JavaScript"

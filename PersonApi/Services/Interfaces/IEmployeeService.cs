@@ -7,16 +7,16 @@ namespace PersonApi.Services.Interfaces
     public interface IEmployeeService
     {
         Task<bool> CreateNewEmployee(CreateEmployeeDTO createEmployeeDTO);
-        Task<List<InformationEmployee>> GetAllEmployees();
+        Task<List<InforEmployee>> GetAllEmployees();
 
-        Task<InformationEmployee> GetEmployeeById(int employeeId);
+        Task<InforEmployee> GetEmployeeById(int employeeId);
 
         Task<bool> UpdateEmployee(int employeeId, CreateEmployeeDTO createEmployeeDTO);
 
         Task<bool> DeleteEmployee(int employeeId);
 
         //////////
-        Task<IPagedList<InformationEmployee>> GetEmployeePagedList(RequestParams requestParams);
+        Task<IPagedList<InforEmployee>> GetEmployeePagedList(RequestParams requestParams);
 
      
     }

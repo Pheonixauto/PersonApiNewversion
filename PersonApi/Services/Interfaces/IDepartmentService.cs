@@ -6,13 +6,13 @@ namespace PersonApi.Services.Interfaces
 {
     public interface IDepartmentService 
     {
-        Task<List<InformationDepartment>> GetAllDepartment();
-        Task<InformationDepartment> GetDepartment(int id);
+        Task<List<InforDepartment>> GetAllDepartment();
+        Task<InforDepartment> GetDepartment(int id);
         Task<bool> CreateDepartment(CreateDepartmentDTO  createDepartmentDTO);
         Task<bool> UpdateDepartment(int id, UpdateDepartmentDTO updateDepartmentDTO);
         Task <bool> DeleteDepartment(int id);
         //////////////////////////////
-        Task<IPagedList<InformationDepartment>> GetDepartmentPagedList(RequestParams requestParams);
+        Task<IPagedList<InforDepartment>> GetDepartmentPagedList(RequestParams requestParams);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonApi.Services.Interfaces;
 
 namespace PersonApi.Controllers
@@ -12,7 +13,7 @@ namespace PersonApi.Controllers
         {
             _employeeLearningService = employeeLearningService;
         }
-
+        [Authorize]
         [HttpGet("GetEmployeeByNameSchool")]
         public async Task<IActionResult> GetEmployeeBySchoolName( string schoolName)
         {

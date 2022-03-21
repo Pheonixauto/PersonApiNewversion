@@ -16,13 +16,13 @@ namespace PersonApi.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<List<InformationRelative>> GetAllRelative()
+        public async Task<List<InforRelative>> GetAllRelative()
         {
             var relativeList = await _unitOfWork.RelativeRepository.GetAll();
-            return (List<InformationRelative>)relativeList;
+            return (List<InforRelative>)relativeList;
         }
 
-        public async Task<InformationRelative> GetRelativeById(int id)
+        public async Task<InforRelative> GetRelativeById(int id)
         {
             if (id > 0)
             {
@@ -38,7 +38,7 @@ namespace PersonApi.Services
 
         public async Task<bool> CreateRelative(CreateRelativeDTO createRelativeDTO)
         {
-            var relativeCreate = _mapper.Map<InformationRelative>(createRelativeDTO);
+            var relativeCreate = _mapper.Map<InforRelative>(createRelativeDTO);
             if (createRelativeDTO == null)
             {
                 return false;
@@ -86,7 +86,7 @@ namespace PersonApi.Services
             return false;
         }
 
-        public async Task<IPagedList<InformationRelative>> GetRelativePagedList(RequestParams requestParams)
+        public async Task<IPagedList<InforRelative>> GetRelativePagedList(RequestParams requestParams)
         {
             var relativeList = await _unitOfWork.RelativeRepository.GetPageList(requestParams, null);
             return relativeList;

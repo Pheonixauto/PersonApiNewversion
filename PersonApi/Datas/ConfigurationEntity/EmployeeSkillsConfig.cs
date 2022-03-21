@@ -4,30 +4,30 @@ using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
 {
-    public class EmployeeSkillsConfig : IEntityTypeConfiguration<InformationEmployeeSkill>
+    public class EmployeeSkillsConfig : IEntityTypeConfiguration<InforEmployeeSkill>
     {
-        public void Configure(EntityTypeBuilder<InformationEmployeeSkill> builder)
+        public void Configure(EntityTypeBuilder<InforEmployeeSkill> builder)
         {
             builder.HasData(
-                new InformationEmployeeSkill
+                new InforEmployeeSkill
                 {
                     EmployId = 1,
                     SkillId = 1,
                     Rating = 4
                 },
-                new InformationEmployeeSkill
+                new InforEmployeeSkill
                 {
                     EmployId = 2,
                     SkillId = 2,
                     Rating = 5
                 },
-                new InformationEmployeeSkill
+                new InforEmployeeSkill
                 {
                     EmployId = 1,
                     SkillId = 2,
                     Rating = 5
                 },
-                 new InformationEmployeeSkill
+                 new InforEmployeeSkill
                  {
                      EmployId = 1,
                      SkillId = 3,

@@ -15,26 +15,26 @@ namespace PersonApi.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<List<InformationSkill>> GetAllSkill()
+        public async Task<List<InforSkill>> GetAllSkill()
         {
             var skills = await _unitOfWork.SkillRepository.GetAll();
-            return (List<InformationSkill>)skills;
+            return (List<InforSkill>)skills;
         }
 
-        public async Task<InformationSkill> GetSkill(int skillId)
+        public async Task<InforSkill> GetSkill(int skillId)
         {
             if (skillId > 0)
             {
                 var skill = await _unitOfWork.SkillRepository.Get(skillId);
-                return (InformationSkill)skill;
+                return (InforSkill)skill;
             }
             return null;
 
         }
 
-        public async Task<InformationSkill> CreateSkill(CreateSkillDTO createSkillDTO)
+        public async Task<InforSkill> CreateSkill(CreateSkillDTO createSkillDTO)
         {
-            var skill = _mapper.Map<InformationSkill>(createSkillDTO);
+            var skill = _mapper.Map<InforSkill>(createSkillDTO);
             await _unitOfWork.SkillRepository.Add(skill);
             var result = _unitOfWork.Complete();
             if (result > 0)

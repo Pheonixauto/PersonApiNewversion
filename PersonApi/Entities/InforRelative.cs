@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PersonApi.Models
 {
     [Table("Relative")]
-    public class InformationRelative
+    public class InforRelative
     {
         public int Id { get; set; }
 
@@ -47,7 +47,7 @@ namespace PersonApi.Models
         [ForeignKey(nameof(InformationEmployee))]
         [Column(Order = 1)]
         public int EmployeeIdRel { get; set; }
-        public virtual InformationEmployee InformationEmployee { get; set; }
+        public virtual InforEmployee InformationEmployee { get; set; }
 
 
 

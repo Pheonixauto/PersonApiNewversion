@@ -4,12 +4,12 @@ using PersonApi.Models;
 
 namespace PersonApi.Configurations.Entities
 {
-    public class SalaryConfig : IEntityTypeConfiguration<InformationSalary>
+    public class SalaryConfig : IEntityTypeConfiguration<InforSalary>
     {
-        public void Configure(EntityTypeBuilder<InformationSalary> builder)
+        public void Configure(EntityTypeBuilder<InforSalary> builder)
         {
             builder.HasData(
-                 new InformationSalary
+                 new InforSalary
                  {
                      Id = 1,
                      Salary = 500,
@@ -18,7 +18,7 @@ namespace PersonApi.Configurations.Entities
                      EmployeeId = 1
 
                  },
-                new InformationSalary
+                new InforSalary
                 {
                     Id = 2,
                     Salary = 1000,
@@ -27,7 +27,7 @@ namespace PersonApi.Configurations.Entities
                     EmployeeId = 1
 
                 },
-                new InformationSalary
+                new InforSalary
                 {
                     Id = 3,
                     Salary = 1500,

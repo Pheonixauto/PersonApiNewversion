@@ -9,31 +9,31 @@ namespace PersonApi.Configurations.Mapper
     {
         public MapperInitilier()
         {
-            CreateMap<InformationEmployee, EmployeeDTO>().ReverseMap();
-            CreateMap<InformationEmployee, CreateEmployeeDTO>().ReverseMap();
-            CreateMap<InformationEmployee, ImportEmployeeRelativeDTO>().ReverseMap();
+            CreateMap<InforEmployee, EmployeeDTO>().ReverseMap();
+            CreateMap<InforEmployee, CreateEmployeeDTO>().ReverseMap();
+            CreateMap<InforEmployee, ImportEmployeeRelativeDTO>().ReverseMap();
 
 
-            CreateMap<InformationDepartment, DepartmentDTO>().ReverseMap();
-            CreateMap<InformationDepartment, CreateDepartmentDTO>().ReverseMap();
+            CreateMap<InforDepartment, DepartmentDTO>().ReverseMap();
+            CreateMap<InforDepartment, CreateDepartmentDTO>().ReverseMap();
 
-            CreateMap<InformationLearning, LearningDTO>().ReverseMap();
-            CreateMap<InformationLearning, CreateLearningDTO>().ReverseMap();
+            CreateMap<InforLearning, LearningDTO>().ReverseMap();
+            CreateMap<InforLearning, CreateLearningDTO>().ReverseMap();
 
-            CreateMap<InformationRelative, RelativeDTO>().ReverseMap();
-            CreateMap<InformationRelative, CreateRelativeDTO>().ReverseMap();
-            CreateMap<InformationRelative, ImportEmployeeRelativeDTO>().ReverseMap();
+            CreateMap<InforRelative, RelativeDTO>().ReverseMap();
+            CreateMap<InforRelative, CreateRelativeDTO>().ReverseMap();
+            CreateMap<InforRelative, ImportEmployeeRelativeDTO>().ReverseMap();
 
-            CreateMap<InformationSalary, SalaryDTO>().ReverseMap();
-            CreateMap<InformationSalary, CreateSalaryDTO>().ReverseMap();
-            CreateMap<CreateSalaryDTO,InformationSalary>().ReverseMap();
+            CreateMap<InforSalary, SalaryDTO>().ReverseMap();
+            CreateMap<InforSalary, CreateSalaryDTO>().ReverseMap();
+            CreateMap<CreateSalaryDTO,InforSalary>().ReverseMap();
 
 
-            CreateMap<InformationSkill, SkillDTO>().ReverseMap();
-            CreateMap<InformationSkill, CreateSkillDTO>().ReverseMap();
+            CreateMap<InforSkill, SkillDTO>().ReverseMap();
+            CreateMap<InforSkill, CreateSkillDTO>().ReverseMap();
 
-            CreateMap<InformationEmployeeSkill, EmployeeSkillDTO>().ReverseMap();
-            CreateMap<InformationEmployeeSkill, CreateEmployeeSkillDTO>().ReverseMap();
+            CreateMap<InforEmployeeSkill, EmployeeSkillDTO>().ReverseMap();
+            CreateMap<InforEmployeeSkill, CreateEmployeeSkillDTO>().ReverseMap();
 
             CreateMap<ApiUser, UserDTO>().ReverseMap();
             CreateMap<ApiUser, LoginUserDTO>().ReverseMap();

@@ -5,7 +5,7 @@ using PersonApi.Repository.Repositories.Interfaces;
 
 namespace PersonApi.Repository.Repositories.Implement
 {
-    public class EmployeeSkillRepository : GenericRepository<InformationEmployeeSkill>, IEmployeeSkillRepository
+    public class EmployeeSkillRepository : GenericRepository<InforEmployeeSkill>, IEmployeeSkillRepository
     {
         public EmployeeSkillRepository(DatabaseContext context) : base(context)
         {

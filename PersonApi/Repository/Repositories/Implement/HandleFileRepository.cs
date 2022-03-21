@@ -5,7 +5,7 @@ using PersonApi.Repository.Repositories.Interfaces;
 
 namespace PersonApi.Repository.Repositories.Implement
 {
-    public class HandleFileRepository : GenericRepository<InformationEmployee>, IHandleFileRepository
+    public class HandleFileRepository : GenericRepository<InforEmployee>, IHandleFileRepository
     {
         public HandleFileRepository(DatabaseContext context) : base(context)
         {
