@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PersonApi.Models;
@@ -56,7 +57,6 @@ namespace PersonApi.Controllers
                 return Problem($"Something went wrong in {nameof(Register)}", statusCode: 500);
             }
         }
-
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDTO loginUserDTO)
@@ -80,6 +80,7 @@ namespace PersonApi.Controllers
                 return Problem($"Something went wrong in {nameof(Login)}", statusCode: 500);
             }
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPut]
         [Route("UpdateUser")]
         public async Task<IActionResult> UpdateUser(string email, string password, [FromBody] UserDTO userDTO)
@@ -93,6 +94,12 @@ namespace PersonApi.Controllers
                 return Ok(result);
             }
             return BadRequest();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string email, string password)
+        {
+            var result = await _authManager.DeleteUser(email, password);
+            return Ok(result);
         }
 
     }

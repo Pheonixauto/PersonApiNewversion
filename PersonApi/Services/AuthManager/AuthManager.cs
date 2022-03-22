@@ -73,5 +73,19 @@ namespace HotelListing.Services
             _user = await _userManager.FindByNameAsync(userDTO.Email);
             return (_user != null && await _userManager.CheckPasswordAsync(_user, userDTO.PassWord));
         }
+
+        public async Task<IdentityResult> DeleteUser(string email, string password)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                var checkpassword = await _userManager.CheckPasswordAsync(user, password);
+                if (checkpassword)
+                {
+                  return  await _userManager.DeleteAsync(user);
+                }
+            }
+            return IdentityResult.Failed();
+        }
     }
 }

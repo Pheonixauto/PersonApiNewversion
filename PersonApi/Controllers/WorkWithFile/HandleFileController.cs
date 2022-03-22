@@ -26,12 +26,11 @@ namespace PersonApi.Controllers.UpLoadFile
             var result = await _handleFileService.AddEmployeeRelativeFromCSV(file);
             return Ok(result);
         }
-        [HttpGet("DowloadFileCsv")]
         [Authorize]
+        [HttpGet("DowloadFileCsv")]
         public async Task<IActionResult> FileStreamResultCsv()
         {
             var result = await _handleFileService.CreateFileSalary();
-
             var builder = new StringBuilder();
             builder.AppendLine("DateTime,Salary,Tax,EmployeeId");
             foreach (var item in result)
@@ -75,7 +74,8 @@ namespace PersonApi.Controllers.UpLoadFile
         }
         [HttpGet("DowloadFileExcelSalaryDepartment")]
         [Authorize]
-        public async Task<IActionResult> DowloadFileExcelSalaryDepartment(string departmentName, DateTime date1)
+        public async Task<IActionResult> DowloadFileExcelSalaryDepartment(string departmentName,
+                                                                          DateTime date1)
         {
             var result = await _salaryService.GetFileSalariesByDepartment(departmentName, date1);
             using (var workbook = new XLWorkbook())

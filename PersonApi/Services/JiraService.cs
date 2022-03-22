@@ -25,8 +25,7 @@ namespace PersonApi.Services
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:userpicker"] = new Atlassian.Jira.Remote.SingleObjectCustomFieldValueSerializer("displayName");
             settings.CustomFieldSerializers["com.atlassian.jira.plugin.system.customfieldtypes:multiuserpicker"] = new Atlassian.Jira.Remote.MultiObjectCustomFieldValueSerializer("displayName");
             var jira = Jira.CreateRestClient(Url, account, password, settings);
-            var result = await jira.Projects.GetProjectsAsync();
-            var ji = JiraUserStatus.Inactive;
+            var result = await jira.Projects.GetProjectsAsync();           
             return result;
         }
         public async Task<IEnumerable<JiraUser>> GetUsers(string account, string password, string member)
