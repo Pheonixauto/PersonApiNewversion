@@ -13,12 +13,15 @@ namespace PersonApi.Controllers.UpLoadFile
     {
         private readonly IHandleFileService _handleFileService;
         private readonly ISalaryService _salaryService;
-        public HandleFileController(IHandleFileService handleFileService, ISalaryService salaryService)
+
+        public HandleFileController(IHandleFileService handleFileService, ISalaryService salaryService
+                                    )
         {
             _handleFileService = handleFileService;
             _salaryService = salaryService;
+
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPost("UpLoadFile")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpLoadFileIntoDataBase(IFormFile file)
@@ -26,7 +29,7 @@ namespace PersonApi.Controllers.UpLoadFile
             var result = await _handleFileService.AddEmployeeRelativeFromCSV(file);
             return Ok(result);
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpGet("DowloadFileCsv")]
         public async Task<IActionResult> FileStreamResultCsv()
         {
@@ -40,7 +43,7 @@ namespace PersonApi.Controllers.UpLoadFile
             return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", "users.txt");
         }
         [HttpGet("DowloadFileExcelSalary")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> FileStreamResultExcelSalary()
         {
             var result = await _handleFileService.CreateFileSalary();
@@ -73,7 +76,7 @@ namespace PersonApi.Controllers.UpLoadFile
             }
         }
         [HttpGet("DowloadFileExcelSalaryDepartment")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DowloadFileExcelSalaryDepartment(string departmentName,
                                                                           DateTime date1)
         {
@@ -107,7 +110,7 @@ namespace PersonApi.Controllers.UpLoadFile
             }
         }
         [HttpGet("DowloadFileExcelSalaryCompany")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetSalariesByCompany(DateTime date)
         {
             var result = await _handleFileService.GetSalariesOfCompanyByMonth(date);
@@ -137,6 +140,11 @@ namespace PersonApi.Controllers.UpLoadFile
                         "Salaries.xlsx");
                 }
             }
+        }
+        [HttpPost("image")]
+        public async Task<IActionResult> PostImage(int id, IFormFile file)
+        {
+            return Ok(await _handleFileService.UploadImage(file,id));
         }
     }
 }

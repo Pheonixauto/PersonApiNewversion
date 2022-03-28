@@ -1,18 +1,10 @@
 using FluentValidation.AspNetCore;
-using HotelListing.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using PersonApi;
 using PersonApi.Configurations.Mapper;
 using PersonApi.Datas;
-using PersonApi.Repository.Repositories;
-using PersonApi.Repository.Repositories.Implement;
-using PersonApi.Repository.Repositories.Interfaces;
-using PersonApi.Repository.UnitOfWork;
-using PersonApi.Services;
-using PersonApi.Services.AuthManager;
-using PersonApi.Services.HttpClientService;
-using PersonApi.Services.Interfaces;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,53 +45,12 @@ builder.Services.AddDbContext<DatabaseContext>(dbContextOptions =>
     dbContextOptions.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
 
 });
-
-
-
-
-
 builder.Services.AddAutoMapper(typeof(MapperInitilier));
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-
-builder.Services.AddScoped<IDepartmentService, DepartmentService>();
-builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-
-builder.Services.AddScoped<ISkillRepository, SkillRepository>();
-builder.Services.AddScoped<ISkillService, SkillService>();
+builder.Services.ConfigServiceDependencyInject();
 
 
-builder.Services.AddScoped<ILearningRepository, LearningRepository>();
-builder.Services.AddScoped<ILearningService, LearningService>();
-
-builder.Services.AddScoped<IRelativeRepository, RelativeRepository>();
-builder.Services.AddScoped<IRelativeService, RelativeService>();
-
-builder.Services.AddScoped<ISalaryRepository, SalaryRepository>();
-builder.Services.AddScoped<ISalaryService, SalaryService>();
-
-builder.Services.AddScoped<IEmployeeSkillRepository, EmployeeSkillRepository>();
-builder.Services.AddScoped<IEmployeeSkillService, EmployeeSkillService>();
-
-builder.Services.AddScoped<IEmployeeLearningRepository, EmployeeLearningRepository>();
-builder.Services.AddScoped<IEmployeeLearningService, EmployeeLearningService>();
-
-builder.Services.AddScoped<ISearchRepository, SearchRepository>();
-builder.Services.AddScoped<ISearchService, SearchService>();
-
-builder.Services.AddScoped<IHandleFileRepository, HandleFileRepository>();
-builder.Services.AddScoped<IHandleFileService, HandleFileService>();
-
-
-builder.Services.AddScoped<IJiraService, JiraService>();
-builder.Services.AddScoped<IClientService, ClientService>();
-
-
-builder.Services.AddScoped<IAuthManager, AuthManager>();
-
-//builder.Services.AddResponseCaching();
+builder.Services.AddResponseCaching();
 builder.Services.ConfigureHttpCacheHeaders();
 
 builder.Services.AddAuthentication();
@@ -144,6 +95,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.WebRootPath, "FileImageEmployees")),
+    RequestPath = "/Images"
+
+});
 //app.ConfigureExceptiontionHandler();
 
 app.UseResponseCaching();

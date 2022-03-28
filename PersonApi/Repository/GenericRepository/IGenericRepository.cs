@@ -15,6 +15,8 @@ namespace PersonApi.Repository.GenericRepository
         Task<IList<T>> GetMultiChild(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
         Task<IPagedList<T>> GetPageList(RequestParams requestParams, List<string> include = null);
 
+      
+
 
         ////////////////////////////////////////////////////////////
         Task<IList<T>> GetAllAsync(

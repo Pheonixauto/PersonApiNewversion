@@ -23,7 +23,7 @@ namespace PersonApi.Services
             _unitOfWork = unitOfWork;
             _context = context;
             _mapper = mapper;
-           _webHostEnvironment = webHostEnvironment;
+            _webHostEnvironment = webHostEnvironment;
         }
         public async Task<bool> AddEmployeeRelativeFromCSV(IFormFile file)
         {
@@ -70,6 +70,47 @@ namespace PersonApi.Services
             var re = _mapper.Map<List<CreateSalaryDTO>>(salaryList);
             var result = re.Where(x => x.DateTime.Month == date.Month);
             return result;
-        }      
+        }
+
+        public async Task<string> UploadImage(IFormFile file, int id)
+        {
+            UpdateImageDTO updateImageDTO = new UpdateImageDTO();
+            try
+            {
+                if (file != null)
+                {
+                    string path = _webHostEnvironment!.WebRootPath + "\\FileImageEmployees\\";
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    using (FileStream fileStream = File.Create(path + file.FileName))
+                    {
+                        file.CopyTo(fileStream);
+                        fileStream.Flush();
+                        //fileStream.Close();
+
+                        var emp = await _unitOfWork.EmployeeRepository.Get(id);
+                        updateImageDTO.ScrImage = $"/Images/{file.FileName}";
+                        _mapper.Map(updateImageDTO, emp);
+                        _unitOfWork.EmployeeRepository.Update(emp);
+                        var result = _unitOfWork.Complete();
+                        return (result > 0) ? "Upload" : "Fail";                       
+                    }
+
+
+                }
+                else
+                {
+                    return "Not Upload";
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

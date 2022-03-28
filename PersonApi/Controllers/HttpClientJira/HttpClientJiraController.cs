@@ -19,7 +19,7 @@ namespace PersonApi.Controllers.HttpClient
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             _clientService = clientService;
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpGet("getmyselfcompany")]
         public async Task<IActionResult> getmyselfcompany(string account,
                                                           string password, string member)
@@ -27,7 +27,7 @@ namespace PersonApi.Controllers.HttpClient
             var re = await _clientService.Getmyselfcompanyjira(account, password, member);
             return Ok(re);
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetInforProjectByUser")]
         public async Task<IActionResult> GetInforProjectByUser(string account,
                                                                string password, string member)
@@ -39,7 +39,7 @@ namespace PersonApi.Controllers.HttpClient
 
             return Ok(result);
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPut("IsActiveUser")]
         public async Task<IActionResult> IsactiveUser(string account,
                                                       string password,

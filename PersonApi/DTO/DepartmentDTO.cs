@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PersonApi.ModelsDTO
+﻿namespace PersonApi.ModelsDTO
 {
 
     public class DepartmentDTO : CreateDepartmentDTO

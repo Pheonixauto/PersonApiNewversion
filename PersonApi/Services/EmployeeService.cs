@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PersonApi.DTO.TestDTO;
 using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using PersonApi.Repository.UnitOfWork;
@@ -44,11 +45,7 @@ namespace PersonApi.Services
                 {
                     _unitOfWork.EmployeeRepository.Delete(employee);
                     var result = _unitOfWork.Complete();
-
-                    if (result > 0)
-                        return true;
-                    else
-                        return false;
+                    return (result > 0) ? true : false;
                 }
             }
             return false;
@@ -96,5 +93,11 @@ namespace PersonApi.Services
             return employeeList;
         }
 
+        public async Task<List<TestDTO>> GetAllEmployeesTest()
+        {
+            var employeeList = await _unitOfWork.EmployeeRepository.GetAll();
+            var result = _mapper.Map<List<TestDTO>>(employeeList);
+            return result;
+        }
     }
 }

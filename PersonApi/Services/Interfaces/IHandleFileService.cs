@@ -8,8 +8,7 @@ namespace PersonApi.Services.Interfaces
     {
         Task<bool> AddEmployeeRelativeFromCSV(IFormFile file);
         Task<IEnumerable<CreateSalaryDTO>> GetSalariesOfCompanyByMonth(DateTime month); 
-
-
-        Task<List<CreateSalaryDTO>> CreateFileSalary();   
+        Task<List<CreateSalaryDTO>> CreateFileSalary();
+        Task<string> UploadImage(IFormFile file,int id );
     }
 }

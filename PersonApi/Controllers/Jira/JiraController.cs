@@ -14,7 +14,7 @@ namespace PersonApi.Controllers.Jira
         {
             _jiraService = jiraService;
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpGet("GetProjiects")]
         public async Task<IActionResult> GetProjiects(string account, string password)
         {
@@ -22,14 +22,14 @@ namespace PersonApi.Controllers.Jira
             return Ok(result);
         }
         [HttpGet("GetUsers")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetUsers(string account, string password, string member)
         {
             var result = await _jiraService.GetUsers(account, password, member);
             return Ok(result);
         }
         [HttpPost("CreateUser")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateUser(string account,
                                                     string password,
                                                     [FromQuery] JiraUserCreationInfo jiraUserCreationInfo)

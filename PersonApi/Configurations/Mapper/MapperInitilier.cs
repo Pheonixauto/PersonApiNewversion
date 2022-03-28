@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PersonApi.DTO;
+using PersonApi.DTO.TestDTO;
 using PersonApi.Models;
 using PersonApi.ModelsDTO;
 
@@ -12,6 +13,10 @@ namespace PersonApi.Configurations.Mapper
             CreateMap<InforEmployee, EmployeeDTO>().ReverseMap();
             CreateMap<InforEmployee, CreateEmployeeDTO>().ReverseMap();
             CreateMap<InforEmployee, ImportEmployeeRelativeDTO>().ReverseMap();
+            CreateMap<InforEmployee, UpdateImageDTO>().ReverseMap();
+            CreateMap<InforEmployee, TestDTO>().ReverseMap();
+
+
 
 
             CreateMap<InforDepartment, DepartmentDTO>().ReverseMap();

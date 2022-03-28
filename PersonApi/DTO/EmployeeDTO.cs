@@ -48,6 +48,7 @@ namespace PersonApi.ModelsDTO
 
         [Column("Address")]
         public string Address { get; set; } = string.Empty;
+        public string? ScrImage { get; set; }
 
         [Column("DepartmentId")]
         public int DepartmentId { get; set; }
@@ -59,5 +60,9 @@ namespace PersonApi.ModelsDTO
     public class UpdateEmployeeDTO : CreateEmployeeDTO
     {
 
+    }
+    public class UpdateImageDTO
+    {
+        public string? ScrImage { get; set; }
     }
 }

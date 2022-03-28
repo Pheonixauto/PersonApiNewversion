@@ -18,7 +18,7 @@ namespace PersonApi.Controllers
         {
             _employeeService = employeeService;
         }
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpGet("GetAll")]
         [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 90)]
         [HttpCacheValidation(MustRevalidate = false)]
@@ -31,7 +31,14 @@ namespace PersonApi.Controllers
             return Ok(userList);
         }
 
-        [Authorize]
+        [HttpGet("test")]
+        public async Task<IActionResult> Test()
+        {
+            var result = await _employeeService.GetAllEmployeesTest();
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpGet("{employeeId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

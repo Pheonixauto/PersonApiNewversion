@@ -1,4 +1,5 @@
-﻿using PersonApi.Models;
+﻿using PersonApi.DTO.TestDTO;
+using PersonApi.Models;
 using PersonApi.ModelsDTO;
 using X.PagedList;
 
@@ -17,7 +18,9 @@ namespace PersonApi.Services.Interfaces
 
         //////////
         Task<IPagedList<InforEmployee>> GetEmployeePagedList(RequestParams requestParams);
+        Task<List<TestDTO>> GetAllEmployeesTest();
 
-     
+
+
     }
 }
