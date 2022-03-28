@@ -39,4 +39,8 @@
     <Folder Include="wwwroot\FileImageEmployees\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EmailService\EmailService.csproj" />
+  </ItemGroup>
+
 </Project>

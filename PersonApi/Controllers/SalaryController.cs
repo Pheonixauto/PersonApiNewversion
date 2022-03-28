@@ -27,7 +27,7 @@ namespace PersonApi.Controllers
             var salaryList = await _salaryService.GetSalaryPagedList(requestParams);
             return Ok(salaryList);
         }
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpGet("{id:int}", Name = "GetSalaryById")]
         public async Task<IActionResult> Get(int id)
         {
@@ -72,7 +72,7 @@ namespace PersonApi.Controllers
             var result = await _salaryService.GetEmployeeSalary(identityNumber);
             return Ok(result);
         }
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> Post(CreateSalaryDTO createSalaryDTO)
         {

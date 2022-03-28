@@ -1,4 +1,8 @@
+using DinkToPdf;
+using DinkToPdf.Contracts;
+using EmailService;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -47,7 +51,18 @@ builder.Services.AddDbContext<DatabaseContext>(dbContextOptions =>
 });
 builder.Services.AddAutoMapper(typeof(MapperInitilier));
 
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
 builder.Services.ConfigServiceDependencyInject();
+
+builder.Services.AddSingleton(builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.Configure<FormOptions>(o =>
+{
+    o.ValueCountLimit = int.MaxValue;
+    o.MultipartBodyLengthLimit = int.MaxValue;
+    o.MemoryBufferThreshold = int.MaxValue; 
+});
 
 
 builder.Services.AddResponseCaching();

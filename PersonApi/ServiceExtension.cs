@@ -138,6 +138,10 @@ namespace PersonApi
 
 
             services.AddScoped<IAuthManager, AuthManager>();
+
+            services.AddScoped<IHandleFilePdfService, HandleFilePdfService>();
+
         }
+      
     }
 }
