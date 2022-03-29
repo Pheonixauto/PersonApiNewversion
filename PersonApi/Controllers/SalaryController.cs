@@ -15,7 +15,7 @@ namespace PersonApi.Controllers
         {
             _salaryService = salaryService;
         }
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpGet("GetAllPagedList")]
         public async Task<IActionResult> GetAll([FromQuery] RequestParams requestParams)
         {

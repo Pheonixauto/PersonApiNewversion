@@ -10,6 +10,8 @@ namespace PersonApi.Services.Interfaces
         Task<bool> CreateNewEmployee(CreateEmployeeDTO createEmployeeDTO);
         Task<List<InforEmployee>> GetAllEmployees();
 
+        Task<List<InforEmployee>> GetIdAdnEmail();
+
         Task<InforEmployee> GetEmployeeById(int employeeId);
 
         Task<bool> UpdateEmployee(int employeeId, CreateEmployeeDTO createEmployeeDTO);

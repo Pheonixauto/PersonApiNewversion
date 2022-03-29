@@ -101,6 +101,7 @@ namespace PersonApi.Configurations.Entities
                      City = "Hà Nội",
                      District = "Hoàn Kiếm",
                      Address = "34, Kim Mã",
+                     Email="thanhthai2604@gmail.com",
                      ScrImage= "https://localhost:7263/Images/ec1-1.png",
                      PhoneNumber = "0899880028",
                      DepartmentId = 1,
@@ -118,6 +119,7 @@ namespace PersonApi.Configurations.Entities
                      City = "Hà Nội",
                      District = "Hoàn Kiếm",
                      Address = "34, Kim Mã",
+                     Email="thanhthai2604@gmail.com",
                      PhoneNumber = "0899880028",
                      DepartmentId = 1,
 

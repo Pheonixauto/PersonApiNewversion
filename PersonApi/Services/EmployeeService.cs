@@ -99,5 +99,13 @@ namespace PersonApi.Services
             var result = _mapper.Map<List<TestDTO>>(employeeList);
             return result;
         }
+
+        public async Task<List<InforEmployee>> GetIdAdnEmail()
+        {
+            var employees = await _unitOfWork.EmployeeRepository.GetAll();
+            var result = employees.Select(x => new InforEmployee { Id= x.Id, Email= x.Email }).ToList();
+            return result;
+
+        }
     }
 }

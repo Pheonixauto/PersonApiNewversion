@@ -14,6 +14,7 @@ namespace PersonApi.Models
         [DataType(DataType.Date)]
         public DateTime BirthDay { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
+        public string? Email { get; set; } 
         public string? Province { get; set; }
         public string? City { get; set; }
         public string District { get; set; } = string.Empty;

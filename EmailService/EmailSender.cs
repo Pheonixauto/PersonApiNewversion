@@ -47,19 +47,22 @@ namespace EmailService
             emailMessage.Subject = message.Subject;
             //emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = message.Content };
             var bodyBuilder = new BodyBuilder { HtmlBody = string.Format("<h2 style='color:red'>{0}</h2>",message.Content) };
-            if((message.Attachments!=null) && (message.Attachments.Any()))
-            {
-                byte[] fileBytes;
-                foreach (var attachment in message.Attachments)
-                {
-                    using(var ms = new MemoryStream())
-                    {
-                        attachment.CopyTo(ms);
-                        fileBytes = ms.ToArray();
-                    }
-                    bodyBuilder.Attachments.Add(attachment.FileName, fileBytes, ContentType.Parse(attachment.ContentType));
-                }
-            }
+            //if((message.Attachments!=null) && (message.Attachments.Any()))
+            //{
+            //    byte[] fileBytes;
+            //    foreach (var attachment in message.Attachments)
+            //    {
+            //        using(var ms = new MemoryStream())
+            //        {
+            //            attachment.CopyTo(ms);
+            //            fileBytes = ms.ToArray();
+            //        }
+            //bodyBuilder.Attachments.Add(attachment.FileName, fileBytes, ContentType.Parse(attachment.ContentType));
+            bodyBuilder.Attachments.Add(fileName: "salary", message.Attachments, new ContentType("application", "pdf"));
+            
+
+            //    }
+            //}
             emailMessage.Body = bodyBuilder.ToMessageBody();
             return emailMessage;
         }
